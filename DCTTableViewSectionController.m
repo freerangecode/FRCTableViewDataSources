@@ -59,7 +59,7 @@
 }
 
 #pragma mark -
-#pragma mark GitSpokeTableSectionController methods
+#pragma mark DCTTableViewSectionController methods
 
 - (id)objectForTableViewIndexPath:(NSIndexPath *)tvIndexPath {
 	NSIndexPath *frcIndexPath = [self dctInternal_fetchedResultsControllerIndexPathFromTableViewIndexPath:tvIndexPath];
