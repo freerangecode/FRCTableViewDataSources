@@ -89,6 +89,7 @@
 		[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
 	
 	[self.tableView endUpdates];
+	[indexPaths release];
 	
 	[UIView beginAnimations:@"some" context:nil];
 	[UIView setAnimationDuration:0.33];
