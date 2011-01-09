@@ -48,6 +48,9 @@
 @property (nonatomic, assign) NSInteger section;
 @property (nonatomic, assign) BOOL opened;
 
+@property (nonatomic, assign) BOOL greyoutTitleWhenEmpty;
+@property (nonatomic, assign) BOOL showTitle;
+
 - (id)objectForTableViewIndexPath:(NSIndexPath *)tvIndexPath;
 - (void)checkButtonTapped:(UIButton *)sender event:(id)event;
 

@@ -46,10 +46,20 @@
 
 @implementation DCTTableViewSectionController
 
-@synthesize tableView, section, fetchedResultsController, opened, delegate, sectionTitle;
+@synthesize tableView, section, fetchedResultsController, opened, delegate, sectionTitle, greyoutTitleWhenEmpty, showTitle;
 
 #pragma mark -
 #pragma mark NSObject methods
+
+- (id)init {
+    
+    if (!(self = [super init])) return nil;
+    
+    self.greyoutTitleWhenEmpty = YES;
+	self.showTitle = YES;
+    
+    return self;
+}
 
 - (void)dealloc {
     [tableView release], tableView = nil;
@@ -103,15 +113,17 @@
 
 - (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)s {
 	
-	if (!opened) return 1;
+	NSInteger titleAmount = self.showTitle ? 1 : 0;
+	
+	if (!opened) return titleAmount;
 	
 	id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
-    return [sectionInfo numberOfObjects] + 1;
+    return [sectionInfo numberOfObjects] + titleAmount;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	if ([self dctInternal_indexPathIsTitleCell:indexPath]) {
+	if (self.showTitle && [self dctInternal_indexPathIsTitleCell:indexPath]) {
 		
 		NSString *identifier = [NSString stringWithFormat:@"%@-title", self.sectionTitle];
 		
@@ -120,9 +132,18 @@
 		if (!cell) cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier] autorelease];
 		
 		cell.textLabel.text = self.sectionTitle;
-		cell.accessoryView = [self dctInternal_disclosureButton];
 		
-		if (self.opened) cell.accessoryView.layer.transform = CATransform3DMakeRotation(self.opened ? M_PI : 0.0, 0.0, 0.0, 1.0);
+		
+		id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
+		if ([sectionInfo numberOfObjects] == 0) {
+			cell.textLabel.textColor = [UIColor lightGrayColor];
+			cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		} else {
+			cell.accessoryView = [self dctInternal_disclosureButton];
+			
+			if (self.opened) 
+				cell.accessoryView.layer.transform = CATransform3DMakeRotation(self.opened ? M_PI : 0.0, 0.0, 0.0, 1.0);	
+		}
 		
 		return cell;
 	}
@@ -143,7 +164,6 @@
 	
 	return  cell;	
 }
-
 
 #pragma mark -
 #pragma mark NSFetchedResultsControllerDelegate methods
@@ -201,6 +221,8 @@
 #pragma mark Private methods
 
 - (NSIndexPath *)dctInternal_fetchedResultsControllerIndexPathFromTableViewIndexPath:(NSIndexPath *)indexPath {
+	
+	if (!self.showTitle) return indexPath;
 	
 	if (indexPath.row == 0) return nil;
 	
