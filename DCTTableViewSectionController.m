@@ -104,7 +104,7 @@
 	[UIView beginAnimations:@"some" context:nil];
 	[UIView setAnimationDuration:0.33];
 	CALayer *layer = sender.layer;
-	layer.transform = CATransform3DMakeRotation(self.opened ? M_PI : 0.0, 0.0, 0.0, 1.0);
+	layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
 	[UIView commitAnimations];
 }
 
@@ -142,7 +142,7 @@
 			cell.accessoryView = [self dctInternal_disclosureButton];
 			
 			if (self.opened) 
-				cell.accessoryView.layer.transform = CATransform3DMakeRotation(self.opened ? M_PI : 0.0, 0.0, 0.0, 1.0);	
+				cell.accessoryView.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);	
 		}
 		
 		return cell;
@@ -155,7 +155,7 @@
 	if (!cell) cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier] autorelease];
 	
 	cell.indentationLevel = 1;
-	cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0];
+	cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0f];
 	
 	NSManagedObject *mo = [self objectForTableViewIndexPath:indexPath];
 	
@@ -240,7 +240,7 @@
 - (UIButton *)dctInternal_disclosureButton {
 	UIImage *image = [UIImage imageNamed:@"DisclosureArrow.png"];
 	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-	button.frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);	
+	button.frame = CGRectMake(0.0f, 0.0f, image.size.width, image.size.height);	
 	[button setBackgroundImage:image forState:UIControlStateNormal];
 	[button addTarget:self action:@selector(checkButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
 	button.backgroundColor = [UIColor clearColor];
