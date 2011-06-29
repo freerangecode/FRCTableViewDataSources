@@ -11,15 +11,38 @@
 @implementation DCTTableViewDataSource
 
 @synthesize tableView;
+@synthesize viewController;
 
 #pragma mark -
 
 - (void)dealloc {
 	[tableView release], tableView = nil;
+	viewController = nil;
 	[super dealloc];
 }
 
 #pragma mark - DCTTableViewDataSource
+
+- (void)setTableView:(UITableView *)tv {
+	
+	if (self.tableView == tv) return;
+	
+	tableView = tv;
+	
+	tableView.dataSource = self;	
+}
+
+- (void)setViewController:(UIViewController *)vc {
+	
+	if (self.viewController == vc) return;
+	
+	viewController = vc;
+	
+	SEL setTableViewDataSourceSelector = @selector(setTableViewDataSource:);
+	
+	if ([viewController respondsToSelector:setTableViewDataSourceSelector])
+		[viewController performSelector:setTableViewDataSourceSelector withObject:self];
+}
 
 - (void)reloadData {}
 
