@@ -25,14 +25,19 @@
 @synthesize opened;
 
 - (NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section {
-	return [self.tableViewDataSource tableView:tv numberOfRowsInSection:section] + 1;
+	
+	NSInteger numberOfRows = 0;
+	
+	if (self.opened) numberOfRows = [self.tableViewDataSource tableView:tv numberOfRowsInSection:section];
+	
+	return numberOfRows + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	if (indexPath.row == 0) {
 		
-		NSString *identifier = [NSString stringWithFormat:@"title"];
+		NSString *identifier = [NSString stringWithFormat:@"titleCell"];
 		
 		UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:identifier];
 		
@@ -66,13 +71,60 @@
 
 - (IBAction)titleTapped:(UITapGestureRecognizer *)sender {
 	//[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForCell:sender.view] animated:YES];
+	self.opened = !self.opened;
 }
 
-- (void)setOpened:(BOOL)opened {
+- (void)setOpened:(BOOL)aBool {
 	
+	if (opened == aBool) return;
 	
+	opened = aBool;
 	
+	NSUInteger section = [self.sectionController.tableViewDataSources indexOfObject:self];
+	
+	NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+	
+	for (NSInteger i = 0; i < [self.tableViewDataSource tableView:self.tableView numberOfRowsInSection:0]; i++)
+		[indexPaths addObject:[NSIndexPath indexPathForRow:i+1 inSection:section]];
+	
+	[self.tableView beginUpdates];
+	
+	if (aBool)
+		[self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+	else
+		[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+	
+	[self.tableView endUpdates];
 }
+
+/*- (void)checkButtonTapped:(UIButton *)sender event:(id)event {
+	
+	self.opened = !self.opened;
+	
+	id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
+    NSInteger numberOfObjects = [sectionInfo numberOfObjects];
+	
+	NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+	
+	for (NSInteger i = 0; i < numberOfObjects; i++)
+		[indexPaths addObject:[NSIndexPath indexPathForRow:i+1 inSection:self.section]];
+	
+	[self.tableView beginUpdates];
+	
+	if (opened)
+		[self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+	else
+		[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+	
+	[self.tableView endUpdates];
+	[indexPaths release];
+	
+	[UIView beginAnimations:@"some" context:nil];
+	[UIView setAnimationDuration:0.33];
+	CALayer *layer = sender.layer;
+	layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
+	[UIView commitAnimations];
+}*/
 
 - (UIButton *)dctInternal_disclosureButton {
 	UIImage *image = [UIImage imageNamed:@"DisclosureArrow.png"];
