@@ -48,8 +48,7 @@
 
 @synthesize tableView, section, fetchedResultsController, opened, delegate, sectionTitle, greyoutTitleWhenEmpty, showTitle;
 
-#pragma mark -
-#pragma mark NSObject methods
+#pragma mark - NSObject methods
 
 - (id)init {
     
@@ -61,15 +60,7 @@
     return self;
 }
 
-- (void)dealloc {
-    [tableView release], tableView = nil;
-	[fetchedResultsController release], fetchedResultsController = nil;
-	[sectionTitle release], sectionTitle = nil;
-    [super dealloc];
-}
-
-#pragma mark -
-#pragma mark DCTTableViewSectionController methods
+#pragma mark - DCTTableViewSectionController methods
 
 - (id)objectForTableViewIndexPath:(NSIndexPath *)tvIndexPath {
 	NSIndexPath *frcIndexPath = [self dctInternal_fetchedResultsControllerIndexPathFromTableViewIndexPath:tvIndexPath];
@@ -99,7 +90,6 @@
 		[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
 	
 	[self.tableView endUpdates];
-	[indexPaths release];
 	
 	[UIView beginAnimations:@"some" context:nil];
 	[UIView setAnimationDuration:0.33];
@@ -129,7 +119,7 @@
 		
 		UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:identifier];
 		
-		if (!cell) cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier] autorelease];
+		if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 		
 		cell.textLabel.text = self.sectionTitle;
 		
@@ -152,7 +142,7 @@
 	
 	UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:identifier];
 	
-	if (!cell) cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier] autorelease];
+	if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 	
 	cell.indentationLevel = 1;
 	cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0f];

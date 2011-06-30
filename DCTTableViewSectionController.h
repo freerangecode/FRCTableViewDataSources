@@ -41,10 +41,10 @@
 
 @interface DCTTableViewSectionController : NSObject <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate> {}
 
-@property (nonatomic, retain) UITableView *tableView;
-@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, retain) NSString *sectionTitle;
-@property (nonatomic, assign) id<DCTTableViewSectionControllerDelegate> delegate;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSString *sectionTitle;
+@property (nonatomic, weak) id<DCTTableViewSectionControllerDelegate> delegate;
 @property (nonatomic, assign) NSInteger section;
 @property (nonatomic, assign) BOOL opened;
 
