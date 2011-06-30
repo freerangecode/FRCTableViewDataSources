@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DCTTableViewSectionController.h"
+#import "DCTSectionedTableViewDataSource.h"
 
 @interface DCTTableViewTitledDataSource : NSObject<UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, weak) DCTTableViewSectionController *sectionController;
+@property (nonatomic, weak) DCTSectionedTableViewDataSource *sectionController;
 
 @property (nonatomic, strong) id<UITableViewDataSource> tableViewDataSource;
 

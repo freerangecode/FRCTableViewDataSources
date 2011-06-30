@@ -1,5 +1,5 @@
 /*
- DCTTableViewSectionController.h
+ DCTSectionedTableViewDataSource.h
  DCTUIKit
  
  Created by Daniel Tull on 16.09.2010.
@@ -36,7 +36,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DCTTableViewSectionController : NSObject <UITableViewDataSource> {}
+@interface DCTSectionedTableViewDataSource : NSObject <UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 

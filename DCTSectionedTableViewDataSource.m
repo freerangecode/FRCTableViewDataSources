@@ -1,5 +1,5 @@
 /*
- DCTTableViewSectionController.m
+ DCTSectionedTableViewDataSource.m
  DCTUIKit
  
  Created by Daniel Tull on 16.09.2010.
@@ -34,16 +34,16 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "DCTTableViewSectionController.h"
+#import "DCTSectionedTableViewDataSource.h"
 
-@interface DCTTableViewSectionController ()
+@interface DCTSectionedTableViewDataSource ()
 - (id<UITableViewDataSource>)dctInternal_dataSourceForIndex:(NSInteger)index;
 - (NSIndexPath *)dctInternal_convertedIndexPath:(NSIndexPath *)indexPath;
 - (NSInteger)dctInternal_convertedSection:(NSInteger)section;
 - (NSMutableArray *)dctInternal_tableViewDataSources;
 @end
 
-@implementation DCTTableViewSectionController {
+@implementation DCTSectionedTableViewDataSource {
 	__strong NSMutableArray *dctInternal_tableViewDataSources;
 }
 
