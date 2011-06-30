@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "DCTSectionedTableViewDataSource.h"
 
+
+typedef enum {
+	DCTCollapsableSectionTableViewDataSourceTypeNotCollapsable = 0,
+	DCTCollapsableSectionTableViewDataSourceTypeCell,
+	DCTCollapsableSectionTableViewDataSourceTypeDisclosure
+} DCTCollapsableSectionTableViewDataSourceType;
+
 @interface DCTCollapsableSectionTableViewDataSource : NSObject<UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -16,8 +23,11 @@
 
 @property (nonatomic, strong) id<UITableViewDataSource> tableViewDataSource;
 
+@property (nonatomic, assign) DCTCollapsableSectionTableViewDataSourceType type;
+
 @property (nonatomic, strong) NSString *title;
 
 @property (nonatomic, assign) BOOL greyWhenEmpty;
+@property (nonatomic, assign) BOOL opened;
 
 @end

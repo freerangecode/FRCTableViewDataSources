@@ -21,6 +21,8 @@
 @synthesize sectionController;
 @synthesize greyWhenEmpty;
 @synthesize title;
+@synthesize type;
+@synthesize opened;
 
 - (NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section {
 	return [self.tableViewDataSource tableView:tv numberOfRowsInSection:section] + 1;
@@ -38,8 +40,10 @@
 		
 		cell.textLabel.text = self.title;
 		
-		UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleTapped:)]; 
-		[cell addGestureRecognizer:gr];
+		if (self.type == DCTCollapsableSectionTableViewDataSourceTypeCell) {
+			UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleTapped:)]; 
+			[cell addGestureRecognizer:gr];
+		}
 		
 		if (self.greyWhenEmpty && [self.tableViewDataSource tableView:tv numberOfRowsInSection:indexPath.section] == 0) {
 			cell.textLabel.textColor = [UIColor lightGrayColor];
@@ -62,6 +66,12 @@
 
 - (IBAction)titleTapped:(UITapGestureRecognizer *)sender {
 	//[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForCell:sender.view] animated:YES];
+}
+
+- (void)setOpened:(BOOL)opened {
+	
+	
+	
 }
 
 - (UIButton *)dctInternal_disclosureButton {
