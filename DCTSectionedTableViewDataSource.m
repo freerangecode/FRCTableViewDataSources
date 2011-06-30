@@ -41,6 +41,7 @@
 - (NSIndexPath *)dctInternal_convertedIndexPath:(NSIndexPath *)indexPath;
 - (NSInteger)dctInternal_convertedSection:(NSInteger)section;
 - (NSMutableArray *)dctInternal_tableViewDataSources;
+- (void)dctInternal_setupDataSource:(id<UITableViewDataSource>)dataSource;
 @end
 
 @implementation DCTSectionedTableViewDataSource {
@@ -57,13 +58,11 @@
 	
 	[ds addObject:tableViewDataSource];
 	
-	SEL setTableViewSelector = @selector(setTableView:);
-	if ([tableViewDataSource respondsToSelector:setTableViewSelector])
-		[tableViewDataSource performSelector:setTableViewSelector withObject:self.tableView];
+	[self dctInternal_setupDataSource:tableViewDataSource];
 	
 	SEL setSectionControllerSelector = @selector(setSectionController:);
 	if ([tableViewDataSource respondsToSelector:setSectionControllerSelector])
-		[tableViewDataSource performSelector:setSectionControllerSelector withObject:self.tableView];
+		[tableViewDataSource performSelector:setSectionControllerSelector withObject:self];
 		
 	NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:[ds indexOfObject:tableViewDataSource]];
 	[self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -89,9 +88,20 @@
 	[self.tableView reloadData];	
 }
 
+- (void)setTableView:(UITableView *)tv {
+	
+	if (tv == self.tableView) return;
+	
+	tableView = tv;
+	
+	for (id<UITableViewDataSource> ds in [self dctInternal_tableViewDataSources])
+		[self dctInternal_setupDataSource:ds];
+}
+
 #pragma mark - UITableViewDataSource methods
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tv {
+	self.tableView = tv;
 	return [[self dctInternal_tableViewDataSources] count];
 }
 
@@ -169,6 +179,12 @@
 	if (dctInternal_tableViewDataSources == nil) dctInternal_tableViewDataSources = [[NSMutableArray alloc] init];
 	
 	return dctInternal_tableViewDataSources;	
+}
+		 
+- (void)dctInternal_setupDataSource:(id<UITableViewDataSource>)dataSource {
+	 SEL setTableViewSelector = @selector(setTableView:);
+	 if ([dataSource respondsToSelector:setTableViewSelector])
+		 [dataSource performSelector:setTableViewSelector withObject:self.tableView];
 }
 
 @end

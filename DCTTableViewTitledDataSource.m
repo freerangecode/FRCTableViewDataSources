@@ -22,9 +22,13 @@
 @synthesize greyWhenEmpty;
 @synthesize title;
 
+- (NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section {
+	return [self.tableViewDataSource tableView:tv numberOfRowsInSection:section] + 1;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	if (indexPath == 0) {
+	if (indexPath.row == 0) {
 		
 		NSString *identifier = [NSString stringWithFormat:@"title"];
 		
@@ -33,6 +37,9 @@
 		if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 		
 		cell.textLabel.text = self.title;
+		
+		UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleTapped:)]; 
+		[cell addGestureRecognizer:gr];
 		
 		if (self.greyWhenEmpty && [self.tableViewDataSource tableView:tv numberOfRowsInSection:indexPath.section] == 0) {
 			cell.textLabel.textColor = [UIColor lightGrayColor];
@@ -51,6 +58,10 @@
 	NSIndexPath *ip = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
 	
 	return [self.tableViewDataSource tableView:tv cellForRowAtIndexPath:ip];
+}
+
+- (IBAction)titleTapped:(UITapGestureRecognizer *)sender {
+	//[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForCell:sender.view] animated:YES];
 }
 
 - (UIButton *)dctInternal_disclosureButton {
@@ -84,8 +95,8 @@
 - (void)dctInternal_setupTableViewDataSource {
 	
 	SEL setTableViewSelector = @selector(setTableView:);
-	if ([tableViewDataSource respondsToSelector:setTableViewSelector])
-		[tableViewDataSource performSelector:setTableViewSelector withObject:self.tableView];
+	if ([self.tableViewDataSource respondsToSelector:setTableViewSelector])
+		[self.tableViewDataSource performSelector:setTableViewSelector withObject:self.tableView];
 	
 }
 
