@@ -35,27 +35,14 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
 
-@protocol DCTTableViewSectionControllerDelegate;
-
-@interface DCTTableViewSectionController : NSObject <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate> {}
+@interface DCTTableViewSectionController : NSObject <UITableViewDataSource> {}
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, strong) NSString *sectionTitle;
-@property (nonatomic, weak) id<DCTTableViewSectionControllerDelegate> delegate;
-@property (nonatomic, assign) NSInteger section;
-@property (nonatomic, assign) BOOL opened;
 
-@property (nonatomic, assign) BOOL greyoutTitleWhenEmpty;
-@property (nonatomic, assign) BOOL showTitle;
+- (void)addTableViewSectionDataSource:(id<UITableViewDataSource>)tableViewSectionDataSource;
+- (void)removeTableViewSectionDataSource:(id<UITableViewDataSource>)tableViewSectionDataSource;
 
-- (id)objectForTableViewIndexPath:(NSIndexPath *)tvIndexPath;
-- (void)checkButtonTapped:(UIButton *)sender event:(id)event;
+@property (nonatomic, readonly, strong) NSArray *tableViewSectionDataSources;
 
-@end
-
-@protocol DCTTableViewSectionControllerDelegate <NSObject>
-- (NSString *)sectionController:(DCTTableViewSectionController *)sc titleForObject:(NSManagedObject *)mo;
 @end

@@ -35,206 +35,126 @@
  */
 
 #import "DCTTableViewSectionController.h"
-#import <QuartzCore/QuartzCore.h>
 
 @interface DCTTableViewSectionController ()
-- (NSIndexPath *)dctInternal_fetchedResultsControllerIndexPathFromTableViewIndexPath:(NSIndexPath *)indexPath;
-- (NSIndexPath *)dctInternal_tableViewIndexPathFromFetchedResultsControllerIndexPath:(NSIndexPath *)indexPath;
-- (BOOL)dctInternal_indexPathIsTitleCell:(NSIndexPath *)indexPath;
-- (UIButton *)dctInternal_disclosureButton;
+- (id<UITableViewDataSource>)dctInternal_dataSourceForIndex:(NSInteger)index;
+- (NSIndexPath *)dctInternal_convertedIndexPath:(NSIndexPath *)indexPath;
+- (NSInteger)dctInternal_convertedSection:(NSInteger)section;
 @end
 
-@implementation DCTTableViewSectionController
+@implementation DCTTableViewSectionController {
+	__strong NSMutableArray *dctInternal_tableViewSectionDataSources;
+}
 
-@synthesize tableView, section, fetchedResultsController, opened, delegate, sectionTitle, greyoutTitleWhenEmpty, showTitle;
+@synthesize tableView;
 
-#pragma mark - NSObject methods
+#pragma mark - NSObject
 
 - (id)init {
-    
-    if (!(self = [super init])) return nil;
-    
-    self.greyoutTitleWhenEmpty = YES;
-	self.showTitle = YES;
-    
-    return self;
+	
+	if (!(self = [super init])) return nil;
+	
+	dctInternal_tableViewSectionDataSources = [[NSMutableArray alloc] init];
+	
+	return self;	
 }
 
 #pragma mark - DCTTableViewSectionController methods
 
-- (id)objectForTableViewIndexPath:(NSIndexPath *)tvIndexPath {
-	NSIndexPath *frcIndexPath = [self dctInternal_fetchedResultsControllerIndexPathFromTableViewIndexPath:tvIndexPath];
+- (void)addTableViewSectionDataSource:(id<UITableViewDataSource>)tableViewSectionDataSource {
+	[dctInternal_tableViewSectionDataSources addObject:tableViewSectionDataSource];
 	
-	if (!frcIndexPath) return nil;
+	NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:[dctInternal_tableViewSectionDataSources indexOfObject:tableViewSectionDataSource]];
 	
-	return [self.fetchedResultsController objectAtIndexPath:frcIndexPath];
+	[self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-- (void)checkButtonTapped:(UIButton *)sender event:(id)event {
+- (void)removeTableViewSectionDataSource:(id<UITableViewDataSource>)tableViewSectionDataSource {
 	
-	self.opened = !self.opened;
+	NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:[dctInternal_tableViewSectionDataSources indexOfObject:tableViewSectionDataSource]];
 	
-	id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
-    NSInteger numberOfObjects = [sectionInfo numberOfObjects];
+	[dctInternal_tableViewSectionDataSources removeObject:tableViewSectionDataSource];
 	
-	NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
-	
-	for (NSInteger i = 0; i < numberOfObjects; i++)
-		[indexPaths addObject:[NSIndexPath indexPathForRow:i+1 inSection:self.section]];
-	
-	[self.tableView beginUpdates];
-	
-	if (opened)
-		[self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-	else
-		[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-	
-	[self.tableView endUpdates];
-	
-	[UIView beginAnimations:@"some" context:nil];
-	[UIView setAnimationDuration:0.33];
-	CALayer *layer = sender.layer;
-	layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
-	[UIView commitAnimations];
+	[self.tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-#pragma mark -
-#pragma mark UITableViewDataSource methods
+- (NSArray *)tableViewSectionDataSources {
+	return [dctInternal_tableViewSectionDataSources copy];
+}
 
-- (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)s {
+#pragma mark - UITableViewDataSource methods
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+	return [self.tableViewSectionDataSources count];
+}
+
+- (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section {
 	
-	NSInteger titleAmount = self.showTitle ? 1 : 0;
+	id<UITableViewDataSource> ds = [self dctInternal_dataSourceForIndex:section];
 	
-	if (!opened) return titleAmount;
-	
-	id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
-    return [sectionInfo numberOfObjects] + titleAmount;
+	return [ds tableView:table numberOfRowsInSection:[self dctInternal_convertedSection:section]];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	if (self.showTitle && [self dctInternal_indexPathIsTitleCell:indexPath]) {
-		
-		NSString *identifier = [NSString stringWithFormat:@"%@-title", self.sectionTitle];
-		
-		UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:identifier];
-		
-		if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-		
-		cell.textLabel.text = self.sectionTitle;
-		
-		
-		id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
-		if ([sectionInfo numberOfObjects] == 0) {
-			cell.textLabel.textColor = [UIColor lightGrayColor];
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		} else {
-			cell.accessoryView = [self dctInternal_disclosureButton];
-			
-			if (self.opened) 
-				cell.accessoryView.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);	
-		}
-		
-		return cell;
-	}
+	id<UITableViewDataSource> ds = [self dctInternal_dataSourceForIndex:indexPath.section];
 	
-	NSString *identifier = [NSString stringWithFormat:@"%@-cell", self.sectionTitle];
-	
-	UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:identifier];
-	
-	if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-	
-	cell.indentationLevel = 1;
-	cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0f];
-	
-	NSManagedObject *mo = [self objectForTableViewIndexPath:indexPath];
-	
-	if ([self.delegate respondsToSelector:@selector(sectionController:titleForObject:)])
-		cell.textLabel.text = [self.delegate sectionController:self titleForObject:mo];
-	
-	return  cell;	
+	return [ds tableView:tv cellForRowAtIndexPath:[self dctInternal_convertedIndexPath:indexPath]];
 }
 
-#pragma mark -
-#pragma mark NSFetchedResultsControllerDelegate methods
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+- (NSString *)tableView:(UITableView *)tv titleForFooterInSection:(NSInteger)section {
 	
-	if (!opened) return;
+	id<UITableViewDataSource> ds = [self dctInternal_dataSourceForIndex:section];
 	
-	[self.tableView endUpdates];
+	if ([ds respondsToSelector:_cmd])
+		return [ds tableView:tv titleForFooterInSection:[self dctInternal_convertedSection:section]];
+	
+	return nil;
 }
 
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+- (NSString *)tableView:(UITableView *)tv titleForHeaderInSection:(NSInteger)section {
 	
-	if (!opened) return;
+	id<UITableViewDataSource> ds = [self dctInternal_dataSourceForIndex:section];
 	
-	[self.tableView beginUpdates];
+	section = [self dctInternal_convertedSection:section];
+	
+	if ([ds respondsToSelector:_cmd])
+		return [ds tableView:tv titleForHeaderInSection:[self dctInternal_convertedSection:section]];
+	
+	return nil;
 }
 
-- (void)controller:(NSFetchedResultsController *)controller 
-   didChangeObject:(id)anObject 
-	   atIndexPath:(NSIndexPath *)indexPath
-	 forChangeType:(NSFetchedResultsChangeType)type
-	  newIndexPath:(NSIndexPath *)newIndexPath {
+- (BOOL)tableView:(UITableView *)tv canEditRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	if (!opened) return;
+	id<UITableViewDataSource> ds = [self dctInternal_dataSourceForIndex:indexPath.section];
 	
-	UITableView *tv = self.tableView;
+	if ([ds respondsToSelector:_cmd])
+		[ds tableView:tv canEditRowAtIndexPath:[self dctInternal_convertedIndexPath:indexPath]];
 	
-	NSIndexPath *tvIndexPath = [self dctInternal_tableViewIndexPathFromFetchedResultsControllerIndexPath:indexPath];
-	NSIndexPath *tvNewIndexPath = [self dctInternal_tableViewIndexPathFromFetchedResultsControllerIndexPath:newIndexPath];
+	return NO;
 	
-    switch(type) {
-			
-        case NSFetchedResultsChangeInsert:
-            [tv insertRowsAtIndexPaths:[NSArray arrayWithObject:tvNewIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-			
-        case NSFetchedResultsChangeDelete:
-            [tv deleteRowsAtIndexPaths:[NSArray arrayWithObject:tvIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-			
-        case NSFetchedResultsChangeUpdate:
-			[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:tvIndexPath] withRowAnimation:UITableViewRowAnimationNone];
-            break;
-			
-        case NSFetchedResultsChangeMove:
-            [tv deleteRowsAtIndexPaths:[NSArray arrayWithObject:tvIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tv insertRowsAtIndexPaths:[NSArray arrayWithObject:tvNewIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
 }
 
-
-#pragma mark -
-#pragma mark Private methods
-
-- (NSIndexPath *)dctInternal_fetchedResultsControllerIndexPathFromTableViewIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tv commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	if (!self.showTitle) return indexPath;
+	id<UITableViewDataSource> ds = [self dctInternal_dataSourceForIndex:indexPath.section];
 	
-	if (indexPath.row == 0) return nil;
-	
-	return [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:0];
+	if ([ds respondsToSelector:_cmd])
+		[ds tableView:tv commitEditingStyle:editingStyle forRowAtIndexPath:[self dctInternal_convertedIndexPath:indexPath]];
 }
 
-- (NSIndexPath *)dctInternal_tableViewIndexPathFromFetchedResultsControllerIndexPath:(NSIndexPath *)indexPath {
-	return [NSIndexPath indexPathForRow:(indexPath.row + 1) inSection:self.section];
+#pragma mark - Private methods
+
+- (id<UITableViewDataSource>)dctInternal_dataSourceForIndex:(NSInteger)index {
+	return [self.tableViewSectionDataSources objectAtIndex:index];
 }
 
-- (BOOL)dctInternal_indexPathIsTitleCell:(NSIndexPath *)indexPath {
-	return (indexPath.row == 0);
+- (NSIndexPath *)dctInternal_convertedIndexPath:(NSIndexPath *)indexPath {
+	return [NSIndexPath indexPathForRow:indexPath.row inSection:[self dctInternal_convertedSection:indexPath.section]];
 }
 
-- (UIButton *)dctInternal_disclosureButton {
-	UIImage *image = [UIImage imageNamed:@"DisclosureArrow.png"];
-	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-	button.frame = CGRectMake(0.0f, 0.0f, image.size.width, image.size.height);	
-	[button setBackgroundImage:image forState:UIControlStateNormal];
-	[button addTarget:self action:@selector(checkButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
-	button.backgroundColor = [UIColor clearColor];
-	return button;
+- (NSInteger)dctInternal_convertedSection:(NSInteger)section {
+	return 0;
 }
 
 @end
