@@ -69,11 +69,10 @@
 }
 
 - (void)loadFetchedResultsController {
-	NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest
-																		  managedObjectContext:self.managedObjectContext
-																			sectionNameKeyPath:nil
-																					 cacheName:nil];
-	self.fetchedResultsController = frc;
+	self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest
+																		managedObjectContext:self.managedObjectContext
+																		  sectionNameKeyPath:nil
+																				   cacheName:nil];
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate methods
