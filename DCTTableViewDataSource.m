@@ -13,14 +13,6 @@
 @synthesize tableView;
 @synthesize viewController;
 
-#pragma mark -
-
-- (void)dealloc {
-	[tableView release], tableView = nil;
-	viewController = nil;
-	[super dealloc];
-}
-
 #pragma mark - DCTTableViewDataSource
 
 - (void)setTableView:(UITableView *)tv {
@@ -56,7 +48,7 @@
 	UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:@"cell"];
 	
 	if (cell == nil)
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
 	
 	cell.textLabel.text = [NSString stringWithFormat:@"Cell with indexPath: %i.%i", indexPath.section, indexPath.row];
 	

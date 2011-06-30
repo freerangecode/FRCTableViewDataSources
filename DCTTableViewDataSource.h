@@ -11,8 +11,8 @@
 
 @interface DCTTableViewDataSource : NSObject <UITableViewDataSource>
 
-@property (nonatomic, retain) IBOutlet UITableView *tableView;
-@property (nonatomic, assign) IBOutlet UIViewController *viewController;
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) IBOutlet UIViewController *viewController;
 - (void)reloadData;
 
 @end
