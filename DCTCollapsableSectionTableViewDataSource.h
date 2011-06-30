@@ -1,5 +1,5 @@
 //
-//  DCTTitledTableViewDataSource.h
+//  DCTCollapsableSectionTableViewDataSource.h
 //  DCTTableViewSectionController
 //
 //  Created by Daniel Tull on 30.06.2011.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DCTSectionedTableViewDataSource.h"
 
-@interface DCTTitledTableViewDataSource : NSObject<UITableViewDataSource>
+@interface DCTCollapsableSectionTableViewDataSource : NSObject<UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, weak) DCTSectionedTableViewDataSource *sectionController;

@@ -1,18 +1,18 @@
 //
-//  DCTTitledTableViewDataSource.m
+//  DCTCollapsableSectionTableViewDataSource.m
 //  DCTTableViewSectionController
 //
 //  Created by Daniel Tull on 30.06.2011.
 //  Copyright 2011 Daniel Tull. All rights reserved.
 //
 
-#import "DCTTitledTableViewDataSource.h"
+#import "DCTCollapsableSectionTableViewDataSource.h"
 
-@interface DCTTitledTableViewDataSource ()
+@interface DCTCollapsableSectionTableViewDataSource ()
 - (void)dctInternal_setupTableViewDataSource;
 @end
 
-@implementation DCTTitledTableViewDataSource {
+@implementation DCTCollapsableSectionTableViewDataSource {
 	BOOL opened;
 }
 
