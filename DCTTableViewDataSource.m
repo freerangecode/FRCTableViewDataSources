@@ -69,7 +69,7 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section {
-	return 0;
+	return 10;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
