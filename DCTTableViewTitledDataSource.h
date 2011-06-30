@@ -11,8 +11,10 @@
 
 @interface DCTTableViewTitledDataSource : NSObject<UITableViewDataSource>
 
-@property (nonatomic, strong) id<UITableViewDataSource> tableViewDataSource;
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, weak) DCTTableViewSectionController *sectionController;
+
+@property (nonatomic, strong) id<UITableViewDataSource> tableViewDataSource;
 
 @property (nonatomic, strong) NSString *title;
 

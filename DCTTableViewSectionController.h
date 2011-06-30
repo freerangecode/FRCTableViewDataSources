@@ -40,9 +40,9 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 
-- (void)addTableViewSectionDataSource:(id<UITableViewDataSource>)tableViewSectionDataSource;
-- (void)removeTableViewSectionDataSource:(id<UITableViewDataSource>)tableViewSectionDataSource;
+- (void)addTableViewDataSource:(id<UITableViewDataSource>)tableViewSectionDataSource;
+- (void)removeTableViewDataSource:(id<UITableViewDataSource>)tableViewSectionDataSource;
 
-@property (nonatomic, readonly, strong) NSArray *tableViewSectionDataSources;
+@property (nonatomic, strong) NSArray *tableViewDataSources;
 
 @end

@@ -40,52 +40,59 @@
 - (id<UITableViewDataSource>)dctInternal_dataSourceForIndex:(NSInteger)index;
 - (NSIndexPath *)dctInternal_convertedIndexPath:(NSIndexPath *)indexPath;
 - (NSInteger)dctInternal_convertedSection:(NSInteger)section;
+- (NSMutableArray *)dctInternal_tableViewDataSources;
 @end
 
 @implementation DCTTableViewSectionController {
-	__strong NSMutableArray *dctInternal_tableViewSectionDataSources;
+	__strong NSMutableArray *dctInternal_tableViewDataSources;
 }
 
 @synthesize tableView;
 
-#pragma mark - NSObject
-
-- (id)init {
-	
-	if (!(self = [super init])) return nil;
-	
-	dctInternal_tableViewSectionDataSources = [[NSMutableArray alloc] init];
-	
-	return self;	
-}
-
 #pragma mark - DCTTableViewSectionController methods
 
-- (void)addTableViewSectionDataSource:(id<UITableViewDataSource>)tableViewSectionDataSource {
-	[dctInternal_tableViewSectionDataSources addObject:tableViewSectionDataSource];
+- (void)addTableViewDataSource:(id<UITableViewDataSource>)tableViewDataSource {
 	
-	NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:[dctInternal_tableViewSectionDataSources indexOfObject:tableViewSectionDataSource]];
+	NSMutableArray *ds = [self dctInternal_tableViewDataSources];
 	
+	[ds addObject:tableViewDataSource];
+	
+	SEL setTableViewSelector = @selector(setTableView:);
+	if ([tableViewDataSource respondsToSelector:setTableViewSelector])
+		[tableViewDataSource performSelector:setTableViewSelector withObject:self.tableView];
+	
+	SEL setSectionControllerSelector = @selector(setSectionController:);
+	if ([tableViewDataSource respondsToSelector:setSectionControllerSelector])
+		[tableViewDataSource performSelector:setSectionControllerSelector withObject:self.tableView];
+		
+	NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:[ds indexOfObject:tableViewDataSource]];
 	[self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-- (void)removeTableViewSectionDataSource:(id<UITableViewDataSource>)tableViewSectionDataSource {
+- (void)removeTableViewDataSource:(id<UITableViewDataSource>)tableViewDataSource {
 	
-	NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:[dctInternal_tableViewSectionDataSources indexOfObject:tableViewSectionDataSource]];
+	NSMutableArray *ds = [self dctInternal_tableViewDataSources];
 	
-	[dctInternal_tableViewSectionDataSources removeObject:tableViewSectionDataSource];
+	NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:[ds indexOfObject:tableViewDataSource]];
+	
+	[ds removeObject:tableViewDataSource];
 	
 	[self.tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-- (NSArray *)tableViewSectionDataSources {
-	return [dctInternal_tableViewSectionDataSources copy];
+- (NSArray *)tableViewDataSources {
+	return [[self dctInternal_tableViewDataSources] copy];
+}
+
+- (void)setTableViewDataSources:(NSArray *)array {
+	dctInternal_tableViewDataSources = [array mutableCopy];
+	[self.tableView reloadData];	
 }
 
 #pragma mark - UITableViewDataSource methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return [self.tableViewSectionDataSources count];
+	return [[self dctInternal_tableViewDataSources] count];
 }
 
 - (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section {
@@ -146,7 +153,7 @@
 #pragma mark - Private methods
 
 - (id<UITableViewDataSource>)dctInternal_dataSourceForIndex:(NSInteger)index {
-	return [self.tableViewSectionDataSources objectAtIndex:index];
+	return [[self dctInternal_tableViewDataSources] objectAtIndex:index];
 }
 
 - (NSIndexPath *)dctInternal_convertedIndexPath:(NSIndexPath *)indexPath {
@@ -155,6 +162,13 @@
 
 - (NSInteger)dctInternal_convertedSection:(NSInteger)section {
 	return 0;
+}
+
+- (NSMutableArray *)dctInternal_tableViewDataSources {
+	
+	if (dctInternal_tableViewDataSources == nil) dctInternal_tableViewDataSources = [[NSMutableArray alloc] init];
+	
+	return dctInternal_tableViewDataSources;	
 }
 
 @end

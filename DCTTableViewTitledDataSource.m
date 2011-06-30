@@ -8,10 +8,15 @@
 
 #import "DCTTableViewTitledDataSource.h"
 
+@interface DCTTableViewTitledDataSource ()
+- (void)dctInternal_setupTableViewDataSource;
+@end
+
 @implementation DCTTableViewTitledDataSource {
 	BOOL opened;
 }
 
+@synthesize tableView;
 @synthesize tableViewDataSource;
 @synthesize sectionController;
 @synthesize greyWhenEmpty;
@@ -58,5 +63,30 @@
 	return button;
 }
 
+- (void)setTableView:(UITableView *)tv {
+	
+	if (tv == self.tableView) return;
+	
+	tableView = tv;
+	
+	[self dctInternal_setupTableViewDataSource];
+}
+
+- (void)setTableViewDataSource:(id<UITableViewDataSource>)ds {
+	
+	if (self.tableViewDataSource == ds) return;
+	
+	tableViewDataSource = ds;
+	
+	[self dctInternal_setupTableViewDataSource];	
+}
+
+- (void)dctInternal_setupTableViewDataSource {
+	
+	SEL setTableViewSelector = @selector(setTableView:);
+	if ([tableViewDataSource respondsToSelector:setTableViewSelector])
+		[tableViewDataSource performSelector:setTableViewSelector withObject:self.tableView];
+	
+}
 
 @end
