@@ -15,16 +15,6 @@
 @synthesize fetchRequestBlock;
 @synthesize fetchRequest;
 
-#pragma mark - NSObject
-
-- (void)dealloc {
-	[managedObjectContext release], managedObjectContext = nil;
-	[fetchRequest release], fetchRequest = nil;
-	[fetchRequestBlock release], fetchRequestBlock = nil;
-	[fetchedResultsController release], fetchedResultsController = nil;
-	[super dealloc];
-}
-
 #pragma mark - DCTTableViewDataSource
 
 - (void)reloadData {
@@ -39,10 +29,9 @@
 	
 	if ([fr isEqual:self.fetchRequest]) return;
 	
-	[fetchRequest release];
 	self.fetchedResultsController = nil;
 	
-	fetchRequest = [fr retain];
+	fetchRequest = fr;
 	[self fetchedResultsController]; // Causes the FRC to load
 }
 
@@ -50,7 +39,7 @@
 	
 	if (fetchRequest == nil) [self loadFetchRequest];
 	
-	return [[fetchRequest retain] autorelease];
+	return fetchRequest;
 }
 
 - (void)loadFetchRequest {
@@ -64,8 +53,7 @@
 	if ([self.fetchedResultsController isEqual:frc]) return;
 	
 	fetchedResultsController.delegate = nil;
-	[fetchedResultsController release];
-	fetchedResultsController = [frc retain];
+	fetchedResultsController = frc;
 	
 	fetchedResultsController.delegate = self;
 	[fetchedResultsController performFetch:nil];
@@ -77,7 +65,7 @@
 	
 	if (fetchedResultsController == nil) [self loadFetchedResultsController];
 	
-	return [[fetchedResultsController retain] autorelease];	
+	return fetchedResultsController;
 }
 
 - (void)loadFetchedResultsController {
@@ -86,7 +74,6 @@
 																			sectionNameKeyPath:nil
 																					 cacheName:nil];
 	self.fetchedResultsController = frc;
-	[frc release];
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate methods

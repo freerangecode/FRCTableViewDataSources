@@ -13,10 +13,10 @@ typedef NSFetchRequest *(^DCTFetchRequestBlock)();
 
 @interface DCTFetchedResultsTableViewDataSource : DCTTableViewDataSource <NSFetchedResultsControllerDelegate>
 
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
-@property (nonatomic, retain) NSFetchRequest *fetchRequest;
+@property (nonatomic, strong) NSFetchRequest *fetchRequest;
 @property (nonatomic, copy) DCTFetchRequestBlock fetchRequestBlock;
 
 - (void)loadFetchRequest;
