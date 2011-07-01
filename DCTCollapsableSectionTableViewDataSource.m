@@ -11,6 +11,8 @@
 
 @interface DCTCollapsableSectionTableViewDataSource ()
 - (void)dctInternal_setupTableViewDataSource;
+- (IBAction)disclosureButtonTapped:(UIButton *)sender;
+- (IBAction)titleTapped:(UITapGestureRecognizer *)sender;
 @end
 
 @implementation DCTCollapsableSectionTableViewDataSource {
@@ -109,55 +111,16 @@
 	[self.tableView endUpdates];
 }
 
-- (IBAction)disclosureButtonTapped:(UIButton *)button {
+- (IBAction)disclosureButtonTapped:(UIButton *)sender {
 	
 	self.opened = !self.opened;
 	
 	[UIView beginAnimations:@"some" context:nil];
 	[UIView setAnimationDuration:0.33];
-	button.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
+	sender.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
 	[UIView commitAnimations];
 	
 	
-}
-
-/*- (void)checkButtonTapped:(UIButton *)sender event:(id)event {
-	
-	self.opened = !self.opened;
-	
-	id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
-    NSInteger numberOfObjects = [sectionInfo numberOfObjects];
-	
-	NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
-	
-	for (NSInteger i = 0; i < numberOfObjects; i++)
-		[indexPaths addObject:[NSIndexPath indexPathForRow:i+1 inSection:self.section]];
-	
-	[self.tableView beginUpdates];
-	
-	if (opened)
-		[self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-	else
-		[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-	
-	[self.tableView endUpdates];
-	[indexPaths release];
-	
-	[UIView beginAnimations:@"some" context:nil];
-	[UIView setAnimationDuration:0.33];
-	CALayer *layer = sender.layer;
-	layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
-	[UIView commitAnimations];
-}*/
-
-- (UIButton *)dctInternal_disclosureButton {
-	UIImage *image = [UIImage imageNamed:@"DCTCollapsableSectionTableViewDataSourceDisclosureButton.png"];
-	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-	button.frame = CGRectMake(0.0f, 0.0f, image.size.width, image.size.height);	
-	[button setBackgroundImage:image forState:UIControlStateNormal];
-	[button addTarget:self action:@selector(disclosureButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-	button.backgroundColor = [UIColor clearColor];
-	return button;
 }
 
 - (void)setTableView:(UITableView *)tv {
