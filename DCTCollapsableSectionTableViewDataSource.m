@@ -7,6 +7,7 @@
 //
 
 #import "DCTCollapsableSectionTableViewDataSource.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface DCTCollapsableSectionTableViewDataSource ()
 - (void)dctInternal_setupTableViewDataSource;
@@ -46,10 +47,22 @@
 		cell.textLabel.text = self.title;
 		
 		if (self.type == DCTCollapsableSectionTableViewDataSourceTypeCell) {
+			
 			UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleTapped:)]; 
 			[cell addGestureRecognizer:gr];
+
+		} else if (self.type == DCTCollapsableSectionTableViewDataSourceTypeDisclosure) {
+			
+			UIImage *image = [UIImage imageNamed:@"DisclosureArrow.png"];
+			UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+			button.frame = CGRectMake(0.0f, 0.0f, image.size.width, image.size.height);	
+			[button setBackgroundImage:image forState:UIControlStateNormal];
+			[button addTarget:self action:@selector(disclosureButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+			button.backgroundColor = [UIColor clearColor];
+			cell.accessoryView = button;
 		}
 		
+		/*
 		if (self.greyWhenEmpty && [self.tableViewDataSource tableView:tv numberOfRowsInSection:indexPath.section] == 0) {
 			cell.textLabel.textColor = [UIColor lightGrayColor];
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -58,7 +71,7 @@
 			
 			//if (self.opened) 
 			//	cell.accessoryView.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);	
-		}
+		}*/
 		
 		return cell;
 		
@@ -70,7 +83,6 @@
 }
 
 - (IBAction)titleTapped:(UITapGestureRecognizer *)sender {
-	//[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForCell:sender.view] animated:YES];
 	self.opened = !self.opened;
 }
 
@@ -95,6 +107,18 @@
 		[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 	
 	[self.tableView endUpdates];
+}
+
+- (IBAction)disclosureButtonTapped:(UIButton *)button {
+	
+	self.opened = !self.opened;
+	
+	[UIView beginAnimations:@"some" context:nil];
+	[UIView setAnimationDuration:0.33];
+	button.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
+	[UIView commitAnimations];
+	
+	
 }
 
 /*- (void)checkButtonTapped:(UIButton *)sender event:(id)event {
@@ -131,7 +155,7 @@
 	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 	button.frame = CGRectMake(0.0f, 0.0f, image.size.width, image.size.height);	
 	[button setBackgroundImage:image forState:UIControlStateNormal];
-	[button addTarget:self action:@selector(checkButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+	[button addTarget:self action:@selector(disclosureButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
 	button.backgroundColor = [UIColor clearColor];
 	return button;
 }
