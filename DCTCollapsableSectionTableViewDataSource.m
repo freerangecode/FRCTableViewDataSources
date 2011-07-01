@@ -151,7 +151,7 @@
 }*/
 
 - (UIButton *)dctInternal_disclosureButton {
-	UIImage *image = [UIImage imageNamed:@"DisclosureArrow.png"];
+	UIImage *image = [UIImage imageNamed:@"DCTCollapsableSectionTableViewDataSourceDisclosureButton.png"];
 	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 	button.frame = CGRectMake(0.0f, 0.0f, image.size.width, image.size.height);	
 	[button setBackgroundImage:image forState:UIControlStateNormal];
