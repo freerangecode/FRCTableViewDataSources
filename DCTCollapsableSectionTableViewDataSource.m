@@ -11,21 +11,30 @@
 
 @interface DCTCollapsableSectionTableViewDataSource ()
 - (void)dctInternal_setupTableViewDataSource;
-- (IBAction)disclosureButtonTapped:(UIButton *)sender;
-- (IBAction)titleTapped:(UITapGestureRecognizer *)sender;
+- (IBAction)dctInternal_disclosureButtonTapped:(UIButton *)sender;
+- (IBAction)dctInternal_titleTapped:(UITapGestureRecognizer *)sender;
+- (void)dctInternal_setupTableViewSectionWithCell:(UITableViewCell *)cell;
 @end
 
 @implementation DCTCollapsableSectionTableViewDataSource {
-	BOOL opened;
+	NSInteger tableViewSection;
 }
 
 @synthesize tableView;
 @synthesize tableViewDataSource;
-@synthesize sectionController;
 @synthesize greyWhenEmpty;
 @synthesize title;
 @synthesize type;
 @synthesize opened;
+
+- (id)init {
+	
+	if (!(self = [super init])) return nil;
+	
+	tableViewSection = -1;
+	
+	return self;	
+}
 
 - (NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section {
 	
@@ -50,30 +59,19 @@
 		
 		if (self.type == DCTCollapsableSectionTableViewDataSourceTypeCell) {
 			
-			UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleTapped:)]; 
+			UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dctInternal_titleTapped:)]; 
 			[cell addGestureRecognizer:gr];
 
 		} else if (self.type == DCTCollapsableSectionTableViewDataSourceTypeDisclosure) {
 			
-			UIImage *image = [UIImage imageNamed:@"DisclosureArrow.png"];
+			UIImage *image = [UIImage imageNamed:@"DCTCollapsableSectionTableViewDataSourceDisclosureButton.png"];
 			UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 			button.frame = CGRectMake(0.0f, 0.0f, image.size.width, image.size.height);	
 			[button setBackgroundImage:image forState:UIControlStateNormal];
-			[button addTarget:self action:@selector(disclosureButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+			[button addTarget:self action:@selector(dctInternal_disclosureButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
 			button.backgroundColor = [UIColor clearColor];
 			cell.accessoryView = button;
 		}
-		
-		/*
-		if (self.greyWhenEmpty && [self.tableViewDataSource tableView:tv numberOfRowsInSection:indexPath.section] == 0) {
-			cell.textLabel.textColor = [UIColor lightGrayColor];
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		} else {
-			//cell.accessoryView = [self dctInternal_disclosureButton];
-			
-			//if (self.opened) 
-			//	cell.accessoryView.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);	
-		}*/
 		
 		return cell;
 		
@@ -84,22 +82,18 @@
 	return [self.tableViewDataSource tableView:tv cellForRowAtIndexPath:ip];
 }
 
-- (IBAction)titleTapped:(UITapGestureRecognizer *)sender {
-	self.opened = !self.opened;
-}
-
 - (void)setOpened:(BOOL)aBool {
 	
 	if (opened == aBool) return;
 	
 	opened = aBool;
 	
-	NSUInteger section = [self.sectionController.tableViewDataSources indexOfObject:self];
+	if (tableViewSection < 0) return;
 	
 	NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
 	
 	for (NSInteger i = 0; i < [self.tableViewDataSource tableView:self.tableView numberOfRowsInSection:0]; i++)
-		[indexPaths addObject:[NSIndexPath indexPathForRow:i+1 inSection:section]];
+		[indexPaths addObject:[NSIndexPath indexPathForRow:i+1 inSection:tableViewSection]];
 	
 	[self.tableView beginUpdates];
 	
@@ -109,18 +103,6 @@
 		[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 	
 	[self.tableView endUpdates];
-}
-
-- (IBAction)disclosureButtonTapped:(UIButton *)sender {
-	
-	self.opened = !self.opened;
-	
-	[UIView beginAnimations:@"some" context:nil];
-	[UIView setAnimationDuration:0.33];
-	sender.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
-	[UIView commitAnimations];
-	
-	
 }
 
 - (void)setTableView:(UITableView *)tv {
@@ -147,6 +129,46 @@
 	if ([self.tableViewDataSource respondsToSelector:setTableViewSelector])
 		[self.tableViewDataSource performSelector:setTableViewSelector withObject:self.tableView];
 	
+}
+
+- (IBAction)dctInternal_titleTapped:(UITapGestureRecognizer *)sender {
+	
+	if (tableViewSection < 0) {
+		
+		if (![sender.view isKindOfClass:[UITableViewCell class]]) return;
+		
+		[self dctInternal_setupTableViewSectionWithCell:(UITableViewCell *)sender.view];
+	}
+	
+	self.opened = !self.opened;
+}
+
+- (IBAction)dctInternal_disclosureButtonTapped:(UIButton *)sender {
+	
+	if (tableViewSection < 0) {
+		
+		UIView *v = sender;
+		
+		while (![v isKindOfClass:[UITableViewCell class]]) {
+			v = [v superview];
+		}
+		
+		[self dctInternal_setupTableViewSectionWithCell:(UITableViewCell *)v];
+	}
+	
+	self.opened = !self.opened;
+	
+	[UIView beginAnimations:@"some" context:nil];
+	[UIView setAnimationDuration:0.33];
+	sender.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
+	[UIView commitAnimations];
+	
+	
+}
+
+- (void)dctInternal_setupTableViewSectionWithCell:(UITableViewCell *)cell {
+	NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+	tableViewSection = indexPath.section;
 }
 
 @end
