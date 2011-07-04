@@ -80,6 +80,9 @@
 	
 	if ([self.fetchedResultsController isEqual:frc]) return;
 	
+	if (self.managedObjectContext == nil || self.managedObjectContext != frc.managedObjectContext)
+		self.managedObjectContext = frc.managedObjectContext;
+	
 	fetchedResultsController.delegate = nil;
 	fetchedResultsController = frc;
 	
