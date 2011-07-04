@@ -79,6 +79,10 @@
 	[self.tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
+- (id<UITableViewDataSource>)tableViewDataSourceForIndexPath:(NSIndexPath *)indexPath {
+	return [dctInternal_tableViewDataSources objectAtIndex:indexPath.section];	
+}
+
 - (NSArray *)tableViewDataSources {
 	return [[self dctInternal_tableViewDataSources] copy];
 }

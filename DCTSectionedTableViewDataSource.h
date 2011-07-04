@@ -42,6 +42,7 @@
 
 - (void)addTableViewDataSource:(id<UITableViewDataSource>)tableViewSectionDataSource;
 - (void)removeTableViewDataSource:(id<UITableViewDataSource>)tableViewSectionDataSource;
+- (id<UITableViewDataSource>)tableViewDataSourceForIndexPath:(NSIndexPath *)indexPath;
 
 @property (nonatomic, strong) NSArray *tableViewDataSources;
 
