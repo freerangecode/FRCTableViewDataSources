@@ -78,7 +78,7 @@
 
 - (void)setFetchedResultsController:(NSFetchedResultsController *)frc {
 	
-	if ([self.fetchedResultsController isEqual:frc]) return;
+	if ([fetchedResultsController isEqual:frc]) return;
 	
 	if (self.managedObjectContext == nil || self.managedObjectContext != frc.managedObjectContext)
 		self.managedObjectContext = frc.managedObjectContext;
