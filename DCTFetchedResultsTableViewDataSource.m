@@ -42,6 +42,7 @@
 @synthesize fetchedResultsController;
 @synthesize fetchRequestBlock;
 @synthesize fetchRequest;
+@synthesize fetchedCellSetupBlock;
 
 #pragma mark - DCTTableViewDataSource
 
@@ -119,9 +120,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	UITableViewCell *cell = nil;
-	//NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
-	// Configure the cell with data from the managed object.
+	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    
+    if (self.fetchedCellSetupBlock) self.fetchedCellSetupBlock(cell, [self.fetchedResultsController objectAtIndexPath:indexPath]);
+    
     return cell;
 }
 
