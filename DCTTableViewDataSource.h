@@ -37,10 +37,15 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+typedef void (^DCTTableViewDataSourceCellSetupBlock)(UITableViewCell *cell, NSIndexPath *indexPath);
+
 @interface DCTTableViewDataSource : NSObject <UITableViewDataSource>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UIViewController *viewController;
 - (void)reloadData;
+
+@property (nonatomic, copy) NSString *cellIdentifier;
+@property (nonatomic, copy) DCTTableViewDataSourceCellSetupBlock cellSetupHandler;
 
 @end

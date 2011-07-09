@@ -40,6 +40,8 @@
 
 @synthesize tableView;
 @synthesize viewController;
+@synthesize cellIdentifier;
+@synthesize cellSetupHandler;
 
 #pragma mark - DCTTableViewDataSource
 
@@ -73,12 +75,15 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:@"cell"];
 	
-	if (cell == nil)
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:self.cellIdentifier];
 	
-	cell.textLabel.text = [NSString stringWithFormat:@"Cell with indexPath: %i.%i", indexPath.section, indexPath.row];
+	if (cell == nil) {
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.cellIdentifier];
+        cell.textLabel.text = [NSString stringWithFormat:@"Cell with indexPath: %i.%i", indexPath.section, indexPath.row];
+    }
+    
+    if (self.cellSetupHandler) self.cellSetupHandler(cell, indexPath);
 	
 	return cell;
 }
