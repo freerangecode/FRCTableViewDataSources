@@ -35,6 +35,7 @@
  */
 
 #import "DCTFetchedResultsTableViewDataSource.h"
+#import "DCTTableViewCell.h"
 
 @implementation DCTFetchedResultsTableViewDataSource
 
@@ -42,7 +43,7 @@
 @synthesize fetchedResultsController;
 @synthesize fetchRequestBlock;
 @synthesize fetchRequest;
-@synthesize fetchedCellSetupBlock;
+@synthesize fetchedCellConfigurer;
 
 #pragma mark - DCTTableViewDataSource
 
@@ -121,9 +122,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    	
+	NSManagedObject *mo = [self.fetchedResultsController objectAtIndexPath:indexPath];
+	
+    if (self.fetchedCellConfigurer) self.fetchedCellConfigurer(cell, mo);
     
-    if (self.fetchedCellSetupBlock) self.fetchedCellSetupBlock(cell, [self.fetchedResultsController objectAtIndexPath:indexPath]);
-    
+	if ([cell isKindOfClass:[DCTTableViewCell class]]) [(DCTTableViewCell *)cell configureCellWithObject:mo];
+	
     return cell;
 }
 
