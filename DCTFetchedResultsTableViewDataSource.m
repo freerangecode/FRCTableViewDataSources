@@ -127,7 +127,8 @@
 	
     if (self.fetchedCellConfigurer) self.fetchedCellConfigurer(cell, mo);
     
-	if ([cell isKindOfClass:[DCTTableViewCell class]]) [(DCTTableViewCell *)cell configureCellWithObject:mo];
+	if ([cell conformsToProtocol:@protocol(DCTTableViewCell)])
+		[(id<DCTTableViewCell>)cell configureWithObject:mo];
 	
     return cell;
 }
