@@ -35,13 +35,14 @@
  */
 
 #import "DCTTableViewDataSource.h"
+#import "DCTTableViewCell.h"
 
 @implementation DCTTableViewDataSource
 
 @synthesize tableView;
 @synthesize viewController;
-@synthesize cellIdentifier;
-@synthesize cellSetupHandler;
+@synthesize cellClass;
+@synthesize cellConfigurer;
 
 #pragma mark - DCTTableViewDataSource
 
@@ -76,14 +77,19 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-    UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:self.cellIdentifier];
+	NSString *cellIdentifier = nil;
+	
+	if ([self.cellClass isSubclassOfClass:[DCTTableViewCell class]])
+		cellIdentifier = [self.cellClass reuseIdentifier];
+	
+    UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:cellIdentifier];
 	
 	if (cell == nil) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.cellIdentifier];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.textLabel.text = [NSString stringWithFormat:@"Cell with indexPath: %i.%i", indexPath.section, indexPath.row];
     }
     
-    if (self.cellSetupHandler) self.cellSetupHandler(cell, indexPath);
+    if (self.cellConfigurer) self.cellConfigurer(cell, indexPath);
 	
 	return cell;
 }
