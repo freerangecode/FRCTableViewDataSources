@@ -46,13 +46,21 @@
 
 #pragma mark - DCTTableViewDataSource
 
+- (void)setCellClass:(Class)aCellClass {
+	
+	cellClass = aCellClass;
+	
+	[self.tableView dct_registerDCTTableViewCellSubclass:self.cellClass];
+}
+
 - (void)setTableView:(UITableView *)tv {
 	
 	if (self.tableView == tv) return;
 	
 	tableView = tv;
 	
-	tableView.dataSource = self;	
+	tableView.dataSource = self;
+	[self.tableView dct_registerDCTTableViewCellSubclass:self.cellClass];
 }
 
 - (void)setViewController:(UIViewController *)vc {
