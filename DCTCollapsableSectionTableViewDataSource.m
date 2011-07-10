@@ -70,6 +70,7 @@
 			[button setBackgroundImage:image forState:UIControlStateNormal];
 			[button addTarget:self action:@selector(dctInternal_disclosureButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
 			button.backgroundColor = [UIColor clearColor];
+			button.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
 			cell.accessoryView = button;
 		}
 		
