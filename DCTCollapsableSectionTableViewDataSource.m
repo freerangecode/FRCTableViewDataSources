@@ -69,6 +69,7 @@
 		if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 		
 		cell.textLabel.text = self.title;
+		cell.accessoryView = nil;
 		
 		if (self.type == DCTCollapsableSectionTableViewDataSourceTypeCell) {
 			
