@@ -68,7 +68,6 @@
 	
 	tableView = tv;
 	
-	tableView.dataSource = self;
 	[self.tableView dct_registerDCTTableViewCellSubclass:self.cellClass];
 }
 

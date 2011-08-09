@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DCTTableViewDataSource.h"
 
 typedef enum {
 	DCTCollapsableSectionTableViewDataSourceTypeNotCollapsable = 0,
@@ -14,11 +15,9 @@ typedef enum {
 	DCTCollapsableSectionTableViewDataSourceTypeDisclosure
 } DCTCollapsableSectionTableViewDataSourceType;
 
-@interface DCTCollapsableSectionTableViewDataSource : NSObject<UITableViewDataSource>
+@interface DCTCollapsableSectionTableViewDataSource : NSObject<DCTTableViewDataSource>
 
-@property (nonatomic, strong) UITableView *tableView;
-
-@property (nonatomic, strong) id<UITableViewDataSource> tableViewDataSource;
+@property (nonatomic, strong) id<DCTTableViewDataSource> tableViewDataSource;
 
 @property (nonatomic, assign) DCTCollapsableSectionTableViewDataSourceType type;
 

@@ -35,14 +35,13 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "DCTTableViewDataSource.h"
 
-@interface DCTSectionedTableViewDataSource : NSObject <UITableViewDataSource>
+@interface DCTSectionedTableViewDataSource : NSObject <DCTTableViewDataSource>
 
-@property (nonatomic, strong) UITableView *tableView;
-
-- (void)addTableViewDataSource:(id<UITableViewDataSource>)tableViewSectionDataSource;
-- (void)removeTableViewDataSource:(id<UITableViewDataSource>)tableViewSectionDataSource;
-- (id<UITableViewDataSource>)tableViewDataSourceForIndexPath:(NSIndexPath *)indexPath;
+- (void)addTableViewDataSource:(id<DCTTableViewDataSource>)tableViewSectionDataSource;
+- (void)removeTableViewDataSource:(id<DCTTableViewDataSource>)tableViewSectionDataSource;
+- (id<DCTTableViewDataSource>)tableViewDataSourceForIndexPath:(NSIndexPath *)indexPath;
 
 @property (nonatomic, strong) NSArray *tableViewDataSources;
 

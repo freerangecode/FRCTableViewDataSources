@@ -36,6 +36,19 @@
 	return self;	
 }
 
+#pragma mark - DCTTableViewDataSource
+
+- (void)reloadData {
+	[tableViewDataSource reloadData];
+}
+
+- (id)objectAtIndexPath:(NSIndexPath *)indexPath {
+	NSIndexPath *ip = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
+	return [self.tableViewDataSource objectAtIndexPath:ip];
+}
+
+#pragma mark - UITableViewDataSource
+
 - (NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section {
 	
 	NSInteger numberOfRows = 0;
@@ -115,7 +128,7 @@
 	[self dctInternal_setupTableViewDataSource];
 }
 
-- (void)setTableViewDataSource:(id<UITableViewDataSource>)ds {
+- (void)setTableViewDataSource:(id<DCTTableViewDataSource>)ds {
 	
 	if (self.tableViewDataSource == ds) return;
 	
@@ -125,11 +138,7 @@
 }
 
 - (void)dctInternal_setupTableViewDataSource {
-	
-	SEL setTableViewSelector = @selector(setTableView:);
-	if ([self.tableViewDataSource respondsToSelector:setTableViewSelector])
-		[self.tableViewDataSource performSelector:setTableViewSelector withObject:self.tableView];
-	
+	self.tableViewDataSource.tableView = self.tableView;
 }
 
 - (IBAction)dctInternal_titleTapped:(UITapGestureRecognizer *)sender {
