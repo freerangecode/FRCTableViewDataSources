@@ -68,11 +68,6 @@
 	if (self.viewController == vc) return;
 	
 	viewController = vc;
-	
-	SEL setTableViewDataSourceSelector = @selector(setTableViewDataSource:);
-	
-	if ([viewController respondsToSelector:setTableViewDataSourceSelector])
-		[viewController performSelector:setTableViewDataSourceSelector withObject:self];
 }
 
 - (void)reloadData {}
