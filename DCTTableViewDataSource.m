@@ -42,7 +42,17 @@
 @synthesize tableView;
 @synthesize viewController;
 @synthesize cellClass;
-@synthesize cellConfigurer;
+
+#pragma mark - NSObject
+
+- (id)init {
+    
+    if (!(self = [super init])) return nil;
+	
+	self.cellClass = [UITableViewCell class];
+	
+    return self;
+}
 
 #pragma mark - DCTTableViewDataSource
 
@@ -72,6 +82,10 @@
 
 - (void)reloadData {}
 
+- (id)objectAtIndexPath:(NSIndexPath *)indexPath {
+	return indexPath;
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section {
@@ -88,11 +102,12 @@
     UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:cellIdentifier];
 	
 	if (cell == nil) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+		cell = [[self.cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.textLabel.text = [NSString stringWithFormat:@"Cell with indexPath: %i.%i", indexPath.section, indexPath.row];
     }
     
-    if (self.cellConfigurer) self.cellConfigurer(cell, indexPath);
+	if ([cell conformsToProtocol:@protocol(DCTTableViewCell)])
+		[((id <DCTTableViewCell>)cell) configureWithObject:[self objectAtIndexPath:indexPath]];
 	
 	return cell;
 }

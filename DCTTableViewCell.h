@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+
+typedef void (^DCTTableViewDataSourceCellConfigureBlock)(UITableViewCell *cell, id object);
+
+
 @protocol DCTTableViewCell <NSObject>
 - (void)configureWithObject:(id)object;
 @end
@@ -17,6 +21,8 @@
 
 + (NSString *)reuseIdentifier;
 + (NSString *)nibName;
+
+@property (nonatomic, copy) DCTTableViewDataSourceCellConfigureBlock cellConfigurer;
 
 @end
 

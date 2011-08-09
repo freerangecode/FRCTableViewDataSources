@@ -42,15 +42,17 @@
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UIViewController *viewController;
+
 - (void)reloadData;
+- (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
-typedef void (^DCTTableViewDataSourceCellConfigureBlock)(UITableViewCell *cell, NSIndexPath *indexPath);
+
+
 
 @interface DCTTableViewDataSource : NSObject <DCTTableViewDataSource>
 
 @property (nonatomic, assign) Class cellClass;
-@property (nonatomic, copy) DCTTableViewDataSourceCellConfigureBlock cellConfigurer;
 
 @end

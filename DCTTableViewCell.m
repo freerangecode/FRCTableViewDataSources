@@ -7,9 +7,35 @@
 //
 
 #import "DCTTableViewCell.h"
-#import "UINib+DCTExtensions.h"
+
+@interface DCTTableViewCell ()
++ (BOOL)dctInternal_nibExistsWithNibName:(NSString *)nibName bundle:(NSBundle *)bundle;
+@end
 
 @implementation DCTTableViewCell
+
+@synthesize cellConfigurer;
+
+#pragma mark - NSObject
+
+- (id)init {
+	
+	if (!(self = [super init])) return nil;
+	
+	self.cellConfigurer = ^(UITableViewCell *cell, id object) {
+		cell.textLabel.text = [object description];
+	};
+	
+    return self;
+}
+
+- (void)awakeFromNib {
+	self.cellConfigurer = ^(UITableViewCell *cell, id object) {
+		cell.textLabel.text = [object description];
+	};
+}
+
+#pragma mark - DCTTableViewCell
 
 + (NSString *)reuseIdentifier {
 	return NSStringFromClass(self);
@@ -23,16 +49,38 @@
 	
 	NSString *nibName = NSStringFromClass(self);
 	
-	if ([UINib dct_nibExistsWithNibName:nibName bundle:nil])
+	if ([self dctInternal_nibExistsWithNibName:nibName bundle:nil])
 		return nibName;
 	
 	return nil;	
 }
 
-- (void)configureWithObject:(id)object {}
+- (void)configureWithObject:(id)object {
+
+	if (self.cellConfigurer) 
+		self.cellConfigurer(self, object);
+}
+
+#pragma mark - Internal
+
++ (BOOL)dctInternal_nibExistsWithNibName:(NSString *)nibName bundle:(NSBundle *)bundle {
+	
+	if (nibName == nil) return NO;
+	
+	if (bundle == nil) bundle = [NSBundle mainBundle];
+	
+	NSString *path = [bundle pathForResource:nibName ofType:@"nib"];
+	
+	if (path == nil) path = [bundle pathForResource:nibName ofType:@"xib"]; // Is this check needed? All xibs will get compiled to nibs right?
+	
+	if (path == nil) return NO;
+	
+	return YES;
+}
 
 @end
 
+#pragma mark -
 
 @implementation UITableView (DCTTableViewCell)
 
