@@ -41,7 +41,6 @@
 @protocol DCTTableViewDataSource <UITableViewDataSource>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
-@property (nonatomic, weak) IBOutlet UIViewController *viewController;
 
 - (void)reloadData;
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;

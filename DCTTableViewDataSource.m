@@ -40,7 +40,6 @@
 @implementation DCTTableViewDataSource
 
 @synthesize tableView;
-@synthesize viewController;
 @synthesize cellClass;
 
 #pragma mark - NSObject
@@ -71,13 +70,6 @@
 	
 	tableView.dataSource = self;
 	[self.tableView dct_registerDCTTableViewCellSubclass:self.cellClass];
-}
-
-- (void)setViewController:(UIViewController *)vc {
-	
-	if (self.viewController == vc) return;
-	
-	viewController = vc;
 }
 
 - (void)reloadData {}
