@@ -59,6 +59,10 @@
 		self.fetchRequest = self.fetchRequestBlock();
 }
 
+- (id)objectAtIndexPath:(NSIndexPath *)indexPath {
+	return [self.fetchedResultsController objectAtIndexPath:indexPath];
+}
+
 #pragma mark - DCTFetchedResultsTableViewDataSource
 
 - (void)setFetchRequest:(NSFetchRequest *)fr {
