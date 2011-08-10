@@ -68,7 +68,11 @@
 #pragma mark - DCTTableViewDataSourceParent
 
 - (NSIndexPath *)tableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewIndexPathForDataIndexPath:(NSIndexPath *)indexPath {
-	return [NSIndexPath indexPathForRow:indexPath.row inSection:[[self dctInternal_tableViewDataSources] indexOfObject:dataSource]];	
+	NSIndexPath *ip = [NSIndexPath indexPathForRow:indexPath.row inSection:[[self dctInternal_tableViewDataSources] indexOfObject:dataSource]];	
+	
+	if (self.parent == nil) return ip;
+	
+	return [self.parent tableViewDataSource:self tableViewIndexPathForDataIndexPath:ip];
 }
 
 #pragma mark - DCTTableViewSectionController methods
