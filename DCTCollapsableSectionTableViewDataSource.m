@@ -115,6 +115,8 @@
 		[indexPaths addObject:ip];
 	}
 	
+	if ([indexPaths count] == 0) return;
+	
 	[self.tableView beginUpdates];
 	
 	if (aBool)
@@ -123,6 +125,11 @@
 		[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 	
 	[self.tableView endUpdates];
+	
+	if (aBool) {
+		[self.tableView scrollToRowAtIndexPath:[indexPaths objectAtIndex:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+		[self.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+	}
 }
 
 - (void)setTableView:(UITableView *)tv {
