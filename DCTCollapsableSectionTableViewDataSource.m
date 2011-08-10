@@ -109,8 +109,6 @@
 	
 	NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
 	
-	NSUInteger tableViewSection = [[self.parent tableViewDataSource:self tableViewIndexPathForDataIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] section];
-	
 	for (NSInteger i = 0; i < [self.tableViewDataSource tableView:self.tableView numberOfRowsInSection:0]; i++) {
 		NSIndexPath *ip = [NSIndexPath indexPathForRow:i+1 inSection:0];
 		if (self.parent != nil) ip = [self.parent tableViewDataSource:self tableViewIndexPathForDataIndexPath:ip];
