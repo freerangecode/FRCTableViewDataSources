@@ -37,6 +37,12 @@
 #import "DCTFetchedResultsTableViewDataSource.h"
 #import "DCTTableViewCell.h"
 
+
+@interface DCTFetchedResultsTableViewDataSource ()
+- (NSIndexPath *)dctInternal_tableViewIndexPathFromDataIndexPath:(NSIndexPath *)indexPath;
+- (NSUInteger)dctInternal_tableViewSectionFromDataSection:(NSUInteger)section;
+@end
+
 @implementation DCTFetchedResultsTableViewDataSource
 
 @synthesize managedObjectContext;
@@ -160,7 +166,7 @@
 		   atIndex:(NSUInteger)sectionIndex
 	 forChangeType:(NSFetchedResultsChangeType)type {
 	
-	//NSUInteger sectionIndex = [self tableViewSectionIndexForFetchedResultsControllerSectionIndex:si];	
+	sectionIndex = [self dctInternal_tableViewSectionFromDataSection:sectionIndex];
 	
     switch(type) {
         case NSFetchedResultsChangeInsert:
@@ -182,8 +188,8 @@
 	 forChangeType:(NSFetchedResultsChangeType)type
 	  newIndexPath:(NSIndexPath *)newIndexPath {
 	
-	//NSIndexPath *indexPath = [self tableViewIndexPathForFetchedResultsControllerIndexPath:ip];
-	//NSIndexPath *newIndexPath = [self tableViewIndexPathForFetchedResultsControllerIndexPath:newIP];
+	indexPath = [self dctInternal_tableViewIndexPathFromDataIndexPath:indexPath];
+	newIndexPath = [self dctInternal_tableViewIndexPathFromDataIndexPath:indexPath];
 	
     UITableView *tv = self.tableView;
 	
@@ -215,5 +221,25 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView endUpdates];
 }
+
+#pragma mark - Internals
+
+- (NSIndexPath *)dctInternal_tableViewIndexPathFromDataIndexPath:(NSIndexPath *)indexPath {
+	
+	if (self.parent == nil) return indexPath;
+	
+	return [self.parent tableViewDataSource:self tableViewIndexPathForDataIndexPath:indexPath];
+}
+
+- (NSUInteger)dctInternal_tableViewSectionFromDataSection:(NSUInteger)section {
+	
+	if (self.parent == nil) return section;
+	
+	NSIndexPath *ip = [NSIndexPath indexPathForRow:0 inSection:section];
+	ip = [self.parent tableViewDataSource:self tableViewIndexPathForDataIndexPath:ip];
+	return ip.section;
+}
+
+
 
 @end

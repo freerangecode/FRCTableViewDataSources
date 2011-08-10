@@ -15,7 +15,7 @@ typedef enum {
 	DCTCollapsableSectionTableViewDataSourceTypeDisclosure
 } DCTCollapsableSectionTableViewDataSourceType;
 
-@interface DCTCollapsableSectionTableViewDataSource : NSObject<DCTTableViewDataSource>
+@interface DCTCollapsableSectionTableViewDataSource : NSObject<DCTTableViewDataSource, DCTTableViewDataSourceParent>
 
 @property (nonatomic, strong) id<DCTTableViewDataSource> tableViewDataSource;
 

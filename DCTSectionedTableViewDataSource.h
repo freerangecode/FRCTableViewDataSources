@@ -37,7 +37,7 @@
 #import <UIKit/UIKit.h>
 #import "DCTTableViewDataSource.h"
 
-@interface DCTSectionedTableViewDataSource : NSObject <DCTTableViewDataSource>
+@interface DCTSectionedTableViewDataSource : NSObject <DCTTableViewDataSource, DCTTableViewDataSourceParent>
 
 - (void)addTableViewDataSource:(id<DCTTableViewDataSource>)tableViewSectionDataSource;
 - (void)removeTableViewDataSource:(id<DCTTableViewDataSource>)tableViewSectionDataSource;

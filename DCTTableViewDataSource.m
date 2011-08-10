@@ -37,10 +37,13 @@
 #import "DCTTableViewDataSource.h"
 #import "DCTTableViewCell.h"
 
-@implementation DCTTableViewDataSource
+@implementation DCTTableViewDataSource {
+	__weak id<DCTTableViewDataSourceParent> parent;
+}
 
 @synthesize tableView;
 @synthesize cellClass;
+@synthesize parent;
 
 #pragma mark - NSObject
 

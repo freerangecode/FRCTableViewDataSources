@@ -13,11 +13,11 @@
 - (void)dctInternal_setupTableViewDataSource;
 - (IBAction)dctInternal_disclosureButtonTapped:(UIButton *)sender;
 - (IBAction)dctInternal_titleTapped:(UITapGestureRecognizer *)sender;
-- (void)dctInternal_setupTableViewSectionWithCell:(UITableViewCell *)cell;
 @end
 
 @implementation DCTCollapsableSectionTableViewDataSource {
-	NSInteger tableViewSection;
+	__strong NSString *tableViewCellIdentifier;
+	__weak id<DCTTableViewDataSourceParent> parent;
 }
 
 @synthesize tableView;
@@ -26,15 +26,7 @@
 @synthesize title;
 @synthesize type;
 @synthesize opened;
-
-- (id)init {
-	
-	if (!(self = [super init])) return nil;
-	
-	tableViewSection = -1;
-	
-	return self;	
-}
+@synthesize parent;
 
 #pragma mark - DCTTableViewDataSource
 
@@ -45,6 +37,17 @@
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath {
 	NSIndexPath *ip = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
 	return [self.tableViewDataSource objectAtIndexPath:ip];
+}
+
+#pragma mark - DCTTableViewDataSourceParent
+
+- (NSIndexPath *)tableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewIndexPathForDataIndexPath:(NSIndexPath *)indexPath {
+	
+	indexPath = [NSIndexPath indexPathForRow:(indexPath.row+1) inSection:indexPath.section];
+	
+	if (self.parent == nil) return indexPath;	
+	
+	return [self.parent tableViewDataSource:self tableViewIndexPathForDataIndexPath:indexPath];
 }
 
 #pragma mark - UITableViewDataSource
@@ -62,11 +65,12 @@
 	
 	if (indexPath.row == 0) {
 		
-		NSString *identifier = [NSString stringWithFormat:@"titleCell"];
+		if (tableViewCellIdentifier == nil) 
+			tableViewCellIdentifier = NSStringFromClass([self class]);
 		
-		UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:identifier];
+		UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:tableViewCellIdentifier];
 		
-		if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+		if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableViewCellIdentifier];
 		
 		cell.textLabel.text = self.title;
 		cell.accessoryView = nil;
@@ -103,12 +107,15 @@
 	
 	opened = aBool;
 	
-	if (tableViewSection < 0) return;
-	
 	NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
 	
-	for (NSInteger i = 0; i < [self.tableViewDataSource tableView:self.tableView numberOfRowsInSection:0]; i++)
-		[indexPaths addObject:[NSIndexPath indexPathForRow:i+1 inSection:tableViewSection]];
+	NSUInteger tableViewSection = [[self.parent tableViewDataSource:self tableViewIndexPathForDataIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] section];
+	
+	for (NSInteger i = 0; i < [self.tableViewDataSource tableView:self.tableView numberOfRowsInSection:0]; i++) {
+		NSIndexPath *ip = [NSIndexPath indexPathForRow:i+1 inSection:0];
+		if (self.parent != nil) ip = [self.parent tableViewDataSource:self tableViewIndexPathForDataIndexPath:ip];
+		[indexPaths addObject:ip];
+	}
 	
 	[self.tableView beginUpdates];
 	
@@ -140,46 +147,20 @@
 
 - (void)dctInternal_setupTableViewDataSource {
 	self.tableViewDataSource.tableView = self.tableView;
+	self.tableViewDataSource.parent = self;
 }
 
 - (IBAction)dctInternal_titleTapped:(UITapGestureRecognizer *)sender {
-	
-	if (tableViewSection < 0) {
-		
-		if (![sender.view isKindOfClass:[UITableViewCell class]]) return;
-		
-		[self dctInternal_setupTableViewSectionWithCell:(UITableViewCell *)sender.view];
-	}
-	
 	self.opened = !self.opened;
 }
 
 - (IBAction)dctInternal_disclosureButtonTapped:(UIButton *)sender {
-	
-	if (tableViewSection < 0) {
-		
-		UIView *v = sender;
-		
-		while (![v isKindOfClass:[UITableViewCell class]]) {
-			v = [v superview];
-		}
-		
-		[self dctInternal_setupTableViewSectionWithCell:(UITableViewCell *)v];
-	}
-	
 	self.opened = !self.opened;
 	
 	[UIView beginAnimations:@"some" context:nil];
 	[UIView setAnimationDuration:0.33];
 	sender.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
 	[UIView commitAnimations];
-	
-	
-}
-
-- (void)dctInternal_setupTableViewSectionWithCell:(UITableViewCell *)cell {
-	NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-	tableViewSection = indexPath.section;
 }
 
 @end

@@ -46,9 +46,11 @@
 
 @implementation DCTSectionedTableViewDataSource {
 	__strong NSMutableArray *dctInternal_tableViewDataSources;
+	__weak id<DCTTableViewDataSourceParent> parent;
 }
 
 @synthesize tableView;
+@synthesize parent;
 
 #pragma mark - DCTTableViewDataSource
 
@@ -63,12 +65,19 @@
 	return [ds objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:0]];
 }
 
+#pragma mark - DCTTableViewDataSourceParent
+
+- (NSIndexPath *)tableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewIndexPathForDataIndexPath:(NSIndexPath *)indexPath {
+	return [NSIndexPath indexPathForRow:indexPath.row inSection:[[self dctInternal_tableViewDataSources] indexOfObject:dataSource]];	
+}
+
 #pragma mark - DCTTableViewSectionController methods
 
 - (void)addTableViewDataSource:(id<DCTTableViewDataSource>)tableViewDataSource {
 	
 	NSMutableArray *ds = [self dctInternal_tableViewDataSources];
 	
+	tableViewDataSource.parent = self;
 	[ds addObject:tableViewDataSource];
 	
 	[self dctInternal_setupDataSource:tableViewDataSource];

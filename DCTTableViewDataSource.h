@@ -38,15 +38,26 @@
 #import <UIKit/UIKit.h>
 
 
+
+
+@protocol DCTTableViewDataSourceParent;
+
+
+
 @protocol DCTTableViewDataSource <UITableViewDataSource>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) id<DCTTableViewDataSourceParent> parent;
 
 - (void)reloadData;
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
+
+@protocol DCTTableViewDataSourceParent <NSObject>
+- (NSIndexPath *)tableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewIndexPathForDataIndexPath:(NSIndexPath *)indexPath;
+@end
 
 
 
