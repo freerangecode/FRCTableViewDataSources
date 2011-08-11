@@ -88,7 +88,11 @@
 	
 	if (![tableViewCellClass isSubclassOfClass:[DCTTableViewCell class]]) return;
 	
-	UINib *nib = [UINib nibWithNibName:[tableViewCellClass nibName] bundle:nil];
+	NSString *nibName = [tableViewCellClass nibName];
+	
+	if (nibName == nil || [nibName length] < 1) return;
+	
+	UINib *nib = [UINib nibWithNibName:nibName bundle:nil];
 	NSString *reuseIdentifier = [tableViewCellClass reuseIdentifier];
 	
 	[self registerNib:nib forCellReuseIdentifier:reuseIdentifier];
