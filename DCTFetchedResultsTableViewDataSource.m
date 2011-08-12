@@ -153,7 +153,7 @@
 	return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index];
 }
 
-#pragma mark - NSFetchedResultsControllerDelegate methods
+#pragma mark - NSFetchedResultsControllerDelegate
 
 // These methods are taken straight from Apple's documentation on NSFetchedResultsController.
 
