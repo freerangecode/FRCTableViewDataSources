@@ -129,6 +129,14 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	NSInteger amount = [self tableView:tableView numberOfRowsInSection:indexPath.section];
+    if (indexPath.row >= amount) {
+        NSLog(@"%@:%@ RELOADING TABLE VIEW NAH NAH NAH", self, NSStringFromSelector(_cmd));
+        [tableView reloadData];
+        return [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"blah"];
+    }
+	
 	return [super tableView:tableView cellForRowAtIndexPath:indexPath];
 }
 
