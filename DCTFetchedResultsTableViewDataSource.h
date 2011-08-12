@@ -39,8 +39,6 @@
 
 typedef NSFetchRequest *(^DCTFetchRequestBlock)();
 
-typedef void (^DCTFetchedResultsTableViewDataSourceCellConfigurer)(UITableViewCell *cell, NSManagedObject *object);
-
 @interface DCTFetchedResultsTableViewDataSource : DCTTableViewDataSource <NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
@@ -48,8 +46,6 @@ typedef void (^DCTFetchedResultsTableViewDataSourceCellConfigurer)(UITableViewCe
 
 @property (nonatomic, strong) NSFetchRequest *fetchRequest;
 @property (nonatomic, copy) DCTFetchRequestBlock fetchRequestBlock;
-
-@property (nonatomic, copy) DCTFetchedResultsTableViewDataSourceCellConfigurer fetchedCellConfigurer;
 
 - (void)loadFetchRequest;
 - (void)loadFetchedResultsController;

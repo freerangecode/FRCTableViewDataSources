@@ -49,7 +49,6 @@
 @synthesize fetchedResultsController;
 @synthesize fetchRequestBlock;
 @synthesize fetchRequest;
-@synthesize fetchedCellConfigurer;
 
 #pragma mark - DCTTableViewDataSource
 
@@ -130,17 +129,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    	
-	NSManagedObject *mo = [self.fetchedResultsController objectAtIndexPath:indexPath];
-	
-    if (self.fetchedCellConfigurer) self.fetchedCellConfigurer(cell, mo);
-    
-	if ([cell conformsToProtocol:@protocol(DCTTableViewCell)])
-		[(id<DCTTableViewCell>)cell configureWithObject:mo];
-	
-    return cell;
+	return [super tableView:tableView cellForRowAtIndexPath:indexPath];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section { 
