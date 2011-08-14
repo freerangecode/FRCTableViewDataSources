@@ -35,6 +35,9 @@
 }
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath {
+	
+	if (indexPath.row == 0) return nil;
+	
 	NSIndexPath *ip = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
 	return [self.tableViewDataSource objectAtIndexPath:ip];
 }
