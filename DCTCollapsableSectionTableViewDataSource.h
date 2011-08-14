@@ -15,6 +15,8 @@ typedef enum {
 	DCTCollapsableSectionTableViewDataSourceTypeDisclosure
 } DCTCollapsableSectionTableViewDataSourceType;
 
+typedef void (^DCTCollapsableSectionTableViewDataSourceSelectionBlock) ();
+
 @interface DCTCollapsableSectionTableViewDataSource : NSObject<DCTTableViewDataSource, DCTTableViewDataSourceParent>
 
 @property (nonatomic, strong) id<DCTTableViewDataSource> tableViewDataSource;
@@ -22,6 +24,7 @@ typedef enum {
 @property (nonatomic, assign) DCTCollapsableSectionTableViewDataSourceType type;
 
 @property (nonatomic, assign) Class titleCellClass;
+@property (nonatomic, copy) DCTCollapsableSectionTableViewDataSourceSelectionBlock titleSelectionHandler;
 
 @property (nonatomic, strong) NSString *title;
 

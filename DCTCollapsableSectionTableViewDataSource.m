@@ -28,6 +28,7 @@
 @synthesize opened;
 @synthesize parent;
 @synthesize titleCellClass;
+@synthesize titleSelectionHandler;
 
 - (id)init {
 	
@@ -41,7 +42,7 @@
 #pragma mark - DCTTableViewDataSource
 
 - (void)reloadData {
-	[tableViewDataSource reloadData];
+	[self.tableViewDataSource reloadData];
 }
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath {
@@ -92,7 +93,9 @@
 			
 			UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dctInternal_titleTapped:)]; 
 			[cell addGestureRecognizer:gr];
-
+			
+			cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+			
 		} else if (self.type == DCTCollapsableSectionTableViewDataSourceTypeDisclosure) {
 			
 			UIImage *image = [UIImage imageNamed:@"DCTCollapsableSectionTableViewDataSourceDisclosureButton.png"];
@@ -103,6 +106,8 @@
 			button.backgroundColor = [UIColor clearColor];
 			button.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
 			cell.accessoryView = button;
+			
+			if (!self.titleSelectionHandler) cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		}
 		
 		return cell;
