@@ -77,46 +77,43 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	if (indexPath.row == 0) {
-		
-		if (tableViewCellIdentifier == nil) 
-			tableViewCellIdentifier = NSStringFromClass(self.titleCellClass);
-		
-		UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:tableViewCellIdentifier];
-		
-		if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableViewCellIdentifier];
-		
-		cell.textLabel.text = self.title;
-		cell.accessoryView = nil;
-		
-		if (self.type == DCTCollapsableSectionTableViewDataSourceTypeCell) {
-			
-			UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dctInternal_titleTapped:)]; 
-			[cell addGestureRecognizer:gr];
-			
-			cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-			
-		} else if (self.type == DCTCollapsableSectionTableViewDataSourceTypeDisclosure) {
-			
-			UIImage *image = [UIImage imageNamed:@"DCTCollapsableSectionTableViewDataSourceDisclosureButton.png"];
-			UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-			button.frame = CGRectMake(0.0f, 0.0f, image.size.width, image.size.height);	
-			[button setBackgroundImage:image forState:UIControlStateNormal];
-			[button addTarget:self action:@selector(dctInternal_disclosureButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-			button.backgroundColor = [UIColor clearColor];
-			button.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
-			cell.accessoryView = button;
-			
-			if (!self.titleSelectionHandler) cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		}
-		
-		return cell;
-		
+	if (indexPath.row > 0) {
+		indexPath = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
+		return [self.tableViewDataSource tableView:tv cellForRowAtIndexPath:indexPath];
 	}
 	
-	NSIndexPath *ip = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
+	if (tableViewCellIdentifier == nil) 
+		tableViewCellIdentifier = NSStringFromClass(self.titleCellClass);
 	
-	return [self.tableViewDataSource tableView:tv cellForRowAtIndexPath:ip];
+	UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:tableViewCellIdentifier];
+	
+	if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableViewCellIdentifier];
+	
+	cell.textLabel.text = self.title;
+	cell.accessoryView = nil;
+	
+	if (self.type == DCTCollapsableSectionTableViewDataSourceTypeCell) {
+		
+		UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dctInternal_titleTapped:)]; 
+		[cell addGestureRecognizer:gr];
+		
+		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+		
+	} else if (self.type == DCTCollapsableSectionTableViewDataSourceTypeDisclosure) {
+		
+		UIImage *image = [UIImage imageNamed:@"DCTCollapsableSectionTableViewDataSourceDisclosureButton.png"];
+		UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+		button.frame = CGRectMake(0.0f, 0.0f, image.size.width, image.size.height);	
+		[button setBackgroundImage:image forState:UIControlStateNormal];
+		[button addTarget:self action:@selector(dctInternal_disclosureButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+		button.backgroundColor = [UIColor clearColor];
+		button.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
+		cell.accessoryView = button;
+		
+		if (!self.titleSelectionHandler) cell.selectionStyle = UITableViewCellSelectionStyleNone;
+	}
+	
+	return cell;
 }
 
 - (void)setOpened:(BOOL)aBool {
