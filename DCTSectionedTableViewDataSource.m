@@ -47,6 +47,7 @@
 @implementation DCTSectionedTableViewDataSource {
 	__strong NSMutableArray *dctInternal_tableViewDataSources;
 	__weak id<DCTTableViewDataSourceParent> parent;
+	BOOL tableViewHasSetup;
 }
 
 @synthesize tableView;
@@ -81,11 +82,12 @@
 	
 	NSMutableArray *ds = [self dctInternal_tableViewDataSources];
 	
-	tableViewDataSource.parent = self;
 	[ds addObject:tableViewDataSource];
 	
 	[self dctInternal_setupDataSource:tableViewDataSource];
-		
+	
+	if (!tableViewHasSetup) return;
+	
 	NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:[ds indexOfObject:tableViewDataSource]];
 	[self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
@@ -97,6 +99,8 @@
 	NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:[ds indexOfObject:tableViewDataSource]];
 	
 	[ds removeObject:tableViewDataSource];
+	
+	if (!tableViewHasSetup) return;
 	
 	[self.tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
@@ -111,6 +115,9 @@
 
 - (void)setTableViewDataSources:(NSArray *)array {
 	dctInternal_tableViewDataSources = [array mutableCopy];
+	
+	if (!tableViewHasSetup) return;
+	
 	[self.tableView reloadData];	
 }
 
@@ -128,6 +135,7 @@
 #pragma mark - UITableViewDataSource methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tv {
+	tableViewHasSetup = YES;
 	self.tableView = tv;
 	return [[self dctInternal_tableViewDataSources] count];
 }
@@ -210,6 +218,7 @@
 		 
 - (void)dctInternal_setupDataSource:(id<DCTTableViewDataSource>)dataSource {
 	dataSource.tableView = self.tableView;
+	dataSource.parent = self;
 }
 
 @end

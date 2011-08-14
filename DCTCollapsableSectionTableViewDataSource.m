@@ -150,7 +150,7 @@
 	[self dctInternal_setupTableViewDataSource];	
 }
 
-- (void)dctInternal_setupTableViewDataSource {
+- (void)dctInternal_setupTableViewDataSource {	
 	self.tableViewDataSource.tableView = self.tableView;
 	self.tableViewDataSource.parent = self;
 }
