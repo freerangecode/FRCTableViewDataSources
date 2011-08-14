@@ -21,6 +21,8 @@ typedef enum {
 
 @property (nonatomic, assign) DCTCollapsableSectionTableViewDataSourceType type;
 
+@property (nonatomic, assign) Class titleCellClass;
+
 @property (nonatomic, strong) NSString *title;
 
 @property (nonatomic, assign) BOOL greyWhenEmpty;

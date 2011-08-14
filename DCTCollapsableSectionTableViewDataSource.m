@@ -27,6 +27,16 @@
 @synthesize type;
 @synthesize opened;
 @synthesize parent;
+@synthesize titleCellClass;
+
+- (id)init {
+	
+	if (!(self = [super init])) return nil;
+	
+	titleCellClass = [UITableViewCell class];
+	
+	return self;
+}
 
 #pragma mark - DCTTableViewDataSource
 
@@ -69,7 +79,7 @@
 	if (indexPath.row == 0) {
 		
 		if (tableViewCellIdentifier == nil) 
-			tableViewCellIdentifier = NSStringFromClass([self class]);
+			tableViewCellIdentifier = NSStringFromClass(self.titleCellClass);
 		
 		UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:tableViewCellIdentifier];
 		
