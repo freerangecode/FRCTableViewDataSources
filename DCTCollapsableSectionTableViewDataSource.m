@@ -70,7 +70,7 @@
 	
 	NSInteger numberOfRows = 0;
 	
-	if (self.opened) numberOfRows = [self.tableViewDataSource tableView:tv numberOfRowsInSection:section];
+	if (self.opened) numberOfRows = [self.tableViewDataSource tableView:tv numberOfRowsInSection:0];
 	
 	return numberOfRows + 1;
 }
@@ -91,6 +91,13 @@
 	
 	cell.textLabel.text = self.title;
 	cell.accessoryView = nil;
+
+	NSInteger numberOfRows = [self.tableViewDataSource tableView:tv numberOfRowsInSection:0];
+	
+	if (numberOfRows == 0 && self.greyWhenEmpty)
+		cell.textLabel.textColor = [UIColor lightGrayColor];
+	else
+		cell.textLabel.textColor = [UIColor blackColor];
 	
 	if (self.type == DCTCollapsableSectionTableViewDataSourceTypeCell) {
 		
@@ -101,14 +108,17 @@
 		
 	} else if (self.type == DCTCollapsableSectionTableViewDataSourceTypeDisclosure) {
 		
-		UIImage *image = [UIImage imageNamed:@"DCTCollapsableSectionTableViewDataSourceDisclosureButton.png"];
-		UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-		button.frame = CGRectMake(0.0f, 0.0f, image.size.width, image.size.height);	
-		[button setBackgroundImage:image forState:UIControlStateNormal];
-		[button addTarget:self action:@selector(dctInternal_disclosureButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-		button.backgroundColor = [UIColor clearColor];
-		button.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
-		cell.accessoryView = button;
+		if (numberOfRows > 0) {
+			
+			UIImage *image = [UIImage imageNamed:@"DCTCollapsableSectionTableViewDataSourceDisclosureButton.png"];
+			UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+			button.frame = CGRectMake(0.0f, 0.0f, image.size.width, image.size.height);	
+			[button setBackgroundImage:image forState:UIControlStateNormal];
+			[button addTarget:self action:@selector(dctInternal_disclosureButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+			button.backgroundColor = [UIColor clearColor];
+			button.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
+			cell.accessoryView = button;
+		}
 		
 		if (!self.titleSelectionHandler) cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
