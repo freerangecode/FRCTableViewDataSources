@@ -76,6 +76,14 @@
 	return [self.parent tableViewDataSource:self tableViewIndexPathForDataIndexPath:ip];
 }
 
+- (BOOL)tableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource {
+	
+	if (self.parent == nil) return YES;
+		
+	return [self.parent tableViewDataSourceShouldUpdateCells:self];	
+}
+
+
 #pragma mark - DCTTableViewSectionController methods
 
 - (void)addTableViewDataSource:(id<DCTTableViewDataSource>)tableViewDataSource {

@@ -158,6 +158,10 @@
 // These methods are taken straight from Apple's documentation on NSFetchedResultsController.
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+	
+	if (self.parent != nil && ![self.parent tableViewDataSourceShouldUpdateCells:self])
+		return;
+	
     [self.tableView beginUpdates];
 }
 
@@ -166,6 +170,9 @@
   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
 		   atIndex:(NSUInteger)sectionIndex
 	 forChangeType:(NSFetchedResultsChangeType)type {
+	
+	if (self.parent != nil && ![self.parent tableViewDataSourceShouldUpdateCells:self])
+		return;
 	
 	sectionIndex = [self dctInternal_tableViewSectionFromDataSection:sectionIndex];
 	
@@ -188,6 +195,9 @@
 	   atIndexPath:(NSIndexPath *)indexPath
 	 forChangeType:(NSFetchedResultsChangeType)type
 	  newIndexPath:(NSIndexPath *)newIndexPath {
+	
+	if (self.parent != nil && ![self.parent tableViewDataSourceShouldUpdateCells:self])
+		return;
 	
 	indexPath = [self dctInternal_tableViewIndexPathFromDataIndexPath:indexPath];
 	newIndexPath = [self dctInternal_tableViewIndexPathFromDataIndexPath:indexPath];
@@ -220,6 +230,10 @@
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+	
+	if (self.parent != nil && ![self.parent tableViewDataSourceShouldUpdateCells:self])
+		return;
+	
     [self.tableView endUpdates];
 }
 

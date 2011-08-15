@@ -64,6 +64,15 @@
 	return [self.parent tableViewDataSource:self tableViewIndexPathForDataIndexPath:indexPath];
 }
 
+- (BOOL)tableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource {
+	
+	if (!self.opened) return NO;
+	
+	if (self.parent == nil) return YES;
+	
+	return [self.parent tableViewDataSourceShouldUpdateCells:self];	
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section {

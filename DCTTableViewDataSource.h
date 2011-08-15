@@ -57,6 +57,7 @@ typedef UITableViewCell *(^DCTTableViewDataSourceCellGenerator)(UITableView *tab
 
 @protocol DCTTableViewDataSourceParent <NSObject>
 - (NSIndexPath *)tableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewIndexPathForDataIndexPath:(NSIndexPath *)indexPath;
+- (BOOL)tableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource;
 @end
 
 
