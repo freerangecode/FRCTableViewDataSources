@@ -37,8 +37,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-
-
+typedef UITableViewCell *(^DCTTableViewDataSourceCellGenerator)(UITableView *tableView, NSIndexPath *indexPath);
 
 @protocol DCTTableViewDataSourceParent;
 
@@ -55,6 +54,7 @@
 @end
 
 
+
 @protocol DCTTableViewDataSourceParent <NSObject>
 - (NSIndexPath *)tableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewIndexPathForDataIndexPath:(NSIndexPath *)indexPath;
 @end
@@ -64,5 +64,6 @@
 @interface DCTTableViewDataSource : NSObject <DCTTableViewDataSource>
 
 @property (nonatomic, assign) Class cellClass;
+@property (nonatomic, copy) DCTTableViewDataSourceCellGenerator cellGenerator;
 
 @end

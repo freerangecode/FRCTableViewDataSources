@@ -44,6 +44,7 @@
 @synthesize tableView;
 @synthesize cellClass;
 @synthesize parent;
+@synthesize cellGenerator;
 
 #pragma mark - NSObject
 
@@ -94,6 +95,9 @@
 		cellIdentifier = [self.cellClass reuseIdentifier];
 	
     UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:cellIdentifier];
+	
+	if (cell == nil && self.cellGenerator != nil)
+		cell = self.cellGenerator(tv, indexPath);
 	
 	if (cell == nil) {
 		cell = [[self.cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
