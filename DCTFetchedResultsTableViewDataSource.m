@@ -208,23 +208,24 @@
 			
         case NSFetchedResultsChangeInsert:
             [tv insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-					  withRowAnimation:UITableViewRowAnimationFade];
+					  withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
 			
         case NSFetchedResultsChangeDelete:
             [tv deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-					  withRowAnimation:UITableViewRowAnimationFade];
+					  withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
 			
         case NSFetchedResultsChangeUpdate:
-			[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+			[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+								  withRowAnimation:UITableViewRowAnimationFade];
             break;
 			
         case NSFetchedResultsChangeMove:
             [tv deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-					  withRowAnimation:UITableViewRowAnimationFade];
+					  withRowAnimation:UITableViewRowAnimationAutomatic];
             [tv insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-					  withRowAnimation:UITableViewRowAnimationFade];
+					  withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
     }
 }
