@@ -96,13 +96,14 @@
 	
     UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:cellIdentifier];
 	
-	if (cell == nil && self.cellGenerator != nil)
+	if (!cell && self.cellGenerator)
 		cell = self.cellGenerator(tv, indexPath);
 	
-	if (cell == nil) {
+	if (!cell && [self.cellClass isSubclassOfClass:[DCTTableViewCell class]])
+		cell = [self.cellClass cell];
+	
+	if (!cell)
 		cell = [[self.cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        cell.textLabel.text = [NSString stringWithFormat:@"Cell with indexPath: %i.%i", indexPath.section, indexPath.row];
-    }
     
 	if ([cell conformsToProtocol:@protocol(DCTTableViewCell)])
 		[((id <DCTTableViewCell>)cell) configureWithObject:[self objectAtIndexPath:indexPath]];

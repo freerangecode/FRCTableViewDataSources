@@ -19,6 +19,7 @@ typedef void (^DCTTableViewDataSourceCellConfigureBlock)(UITableViewCell *cell, 
 
 @interface DCTTableViewCell : UITableViewCell <DCTTableViewCell>
 
++ (id)cell;
 + (NSString *)reuseIdentifier;
 + (NSString *)nibName;
 

@@ -37,6 +37,22 @@
 
 #pragma mark - DCTTableViewCell
 
++ (id)cell {
+	
+	NSString *nibName = [self nibName];
+	
+	if (!nibName)
+		return [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[self reuseIdentifier]];
+	
+	NSArray *items = [[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil];
+	
+	for (id object in items)
+		if ([object isKindOfClass:self])
+			return object;
+	
+	return nil;	
+}
+
 + (NSString *)reuseIdentifier {
 	return NSStringFromClass(self);
 }
