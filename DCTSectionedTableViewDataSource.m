@@ -46,7 +46,7 @@
 
 @implementation DCTSectionedTableViewDataSource {
 	__strong NSMutableArray *dctInternal_tableViewDataSources;
-	__weak id<DCTTableViewDataSourceParent> parent;
+	__weak id<DCTParentTableViewDataSource> parent;
 	BOOL tableViewHasSetup;
 }
 
@@ -68,17 +68,38 @@
 
 #pragma mark - DCTTableViewDataSourceParent
 
-- (NSIndexPath *)tableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewIndexPathForDataIndexPath:(NSIndexPath *)indexPath {
+- (NSArray *)childTableViewDataSources {
+	return [[self dctInternal_tableViewDataSources] copy];
+}
+
+- (NSIndexPath *)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewIndexPathForDataIndexPath:(NSIndexPath *)indexPath {
 	NSIndexPath *ip = [NSIndexPath indexPathForRow:indexPath.row inSection:[[self dctInternal_tableViewDataSources] indexOfObject:dataSource]];	
 	
 	if (self.parent == nil) return ip;
 	
-	return [self.parent tableViewDataSource:self tableViewIndexPathForDataIndexPath:ip];
+	return [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:ip];	
+}
+
+- (NSInteger)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewSectionForDataSection:(NSInteger)section {
+	section = [[self dctInternal_tableViewDataSources] indexOfObject:dataSource];
+	
+	if (!self.parent) return section;
+	
+	return [self.parent childTableViewDataSource:self tableViewSectionForDataSection:section];
+	
+}
+
+- (id<DCTTableViewDataSource>)childDataSourceForSection:(NSInteger)section {
+	return [[self dctInternal_tableViewDataSources] objectAtIndex:section];
+}
+
+- (id<DCTTableViewDataSource>)childDataSourceForIndexPath:(NSIndexPath *)indexPath {
+	return [[self dctInternal_tableViewDataSources] objectAtIndex:indexPath.section];
 }
 
 - (BOOL)tableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource {
 	
-	if (self.parent == nil) return YES;
+	if (!self.parent) return YES;
 		
 	return [self.parent tableViewDataSourceShouldUpdateCells:self];	
 }

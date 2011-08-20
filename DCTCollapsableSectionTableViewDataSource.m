@@ -7,6 +7,7 @@
 //
 
 #import "DCTCollapsableSectionTableViewDataSource.h"
+#import "DCTParentTableViewDataSource.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DCTCollapsableSectionTableViewDataSource ()
@@ -17,7 +18,7 @@
 
 @implementation DCTCollapsableSectionTableViewDataSource {
 	__strong NSString *tableViewCellIdentifier;
-	__weak id<DCTTableViewDataSourceParent> parent;
+	__weak id<DCTParentTableViewDataSource> parent;
 }
 
 @synthesize tableView;
@@ -55,13 +56,28 @@
 
 #pragma mark - DCTTableViewDataSourceParent
 
-- (NSIndexPath *)tableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewIndexPathForDataIndexPath:(NSIndexPath *)indexPath {
-	
+- (NSArray *)childTableViewDataSources {
+	return [NSArray arrayWithObject:self.tableViewDataSource];
+}
+
+- (NSIndexPath *)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewIndexPathForDataIndexPath:(NSIndexPath *)indexPath {
 	indexPath = [NSIndexPath indexPathForRow:(indexPath.row+1) inSection:indexPath.section];
 	
 	if (self.parent == nil) return indexPath;	
 	
-	return [self.parent tableViewDataSource:self tableViewIndexPathForDataIndexPath:indexPath];
+	return [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:indexPath];
+}
+
+- (NSInteger)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewSectionForDataSection:(NSInteger)section {
+	return [self.parent childTableViewDataSource:self tableViewSectionForDataSection:section];
+}
+
+- (id<DCTTableViewDataSource>)childDataSourceForSection:(NSInteger)section {
+	return self.tableViewDataSource;
+}
+
+- (id<DCTTableViewDataSource>)childDataSourceForIndexPath:(NSIndexPath *)indexPath {
+	return self.tableViewDataSource;
 }
 
 - (BOOL)tableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource {
@@ -145,7 +161,7 @@
 	
 	for (NSInteger i = 0; i < [self.tableViewDataSource tableView:self.tableView numberOfRowsInSection:0]; i++) {
 		NSIndexPath *ip = [NSIndexPath indexPathForRow:i+1 inSection:0];
-		if (self.parent != nil) ip = [self.parent tableViewDataSource:self tableViewIndexPathForDataIndexPath:ip];
+		if (self.parent != nil) ip = [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:ip];
 		[indexPaths addObject:ip];
 	}
 	

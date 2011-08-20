@@ -38,7 +38,7 @@
 #import "DCTTableViewCell.h"
 
 @implementation DCTTableViewDataSource {
-	__weak id<DCTTableViewDataSourceParent> parent;
+	__weak id<DCTParentTableViewDataSource> parent;
 }
 
 @synthesize tableView;
