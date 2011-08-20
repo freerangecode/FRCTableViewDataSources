@@ -40,8 +40,7 @@
 
 @interface DCTSectionedTableViewDataSource : DCTParentTableViewDataSource
 
-- (void)addTableViewDataSource:(id<DCTTableViewDataSource>)tableViewSectionDataSource;
-- (void)removeTableViewDataSource:(id<DCTTableViewDataSource>)tableViewSectionDataSource;
-- (id<DCTTableViewDataSource>)tableViewDataSourceForIndexPath:(NSIndexPath *)indexPath;
+- (void)addChildTableViewDataSource:(id<DCTTableViewDataSource>)tableViewSectionDataSource;
+- (void)removeChildTableViewDataSource:(id<DCTTableViewDataSource>)tableViewSectionDataSource;
 
 @end

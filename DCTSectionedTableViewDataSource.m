@@ -37,9 +37,6 @@
 #import "DCTSectionedTableViewDataSource.h"
 
 @interface DCTSectionedTableViewDataSource ()
-- (id<DCTTableViewDataSource>)dctInternal_dataSourceForIndex:(NSInteger)index;
-- (NSIndexPath *)dctInternal_convertedIndexPath:(NSIndexPath *)indexPath;
-- (NSInteger)dctInternal_convertedSection:(NSInteger)section;
 - (NSMutableArray *)dctInternal_tableViewDataSources;
 - (void)dctInternal_setupDataSource:(id<DCTTableViewDataSource>)dataSource;
 @end
@@ -90,7 +87,7 @@
 
 #pragma mark - DCTTableViewSectionController methods
 
-- (void)addTableViewDataSource:(id<DCTTableViewDataSource>)tableViewDataSource {
+- (void)addChildTableViewDataSource:(id<DCTTableViewDataSource>)tableViewDataSource {
 	
 	NSMutableArray *ds = [self dctInternal_tableViewDataSources];
 	
@@ -104,7 +101,7 @@
 	[self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-- (void)removeTableViewDataSource:(id<DCTTableViewDataSource>)tableViewDataSource {
+- (void)removeChildTableViewDataSource:(id<DCTTableViewDataSource>)tableViewDataSource {
 	
 	NSMutableArray *ds = [self dctInternal_tableViewDataSources];
 	
@@ -115,10 +112,6 @@
 	if (!tableViewHasSetup) return;
 	
 	[self.tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-- (id<DCTTableViewDataSource>)tableViewDataSourceForIndexPath:(NSIndexPath *)indexPath {
-	return [dctInternal_tableViewDataSources objectAtIndex:indexPath.section];	
 }
 
 - (void)setTableViewDataSources:(NSArray *)array {
@@ -148,74 +141,7 @@
 	return [[self dctInternal_tableViewDataSources] count];
 }
 
-- (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section {
-	
-	id<UITableViewDataSource> ds = [self dctInternal_dataSourceForIndex:section];
-	
-	return [ds tableView:table numberOfRowsInSection:[self dctInternal_convertedSection:section]];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	id<UITableViewDataSource> ds = [self dctInternal_dataSourceForIndex:indexPath.section];
-	
-	return [ds tableView:tv cellForRowAtIndexPath:[self dctInternal_convertedIndexPath:indexPath]];
-}
-
-- (NSString *)tableView:(UITableView *)tv titleForFooterInSection:(NSInteger)section {
-	
-	id<UITableViewDataSource> ds = [self dctInternal_dataSourceForIndex:section];
-	
-	if ([ds respondsToSelector:_cmd])
-		return [ds tableView:tv titleForFooterInSection:[self dctInternal_convertedSection:section]];
-	
-	return nil;
-}
-
-- (NSString *)tableView:(UITableView *)tv titleForHeaderInSection:(NSInteger)section {
-	
-	id<UITableViewDataSource> ds = [self dctInternal_dataSourceForIndex:section];
-	
-	section = [self dctInternal_convertedSection:section];
-	
-	if ([ds respondsToSelector:_cmd])
-		return [ds tableView:tv titleForHeaderInSection:[self dctInternal_convertedSection:section]];
-	
-	return nil;
-}
-
-- (BOOL)tableView:(UITableView *)tv canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	id<UITableViewDataSource> ds = [self dctInternal_dataSourceForIndex:indexPath.section];
-	
-	if ([ds respondsToSelector:_cmd])
-		[ds tableView:tv canEditRowAtIndexPath:[self dctInternal_convertedIndexPath:indexPath]];
-	
-	return NO;
-	
-}
-
-- (void)tableView:(UITableView *)tv commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	id<UITableViewDataSource> ds = [self dctInternal_dataSourceForIndex:indexPath.section];
-	
-	if ([ds respondsToSelector:_cmd])
-		[ds tableView:tv commitEditingStyle:editingStyle forRowAtIndexPath:[self dctInternal_convertedIndexPath:indexPath]];
-}
-
 #pragma mark - Private methods
-
-- (id<DCTTableViewDataSource>)dctInternal_dataSourceForIndex:(NSInteger)index {
-	return [[self dctInternal_tableViewDataSources] objectAtIndex:index];
-}
-
-- (NSIndexPath *)dctInternal_convertedIndexPath:(NSIndexPath *)indexPath {
-	return [NSIndexPath indexPathForRow:indexPath.row inSection:[self dctInternal_convertedSection:indexPath.section]];
-}
-
-- (NSInteger)dctInternal_convertedSection:(NSInteger)section {
-	return 0;
-}
 
 - (NSMutableArray *)dctInternal_tableViewDataSources {
 	

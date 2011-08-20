@@ -69,4 +69,72 @@
 	return [ds tableView:tv cellForRowAtIndexPath:indexPath];
 }
 
+#pragma mark Optional
+
+- (NSString *)tableView:(UITableView *)tv titleForHeaderInSection:(NSInteger)section {
+	id<DCTTableViewDataSource> ds = [self childDataSourceForSection:section];
+	section = [self childTableViewDataSource:ds tableViewSectionForDataSection:section];
+	
+	if (![ds respondsToSelector:_cmd]) return nil;
+	
+	return [ds tableView:tv titleForHeaderInSection:section];
+}
+
+- (NSString *)tableView:(UITableView *)tv titleForFooterInSection:(NSInteger)section {
+	id<DCTTableViewDataSource> ds = [self childDataSourceForSection:section];
+	section = [self childTableViewDataSource:ds tableViewSectionForDataSection:section];
+	
+	if (![ds respondsToSelector:_cmd]) return nil;
+	
+	return [ds tableView:tv titleForFooterInSection:section];
+}
+
+#pragma mark Editing
+
+- (BOOL)tableView:(UITableView *)tv canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+	id<DCTTableViewDataSource> ds = [self childDataSourceForIndexPath:indexPath];
+	indexPath = [self childTableViewDataSource:ds tableViewIndexPathForDataIndexPath:indexPath];
+	
+	if (![ds respondsToSelector:_cmd]) return YES;
+	
+	return [ds tableView:tv canEditRowAtIndexPath:indexPath];
+}
+
+#pragma mark Moving/reordering
+
+- (BOOL)tableView:(UITableView *)tv canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+	id<DCTTableViewDataSource> ds = [self childDataSourceForIndexPath:indexPath];
+	indexPath = [self childTableViewDataSource:ds tableViewIndexPathForDataIndexPath:indexPath];
+	
+	if (![ds respondsToSelector:_cmd]) return NO;
+	
+	return [ds tableView:tv canMoveRowAtIndexPath:indexPath];
+}
+
+#pragma mark  Data manipulation - insert and delete support
+
+- (void)tableView:(UITableView *)tv commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+	id<DCTTableViewDataSource> ds = [self childDataSourceForIndexPath:indexPath];
+	indexPath = [self childTableViewDataSource:ds tableViewIndexPathForDataIndexPath:indexPath];
+	
+	if (![ds respondsToSelector:_cmd]) return;
+	
+	[ds tableView:tv commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
+}
+
+- (void)tableView:(UITableView *)tv moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+	id<DCTTableViewDataSource> ds = [self childDataSourceForIndexPath:sourceIndexPath];
+	NSIndexPath *dsSourceIndexPath = [self childTableViewDataSource:ds tableViewIndexPathForDataIndexPath:sourceIndexPath];
+	NSIndexPath *dsDestinationIndexPath = [self childTableViewDataSource:ds tableViewIndexPathForDataIndexPath:sourceIndexPath];
+	
+	id<DCTTableViewDataSource> ds2 = [self childDataSourceForIndexPath:destinationIndexPath];
+	NSIndexPath *ds2SourceIndexPath = [self childTableViewDataSource:ds2 tableViewIndexPathForDataIndexPath:sourceIndexPath];
+	NSIndexPath *ds2DestinationIndexPath = [self childTableViewDataSource:ds2 tableViewIndexPathForDataIndexPath:destinationIndexPath];
+	
+	if (![ds respondsToSelector:_cmd] || ![ds2 respondsToSelector:_cmd]) return;
+	
+	[ds tableView:tv moveRowAtIndexPath:dsSourceIndexPath toIndexPath:dsDestinationIndexPath];
+	[ds2 tableView:tv moveRowAtIndexPath:ds2SourceIndexPath toIndexPath:ds2DestinationIndexPath];
+}
+
 @end
