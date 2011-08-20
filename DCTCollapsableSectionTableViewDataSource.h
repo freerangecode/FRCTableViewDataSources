@@ -6,7 +6,6 @@
 //  Copyright 2011 Daniel Tull. All rights reserved.
 //
 
-#import "DCTTableViewDataSource.h"
 #import "DCTParentTableViewDataSource.h"
 
 typedef enum {

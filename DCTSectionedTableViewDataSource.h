@@ -35,7 +35,6 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "DCTTableViewDataSource.h"
 #import "DCTParentTableViewDataSource.h"
 
 @interface DCTSectionedTableViewDataSource : DCTParentTableViewDataSource <DCTParentTableViewDataSource>
