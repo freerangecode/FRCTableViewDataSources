@@ -46,24 +46,7 @@
 
 @implementation DCTSectionedTableViewDataSource {
 	__strong NSMutableArray *dctInternal_tableViewDataSources;
-	__weak id<DCTParentTableViewDataSource> parent;
 	BOOL tableViewHasSetup;
-}
-
-@synthesize tableView;
-@synthesize parent;
-
-#pragma mark - DCTTableViewDataSource
-
-- (void)reloadData {
-	[self.tableViewDataSources enumerateObjectsUsingBlock:^(id<DCTTableViewDataSource> ds, NSUInteger idx, BOOL *stop) {
-		[ds reloadData];
-	}];
-}
-
-- (id)objectAtIndexPath:(NSIndexPath *)indexPath {
-	id<DCTTableViewDataSource> ds = [self dctInternal_dataSourceForIndex:indexPath.section];
-	return [ds objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:0]];
 }
 
 #pragma mark - DCTTableViewDataSourceParent
@@ -138,10 +121,6 @@
 	return [dctInternal_tableViewDataSources objectAtIndex:indexPath.section];	
 }
 
-- (NSArray *)tableViewDataSources {
-	return [[self dctInternal_tableViewDataSources] copy];
-}
-
 - (void)setTableViewDataSources:(NSArray *)array {
 	dctInternal_tableViewDataSources = [array mutableCopy];
 	
@@ -154,7 +133,7 @@
 	
 	if (tv == self.tableView) return;
 	
-	tableView = tv;
+	[super setTableView:tv];
 	
 	[[self dctInternal_tableViewDataSources] enumerateObjectsUsingBlock:^(id<DCTTableViewDataSource> ds, NSUInteger idx, BOOL *stop) {
 		[self dctInternal_setupDataSource:ds];
