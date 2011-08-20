@@ -62,11 +62,19 @@
 
 - (NSInteger)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewSectionForDataSection:(NSInteger)section {
 	section = [[self dctInternal_tableViewDataSources] indexOfObject:dataSource];
-	
+		
 	if (!self.parent) return section;
 	
 	return [self.parent childTableViewDataSource:self tableViewSectionForDataSection:section];
 	
+}
+
+- (NSIndexPath *)dataIndexPathForTableViewIndexPath:(NSIndexPath *)indexPath {
+	return [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+}
+
+- (NSInteger)dataSectionForTableViewSection:(NSInteger)section {
+	return 0;
 }
 
 - (id<DCTTableViewDataSource>)childDataSourceForSection:(NSInteger)section {

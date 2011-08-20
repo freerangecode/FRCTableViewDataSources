@@ -38,7 +38,7 @@
 #import "DCTTableViewDataSource.h"
 #import "DCTParentTableViewDataSource.h"
 
-@interface DCTSectionedTableViewDataSource : DCTParentTableViewDataSource
+@interface DCTSectionedTableViewDataSource : DCTParentTableViewDataSource <DCTParentTableViewDataSource>
 
 - (void)addChildTableViewDataSource:(id<DCTTableViewDataSource>)tableViewSectionDataSource;
 - (void)removeChildTableViewDataSource:(id<DCTTableViewDataSource>)tableViewSectionDataSource;

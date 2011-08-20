@@ -17,7 +17,7 @@ typedef enum {
 
 typedef void (^DCTCollapsableSectionTableViewDataSourceSelectionBlock) ();
 
-@interface DCTCollapsableSectionTableViewDataSource : NSObject<DCTTableViewDataSource, DCTParentTableViewDataSource>
+@interface DCTCollapsableSectionTableViewDataSource : DCTParentTableViewDataSource <DCTParentTableViewDataSource>
 
 @property (nonatomic, strong) id<DCTTableViewDataSource> tableViewDataSource;
 

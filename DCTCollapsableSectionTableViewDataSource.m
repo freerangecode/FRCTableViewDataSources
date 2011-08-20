@@ -21,13 +21,11 @@
 	__weak id<DCTParentTableViewDataSource> parent;
 }
 
-@synthesize tableView;
 @synthesize tableViewDataSource;
 @synthesize greyWhenEmpty;
 @synthesize title;
 @synthesize type;
 @synthesize opened;
-@synthesize parent;
 @synthesize titleCellClass;
 @synthesize titleSelectionHandler;
 
@@ -72,6 +70,14 @@
 	return [self.parent childTableViewDataSource:self tableViewSectionForDataSection:section];
 }
 
+- (NSIndexPath *)dataIndexPathForTableViewIndexPath:(NSIndexPath *)indexPath {
+	return [NSIndexPath indexPathForRow:indexPath.row-1 inSection:0];
+}
+
+- (NSInteger)dataSectionForTableViewSection:(NSInteger)section {
+	return 0;
+}
+
 - (id<DCTTableViewDataSource>)childDataSourceForSection:(NSInteger)section {
 	return self.tableViewDataSource;
 }
@@ -95,17 +101,15 @@
 	
 	NSInteger numberOfRows = 0;
 	
-	if (self.opened) numberOfRows = [self.tableViewDataSource tableView:tv numberOfRowsInSection:0];
+	if (self.opened) numberOfRows = [super tableView:tv numberOfRowsInSection:0];
 	
 	return numberOfRows + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	if (indexPath.row > 0) {
-		indexPath = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
-		return [self.tableViewDataSource tableView:tv cellForRowAtIndexPath:indexPath];
-	}
+	if (indexPath.row > 0)
+		return [super tableView:tv cellForRowAtIndexPath:indexPath];
 	
 	if (tableViewCellIdentifier == nil) 
 		tableViewCellIdentifier = NSStringFromClass(self.titleCellClass);
@@ -186,7 +190,7 @@
 	
 	if (tv == self.tableView) return;
 	
-	tableView = tv;
+	[super setTableView:tv];
 	
 	[self dctInternal_setupTableViewDataSource];
 }

@@ -36,11 +36,27 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "DCTParentTableViewDataSource.h"
 
 typedef UITableViewCell *(^DCTTableViewDataSourceCellGenerator)(UITableView *tableView, NSIndexPath *indexPath);
 
-@protocol DCTTableViewDataSourceParent;
+@protocol DCTTableViewDataSource;
+
+@protocol DCTParentTableViewDataSource <DCTTableViewDataSource>
+
+@property (nonatomic, readonly) NSArray *childTableViewDataSources;
+
+- (NSIndexPath *)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewIndexPathForDataIndexPath:(NSIndexPath *)indexPath;
+- (NSInteger)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewSectionForDataSection:(NSInteger)section;
+
+- (NSIndexPath *)dataIndexPathForTableViewIndexPath:(NSIndexPath *)indexPath;
+- (NSInteger)dataSectionForTableViewSection:(NSInteger)section;
+
+- (id<DCTTableViewDataSource>)childDataSourceForSection:(NSInteger)section;
+- (id<DCTTableViewDataSource>)childDataSourceForIndexPath:(NSIndexPath *)indexPath;
+
+- (BOOL)tableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource;
+
+@end
 
 
 
