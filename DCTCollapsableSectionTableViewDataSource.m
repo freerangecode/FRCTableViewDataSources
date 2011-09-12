@@ -8,6 +8,7 @@
 
 #import "DCTCollapsableSectionTableViewDataSource.h"
 #import "DCTParentTableViewDataSource.h"
+#import "DCTTableViewCell.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DCTCollapsableSectionTableViewDataSource ()
@@ -50,6 +51,14 @@
 	
 	NSIndexPath *ip = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
 	return [self.tableViewDataSource objectAtIndexPath:ip];
+}
+
+- (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {
+	
+	if (indexPath.row == 0) return [DCTTableViewCell class];
+	
+	NSIndexPath *ip = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
+	return [self.tableViewDataSource cellClassAtIndexPath:ip];
 }
 
 #pragma mark - DCTTableViewDataSourceParent

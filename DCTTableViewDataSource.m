@@ -52,7 +52,7 @@
     
     if (!(self = [super init])) return nil;
 	
-	self.cellClass = [UITableViewCell class];
+	self.cellClass = [DCTTableViewCell class];
 	
     return self;
 }
@@ -81,10 +81,14 @@
 	return indexPath;
 }
 
+- (Class<DCTTableViewCell>)cellClassAtIndexPath:(NSIndexPath *)indexPath {
+	return [self cellClass];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section {
-	return 10;
+	return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {

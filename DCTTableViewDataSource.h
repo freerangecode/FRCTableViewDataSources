@@ -36,6 +36,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "DCTTableViewCell.h"
 
 typedef UITableViewCell *(^DCTTableViewDataSourceCellGenerator)(UITableView *tableView, NSIndexPath *indexPath);
 
@@ -67,6 +68,7 @@ typedef UITableViewCell *(^DCTTableViewDataSourceCellGenerator)(UITableView *tab
 
 - (void)reloadData;
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
+- (Class<DCTTableViewCell>)cellClassAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

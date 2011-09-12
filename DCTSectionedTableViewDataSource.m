@@ -46,7 +46,7 @@
 	BOOL tableViewHasSetup;
 }
 
-#pragma mark - DCTTableViewDataSourceParent
+#pragma mark - DCTParentTableViewDataSource
 
 - (NSArray *)childTableViewDataSources {
 	return [[self dctInternal_tableViewDataSources] copy];

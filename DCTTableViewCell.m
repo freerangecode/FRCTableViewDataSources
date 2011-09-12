@@ -75,6 +75,12 @@
 
 	if (self.cellConfigurer) 
 		self.cellConfigurer(self, object);
+	else
+		self.textLabel.text = [object description];
+}
+
++ (CGFloat)heightForObject:(id)object {
+	return 44.0f;
 }
 
 #pragma mark - Internal
