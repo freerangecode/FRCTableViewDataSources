@@ -77,7 +77,7 @@
 	id<DCTTableViewDataSource> ds = [self.dctInternal_ptvdsSelf childDataSourceForIndexPath:indexPath];
 	indexPath = [self.dctInternal_ptvdsSelf dataIndexPathForTableViewIndexPath:indexPath];
 	
-	if (![ds respondsToSelector:_cmd]) return YES;
+	if (![ds respondsToSelector:_cmd]) return NO;
 	
 	return [ds tableView:tv canEditRowAtIndexPath:indexPath];
 }
