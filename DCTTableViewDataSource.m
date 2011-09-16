@@ -95,19 +95,21 @@
 	
 	NSString *cellIdentifier = nil;
 	
-	if ([self.cellClass isSubclassOfClass:[DCTTableViewCell class]])
-		cellIdentifier = [self.cellClass reuseIdentifier];
+	Class theCellClass = [self cellClassAtIndexPath:indexPath];
+	
+	if ([theCellClass isSubclassOfClass:[DCTTableViewCell class]])
+		cellIdentifier = [theCellClass reuseIdentifier];
 	
     UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:cellIdentifier];
 	
 	if (!cell && self.cellGenerator)
 		cell = self.cellGenerator(tv, indexPath);
 	
-	if (!cell && [self.cellClass isSubclassOfClass:[DCTTableViewCell class]])
-		cell = [self.cellClass cell];
+	if (!cell && [theCellClass isSubclassOfClass:[DCTTableViewCell class]])
+		cell = [theCellClass cell];
 	
 	if (!cell)
-		cell = [[self.cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+		cell = [[theCellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     
 	if ([cell conformsToProtocol:@protocol(DCTTableViewCell)])
 		[((id <DCTTableViewCell>)cell) configureWithObject:[self objectAtIndexPath:indexPath]];
