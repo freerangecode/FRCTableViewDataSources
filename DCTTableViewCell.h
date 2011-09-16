@@ -14,7 +14,7 @@ typedef void (^DCTTableViewDataSourceCellConfigureBlock)(UITableViewCell *cell, 
 
 @protocol DCTTableViewCell <NSObject>
 - (void)configureWithObject:(id)object;
-+ (CGFloat)heightForObject:(id)object;
++ (CGFloat)heightForObject:(id)object width:(CGFloat)width;
 @end
 
 

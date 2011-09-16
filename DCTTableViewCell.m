@@ -79,7 +79,7 @@
 		self.textLabel.text = [object description];
 }
 
-+ (CGFloat)heightForObject:(id)object {
++ (CGFloat)heightForObject:(id)object width:(CGFloat)width {
 	return 44.0f;
 }
 
