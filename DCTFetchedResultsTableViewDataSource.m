@@ -55,7 +55,7 @@
 
 - (void)reloadData {
 
-	if (self.fetchRequestBlock != nil) 
+	if (self.fetchRequestBlock != nil)
 		self.fetchRequest = self.fetchRequestBlock();
 }
 
@@ -72,7 +72,8 @@
 	self.fetchedResultsController = nil;
 	
 	fetchRequest = fr;
-	[self fetchedResultsController]; // Causes the FRC to load
+	
+	//if (self.managedObjectContext) [self fetchedResultsController]; // Causes the FRC to load
 }
 
 - (NSFetchRequest *)fetchRequest {
@@ -92,7 +93,7 @@
 	
 	if ([fetchedResultsController isEqual:frc]) return;
 	
-	if (self.managedObjectContext == nil || self.managedObjectContext != frc.managedObjectContext)
+	if (frc && (self.managedObjectContext == nil || self.managedObjectContext != frc.managedObjectContext))
 		self.managedObjectContext = frc.managedObjectContext;
 	
 	fetchedResultsController.delegate = nil;
