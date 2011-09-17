@@ -176,6 +176,11 @@
 		if (!self.titleSelectionHandler) cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
 	
+	if ([cell conformsToProtocol:@protocol(DCTTableViewCell)]) {
+		id<DCTTableViewCell> dctCell = (id<DCTTableViewCell>)cell;
+		[dctCell configureWithObject:[self objectAtIndexPath:indexPath]];
+	}
+	
 	return cell;
 }
 
