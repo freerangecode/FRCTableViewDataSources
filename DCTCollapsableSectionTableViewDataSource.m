@@ -61,6 +61,17 @@
 	return [self.tableViewDataSource cellClassAtIndexPath:ip];
 }
 
+#pragma mark - DCTCollapsableSectionTableViewDataSource
+
+- (id<DCTTableViewDataSource>)tableViewDataSource {
+	
+	if (!tableViewDataSource) [self loadTableViewDataSouce];
+	
+	return tableViewDataSource;
+}
+
+- (void)loadTableViewDataSouce {}
+
 #pragma mark - DCTTableViewDataSourceParent
 
 - (NSArray *)childTableViewDataSources {
