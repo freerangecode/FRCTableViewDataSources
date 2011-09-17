@@ -142,6 +142,10 @@
 		UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dctInternal_titleTapped:)]; 
 		[cell addGestureRecognizer:gr];
 		
+		UIImage *image = [UIImage imageNamed:@"DCTCollapsableSectionTableViewDataSourceDisclosureIndicator.png"];
+		
+		cell.accessoryView = [[UIImageView alloc] initWithImage:image];
+		
 		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 		
 	} else if (self.type == DCTCollapsableSectionTableViewDataSourceTypeDisclosure) {
@@ -219,7 +223,21 @@
 }
 
 - (IBAction)dctInternal_titleTapped:(UITapGestureRecognizer *)sender {
+	
 	self.opened = !self.opened;
+	
+	if (![sender.view isKindOfClass:[UITableViewCell class]]) return;
+	
+	UITableViewCell *cell = (UITableViewCell *)sender.view;
+	
+	UIView *accessoryView = cell.accessoryView;
+	
+	if (!accessoryView) return;
+	
+	[UIView beginAnimations:@"some" context:nil];
+	[UIView setAnimationDuration:0.33];
+	accessoryView.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
+	[UIView commitAnimations];
 }
 
 - (IBAction)dctInternal_disclosureButtonTapped:(UIButton *)sender {
