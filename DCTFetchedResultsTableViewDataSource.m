@@ -67,13 +67,13 @@
 
 - (void)setFetchRequest:(NSFetchRequest *)fr {
 	
-	if ([fr isEqual:self.fetchRequest]) return;
+	if ([fr isEqual:fetchRequest]) return;
 	
 	self.fetchedResultsController = nil;
 	
 	fetchRequest = fr;
 	
-	//if (self.managedObjectContext) [self fetchedResultsController]; // Causes the FRC to load
+	if (self.managedObjectContext) [self fetchedResultsController]; // Causes the FRC to load
 }
 
 - (NSFetchRequest *)fetchRequest {
@@ -113,6 +113,10 @@
 }
 
 - (void)loadFetchedResultsController {
+	
+	NSAssert1(self.fetchRequest != nil, @"fetchRequest for %@ should not be nil", self);
+	NSAssert1(self.managedObjectContext != nil, @"managedObjectContext for %@ should not be nil", self);
+	
 	self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest
 																		managedObjectContext:self.managedObjectContext
 																		  sectionNameKeyPath:nil
