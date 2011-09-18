@@ -226,7 +226,7 @@
 
 - (void)setTableViewDataSource:(id<DCTTableViewDataSource>)ds {
 	
-	if (self.tableViewDataSource == ds) return;
+	if (tableViewDataSource == ds) return;
 	
 	tableViewDataSource = ds;
 	
