@@ -8,6 +8,8 @@
 
 #import "DCTTableViewCell.h"
 
+NSString *const DCTTableViewCellWillBeReusedNotification = @"DCTTableViewCellWillBeReusedNotification";
+
 @interface DCTTableViewCell ()
 + (BOOL)dctInternal_nibExistsWithNibName:(NSString *)nibName bundle:(NSBundle *)bundle;
 @end
@@ -33,6 +35,13 @@
 	self.cellConfigurer = ^(UITableViewCell *cell, id object) {
 		cell.textLabel.text = [object description];
 	};
+}
+
+#pragma mark - UITableViewCell
+
+- (void)prepareForReuse {
+	[super prepareForReuse];
+	[[NSNotificationCenter defaultCenter] postNotificationName:DCTTableViewCellWillBeReusedNotification object:self];
 }
 
 #pragma mark - DCTTableViewCell

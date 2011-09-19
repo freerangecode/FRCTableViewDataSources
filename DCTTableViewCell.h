@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString *const DCTTableViewCellWillBeReusedNotification;
 
 typedef void (^DCTTableViewDataSourceCellConfigureBlock)(UITableViewCell *cell, id object);
 

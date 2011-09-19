@@ -15,6 +15,7 @@
 - (void)dctInternal_setupTableViewDataSource;
 - (IBAction)dctInternal_disclosureButtonTapped:(UIButton *)sender;
 - (IBAction)dctInternal_titleTapped:(UITapGestureRecognizer *)sender;
+- (void)dctInternal_headerCellWillBeReused:(NSNotification *)notification;
 @end
 
 @implementation DCTCollapsableSectionTableViewDataSource {
@@ -30,6 +31,10 @@
 @synthesize opened;
 @synthesize titleCellClass;
 @synthesize titleSelectionHandler;
+
+- (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:DCTTableViewCellWillBeReusedNotification object:headerCell];
+}
 
 - (id)init {
 	
@@ -184,7 +189,18 @@
 	}
 	
 	headerCell = cell;
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(dctInternal_headerCellWillBeReused:) 
+												 name:DCTTableViewCellWillBeReusedNotification 
+											   object:headerCell];
+	
 	return headerCell;
+}
+
+- (void)dctInternal_headerCellWillBeReused:(NSNotification *)notification {
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:DCTTableViewCellWillBeReusedNotification object:headerCell];
+	headerCell = nil;
 }
 
 - (void)setOpened:(BOOL)aBool {
