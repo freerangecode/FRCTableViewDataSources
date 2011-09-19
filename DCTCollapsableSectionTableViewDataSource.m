@@ -20,6 +20,7 @@
 @implementation DCTCollapsableSectionTableViewDataSource {
 	__strong NSString *tableViewCellIdentifier;
 	__weak id<DCTParentTableViewDataSource> parent;
+	__strong UITableViewCell *headerCell;
 }
 
 @synthesize tableViewDataSource;
@@ -156,6 +157,7 @@
 		UIImage *image = [UIImage imageNamed:@"DCTCollapsableSectionTableViewDataSourceDisclosureIndicator.png"];
 		
 		cell.accessoryView = [[UIImageView alloc] initWithImage:image];
+		cell.accessoryView.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
 		
 		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 		
@@ -181,7 +183,8 @@
 		[dctCell configureWithObject:[self objectAtIndexPath:indexPath]];
 	}
 	
-	return cell;
+	headerCell = cell;
+	return headerCell;
 }
 
 - (void)setOpened:(BOOL)aBool {
@@ -213,6 +216,15 @@
 		[self.tableView scrollToRowAtIndexPath:[indexPaths objectAtIndex:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 		[self.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 	}
+	
+	UIView *accessoryView = headerCell.accessoryView;
+	
+	if (!accessoryView) return;
+	
+	[UIView beginAnimations:@"some" context:nil];
+	[UIView setAnimationDuration:0.33];
+	accessoryView.layer.transform = CATransform3DMakeRotation(aBool ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
+	[UIView commitAnimations];
 }
 
 - (void)setTableView:(UITableView *)tv {
@@ -239,30 +251,11 @@
 }
 
 - (IBAction)dctInternal_titleTapped:(UITapGestureRecognizer *)sender {
-	
 	self.opened = !self.opened;
-	
-	if (![sender.view isKindOfClass:[UITableViewCell class]]) return;
-	
-	UITableViewCell *cell = (UITableViewCell *)sender.view;
-	
-	UIView *accessoryView = cell.accessoryView;
-	
-	if (!accessoryView) return;
-	
-	[UIView beginAnimations:@"some" context:nil];
-	[UIView setAnimationDuration:0.33];
-	accessoryView.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
-	[UIView commitAnimations];
 }
 
 - (IBAction)dctInternal_disclosureButtonTapped:(UIButton *)sender {
 	self.opened = !self.opened;
-	
-	[UIView beginAnimations:@"some" context:nil];
-	[UIView setAnimationDuration:0.33];
-	sender.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
-	[UIView commitAnimations];
 }
 
 @end
