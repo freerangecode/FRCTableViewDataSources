@@ -228,8 +228,11 @@
 	
 	[self.tableView endUpdates];
 	
+	NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+	if (self.parent != nil) headerIndexPath = [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:headerIndexPath];
+	
 	if (aBool) {
-		[self.tableView scrollToRowAtIndexPath:[indexPaths objectAtIndex:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+		[self.tableView scrollToRowAtIndexPath:headerIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 		[self.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 	}
 	
