@@ -219,9 +219,11 @@
 	
 	NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
 	
-	for (NSInteger i = 0; i < [self.tableViewDataSource tableView:self.tableView numberOfRowsInSection:0]; i++) {
+	NSInteger numberOfRows = [self.tableViewDataSource tableView:self.tableView numberOfRowsInSection:0];
+	
+	for (NSInteger i = 0; i < numberOfRows; i++) {
 		NSIndexPath *ip = [NSIndexPath indexPathForRow:i+1 inSection:0];
-		if (self.parent != nil) ip = [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:ip];
+		if (self.parent != nil) ip = [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:ip];		
 		[indexPaths addObject:ip];
 	}
 	
@@ -239,9 +241,9 @@
 	NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 	if (self.parent != nil) headerIndexPath = [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:headerIndexPath];
 	
-	if (aBool) {
+	if (aBool) {		
 		[self.tableView scrollToRowAtIndexPath:headerIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-		[self.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+		//[self.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionNone animated:YES];
 	}
 	
 	UIView *accessoryView = headerCell.accessoryView;
