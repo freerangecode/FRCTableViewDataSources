@@ -61,7 +61,7 @@
 
 - (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {
 	
-	if (indexPath.row == 0) return [DCTTableViewCell class];
+	if (indexPath.row == 0) return self.titleCellClass;
 	
 	NSIndexPath *ip = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
 	return [self.tableViewDataSource cellClassAtIndexPath:ip];
@@ -71,12 +71,12 @@
 
 - (id<DCTTableViewDataSource>)tableViewDataSource {
 	
-	if (!tableViewDataSource) [self loadTableViewDataSouce];
+	if (!tableViewDataSource) [self loadTableViewDataSource];
 	
 	return tableViewDataSource;
 }
 
-- (void)loadTableViewDataSouce {}
+- (void)loadTableViewDataSource {}
 
 #pragma mark - DCTTableViewDataSourceParent
 
@@ -183,10 +183,18 @@
 		if (!self.titleSelectionHandler) cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
 	
+	id object = [self objectAtIndexPath:indexPath];
+	
 	if ([cell conformsToProtocol:@protocol(DCTTableViewCell)]) {
 		id<DCTTableViewCell> dctCell = (id<DCTTableViewCell>)cell;
-		[dctCell configureWithObject:[self objectAtIndexPath:indexPath]];
+		[dctCell configureWithObject:object];
 	}
+	
+	[self configureCell:headerCell atIndexPath:indexPath withObject:object];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self
+													name:DCTTableViewCellWillBeReusedNotification 
+												  object:headerCell];
 	
 	headerCell = cell;
 	

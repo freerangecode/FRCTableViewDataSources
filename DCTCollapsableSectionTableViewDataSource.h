@@ -19,7 +19,7 @@ typedef void (^DCTCollapsableSectionTableViewDataSourceSelectionBlock) ();
 @interface DCTCollapsableSectionTableViewDataSource : DCTParentTableViewDataSource <DCTParentTableViewDataSource>
 
 @property (nonatomic, strong) id<DCTTableViewDataSource> tableViewDataSource;
-- (void)loadTableViewDataSouce;
+- (void)loadTableViewDataSource;
 
 @property (nonatomic, assign) DCTCollapsableSectionTableViewDataSourceType type;
 
