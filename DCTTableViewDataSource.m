@@ -85,6 +85,8 @@
 	return [self cellClass];
 }
 
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withObject:(id)object {}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section {
@@ -111,8 +113,12 @@
 	if (!cell)
 		cell = [[theCellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     
+	id object = [self objectAtIndexPath:indexPath];
+	
 	if ([cell conformsToProtocol:@protocol(DCTTableViewCell)])
-		[((id <DCTTableViewCell>)cell) configureWithObject:[self objectAtIndexPath:indexPath]];
+		[((id <DCTTableViewCell>)cell) configureWithObject:object];
+	
+	[self configureCell:cell atIndexPath:indexPath withObject:object];
 	
 	return cell;
 }

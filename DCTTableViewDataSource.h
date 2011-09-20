@@ -69,6 +69,7 @@ typedef UITableViewCell *(^DCTTableViewDataSourceCellGenerator)(UITableView *tab
 - (void)reloadData;
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 - (Class<DCTTableViewCell>)cellClassAtIndexPath:(NSIndexPath *)indexPath;
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withObject:(id)object;
 
 @end
 
