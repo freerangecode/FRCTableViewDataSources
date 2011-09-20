@@ -221,13 +221,20 @@
 	
 	NSInteger numberOfRows = [self.tableViewDataSource tableView:self.tableView numberOfRowsInSection:0];
 	
+	CGFloat totalCellHeight = 0.0f;
+	
 	for (NSInteger i = 0; i < numberOfRows; i++) {
 		NSIndexPath *ip = [NSIndexPath indexPathForRow:i+1 inSection:0];
+		
+		Class<DCTTableViewCell> cellClass = [self cellClassAtIndexPath:ip];
+		totalCellHeight += [cellClass heightForObject:[self objectAtIndexPath:ip] width:self.tableView.bounds.size.width];
+		
 		if (self.parent != nil) ip = [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:ip];		
 		[indexPaths addObject:ip];
 	}
 	
 	if ([indexPaths count] == 0) return;
+	
 	
 	[self.tableView beginUpdates];
 	
@@ -241,9 +248,24 @@
 	NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 	if (self.parent != nil) headerIndexPath = [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:headerIndexPath];
 	
-	if (aBool) {		
-		[self.tableView scrollToRowAtIndexPath:headerIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-		//[self.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionNone animated:YES];
+	CGFloat tableViewHeight = self.tableView.bounds.size.height;
+	
+	// If it's grouped we need room for the space between sections.
+	if (self.tableView.style == UITableViewStyleGrouped)
+		tableViewHeight -= 40.0f;
+	
+	if (aBool) {
+		
+		if (totalCellHeight < tableViewHeight) {
+			[self.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionNone animated:YES];
+			[self.tableView scrollToRowAtIndexPath:headerIndexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
+		} else {
+			[self.tableView scrollToRowAtIndexPath:headerIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+		}
+		
+		
+	} else {
+		[self.tableView scrollToRowAtIndexPath:headerIndexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
 	}
 	
 	UIView *accessoryView = headerCell.accessoryView;
