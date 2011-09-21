@@ -114,8 +114,8 @@
 
 - (void)loadFetchedResultsController {
 	
-	NSAssert1(self.fetchRequest != nil, @"fetchRequest for %@ should not be nil", self);
-	NSAssert1(self.managedObjectContext != nil, @"managedObjectContext for %@ should not be nil", self);
+	if (!self.fetchRequest) return;
+	if (!self.managedObjectContext) return;
 	
 	self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest
 																		managedObjectContext:self.managedObjectContext
