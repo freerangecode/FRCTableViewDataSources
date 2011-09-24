@@ -8,9 +8,12 @@
 
 #import "DCTObjectTableViewDataSource.h"
 
-@implementation DCTObjectTableViewDataSource
+@implementation DCTObjectTableViewDataSource {
+	UITableViewCell *cell;
+}
 
 @synthesize object;
+@synthesize cell;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	return 1;
@@ -18,6 +21,14 @@
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath {
 	return self.object;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	if (!self.cell)
+		cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+	
+	return self.cell;
 }
 
 - (void)reloadData {

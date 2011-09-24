@@ -10,4 +10,5 @@
 
 @interface DCTObjectTableViewDataSource : DCTTableViewDataSource
 @property (nonatomic, strong) id object;
+@property (nonatomic, strong, readonly) id cell;
 @end
