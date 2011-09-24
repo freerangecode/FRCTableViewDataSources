@@ -115,10 +115,10 @@
     
 	id object = [self objectAtIndexPath:indexPath];
 	
+	[self configureCell:cell atIndexPath:indexPath withObject:object];
+	
 	if ([cell conformsToProtocol:@protocol(DCTTableViewCell)])
 		[((id <DCTTableViewCell>)cell) configureWithObject:object];
-	
-	[self configureCell:cell atIndexPath:indexPath withObject:object];
 	
 	return cell;
 }
