@@ -253,7 +253,7 @@
 	
 	// If it's grouped we need room for the space between sections.
 	if (self.tableView.style == UITableViewStyleGrouped)
-		tableViewHeight -= 40.0f;
+		tableViewHeight -= 20.0f;
 	
 	if (aBool) {
 		
