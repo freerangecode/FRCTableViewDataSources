@@ -25,8 +25,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	if (!self.cell)
-		cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+	cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 	
 	return self.cell;
 }
