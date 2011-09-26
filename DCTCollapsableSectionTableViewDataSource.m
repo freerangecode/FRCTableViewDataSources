@@ -224,8 +224,8 @@
 	
 	CGFloat totalCellHeight = 0.0f;
 	
-	for (NSInteger i = 0; i < numberOfRows; i++) {
-		NSIndexPath *ip = [NSIndexPath indexPathForRow:i+1 inSection:0];
+	for (NSInteger i = 1; i <= numberOfRows; i++) {
+		NSIndexPath *ip = [NSIndexPath indexPathForRow:i inSection:0];
 		
 		Class<DCTTableViewCell> cellClass = [self cellClassAtIndexPath:ip];
 		totalCellHeight += [cellClass heightForObject:[self objectAtIndexPath:ip] width:self.tableView.bounds.size.width];
