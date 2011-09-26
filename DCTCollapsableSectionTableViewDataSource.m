@@ -160,8 +160,9 @@
 		[cell addGestureRecognizer:gr];
 		
 		UIImage *image = [UIImage imageNamed:@"DCTCollapsableSectionTableViewDataSourceDisclosureIndicator.png"];
-		
-		cell.accessoryView = [[UIImageView alloc] initWithImage:image];
+		UIImageView *iv = [[UIImageView alloc] initWithImage:image];
+		iv.highlightedImage = [UIImage imageNamed:@"DCTCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted.png"];
+		cell.accessoryView = iv;
 		cell.accessoryView.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
 		
 		cell.selectionStyle = UITableViewCellSelectionStyleBlue;

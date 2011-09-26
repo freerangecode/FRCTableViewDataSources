@@ -46,6 +46,8 @@
 	BOOL tableViewHasSetup;
 }
 
+@synthesize type;
+
 #pragma mark - DCTParentTableViewDataSource
 
 - (NSArray *)childTableViewDataSources {

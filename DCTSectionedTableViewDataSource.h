@@ -37,9 +37,16 @@
 #import <UIKit/UIKit.h>
 #import "DCTParentTableViewDataSource.h"
 
+typedef enum {
+	DCTSectionedTableViewDataSourceTypeSection = 0,
+	DCTSectionedTableViewDataSourceTypeRow
+} DCTSectionedTableViewDataSourceType;
+
 @interface DCTSectionedTableViewDataSource : DCTParentTableViewDataSource <DCTParentTableViewDataSource>
 
 - (void)addChildTableViewDataSource:(id<DCTTableViewDataSource>)tableViewSectionDataSource;
 - (void)removeChildTableViewDataSource:(id<DCTTableViewDataSource>)tableViewSectionDataSource;
+
+@property (nonatomic, assign) DCTSectionedTableViewDataSourceType type;
 
 @end
