@@ -16,6 +16,12 @@
 - (IBAction)dctInternal_disclosureButtonTapped:(UIButton *)sender;
 - (IBAction)dctInternal_titleTapped:(UITapGestureRecognizer *)sender;
 - (void)dctInternal_headerCellWillBeReused:(NSNotification *)notification;
+
+- (NSArray *)dctInternal_indexPathsForCollapsableCells;
+- (NSArray *)dctInternal_indexPathsForCollapsableCellsIndexPathEnumator:(void (^)(NSIndexPath *))block;
+- (NSIndexPath *)dctInternal_headerIndexPath;
+- (void)dctInternal_setOpened;
+- (void)dctInternal_setClosed;
 @end
 
 @implementation DCTCollapsableSectionTableViewDataSource {
@@ -212,63 +218,96 @@
 	headerCell = nil;
 }
 
-- (void)setOpened:(BOOL)aBool {
-	
-	if (opened == aBool) return;
-	
-	opened = aBool;
-	
-	NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+- (NSArray *)dctInternal_indexPathsForCollapsableCells {
+	return [self dctInternal_indexPathsForCollapsableCellsIndexPathEnumator:nil];
+}
+
+- (NSArray *)dctInternal_indexPathsForCollapsableCellsIndexPathEnumator:(void (^)(NSIndexPath *))block {
 	
 	NSInteger numberOfRows = [self.tableViewDataSource tableView:self.tableView numberOfRowsInSection:0];
 	
-	CGFloat totalCellHeight = headerCell.bounds.size.height;
+	if (numberOfRows < 0) return nil;
+	
+	NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:numberOfRows];
+	
+	for (NSInteger i = 1; i <= numberOfRows; i++) {
+		NSIndexPath *ip = [NSIndexPath indexPathForRow:i inSection:0];
+		
+		if (block) block(ip);
+		
+		if (self.parent != nil) ip = [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:ip];		
+		[indexPaths addObject:ip];
+	}
+	
+	return [indexPaths copy];
+}
+
+- (NSIndexPath *)dctInternal_headerIndexPath {
+	NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+	if (self.parent != nil) headerIndexPath = [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:headerIndexPath];
+	return headerIndexPath;
+}
+
+- (void)dctInternal_setOpened {
+	
+	__block CGFloat totalCellHeight = headerCell.bounds.size.height;
 	CGFloat tableViewHeight = self.tableView.bounds.size.height;
 	
 	// If it's grouped we need room for the space between sections.
 	if (self.tableView.style == UITableViewStyleGrouped)
 		tableViewHeight -= 20.0f;
 	
-	for (NSInteger i = 1; i <= numberOfRows; i++) {
-		NSIndexPath *ip = [NSIndexPath indexPathForRow:i inSection:0];
+	NSArray *indexPaths = [self dctInternal_indexPathsForCollapsableCellsIndexPathEnumator:^(NSIndexPath *ip) {
 		
 		if (totalCellHeight < tableViewHeight) { // Add this check so we can reduce the amount of calls to heightForObject:width:
 			Class<DCTTableViewCell> cellClass = [self cellClassAtIndexPath:ip];
 			totalCellHeight += [cellClass heightForObject:[self objectAtIndexPath:ip] width:self.tableView.bounds.size.width];
 		}
 		
-		if (self.parent != nil) ip = [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:ip];		
-		[indexPaths addObject:ip];
-	}
+	}];
 	
 	if ([indexPaths count] == 0) return;
 	
 	[self.tableView beginUpdates];
-	
-	if (aBool)
-		[self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-	else
-		[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-	
+	[self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 	[self.tableView endUpdates];
 	
 	NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 	if (self.parent != nil) headerIndexPath = [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:headerIndexPath];
 	
-	if (aBool) {
-		
-		if (totalCellHeight < tableViewHeight) {
-			[self.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionNone animated:YES];
-			[self.tableView scrollToRowAtIndexPath:headerIndexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
-		} else {
-			[self.tableView scrollToRowAtIndexPath:headerIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-		}
-		
-		
-	} else {
+	if (totalCellHeight < tableViewHeight) {
+		[self.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionNone animated:YES];
 		[self.tableView scrollToRowAtIndexPath:headerIndexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
+	} else {
+		[self.tableView scrollToRowAtIndexPath:headerIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 	}
+}
+
+- (void)dctInternal_setClosed {
+	NSArray *indexPaths = [self dctInternal_indexPathsForCollapsableCells];
 	
+	if ([indexPaths count] == 0) return;
+	
+	[self.tableView beginUpdates];
+	[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+	[self.tableView endUpdates];
+	
+	[self.tableView scrollToRowAtIndexPath:[self dctInternal_headerIndexPath]
+						  atScrollPosition:UITableViewScrollPositionNone
+								  animated:YES];
+}
+
+- (void)setOpened:(BOOL)aBool {
+	
+	if (opened == aBool) return;
+	
+	opened = aBool;
+	
+	if (aBool)
+		[self dctInternal_setOpened];
+	else 
+		[self dctInternal_setClosed];
+		
 	UIView *accessoryView = headerCell.accessoryView;
 	
 	if (!accessoryView) return;
