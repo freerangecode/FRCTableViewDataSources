@@ -336,9 +336,19 @@
 	[self dctInternal_setupTableViewDataSource];	
 }
 
+- (void)setTitleCellClass:(Class)cellClass {
+	
+	if (titleCellClass == cellClass) return;
+	
+	titleCellClass = cellClass;
+	
+	[self dctInternal_setupTableViewDataSource];
+}
+
 - (void)dctInternal_setupTableViewDataSource {	
 	self.tableViewDataSource.tableView = self.tableView;
 	self.tableViewDataSource.parent = self;
+	[self.tableView dct_registerDCTTableViewCellSubclass:self.titleCellClass];
 }
 
 - (IBAction)dctInternal_titleTapped:(UITapGestureRecognizer *)sender {
