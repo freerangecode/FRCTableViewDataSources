@@ -228,6 +228,21 @@
 	return [[self dctInternal_tableViewDataSources] count];
 }
 
+- (NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section {
+	
+	if (self.type == DCTSplitTableViewDataSourceTypeSection)
+		return [super tableView:tv numberOfRowsInSection:section];
+	
+	
+	__block NSInteger numberOfRows = 0;
+	
+	[[self dctInternal_tableViewDataSources] enumerateObjectsUsingBlock:^(id<DCTTableViewDataSource> ds, NSUInteger idx, BOOL *stop) {
+		numberOfRows += [ds tableView:self.tableView numberOfRowsInSection:0];
+	}];
+	
+	return numberOfRows;
+}
+
 #pragma mark - Private methods
 
 - (NSMutableArray *)dctInternal_tableViewDataSources {
