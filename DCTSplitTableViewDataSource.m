@@ -1,6 +1,6 @@
 /*
- DCTSectionedTableViewDataSource.m
- DCTUIKit
+ DCTSplitTableViewDataSource.m
+ DCTTableViewDataSource
  
  Created by Daniel Tull on 16.09.2010.
  
@@ -34,14 +34,14 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "DCTSectionedTableViewDataSource.h"
+#import "DCTSplitTableViewDataSource.h"
 
-@interface DCTSectionedTableViewDataSource ()
+@interface DCTSplitTableViewDataSource ()
 - (NSMutableArray *)dctInternal_tableViewDataSources;
 - (void)dctInternal_setupDataSource:(id<DCTTableViewDataSource>)dataSource;
 @end
 
-@implementation DCTSectionedTableViewDataSource {
+@implementation DCTSplitTableViewDataSource {
 	__strong NSMutableArray *dctInternal_tableViewDataSources;
 	BOOL tableViewHasSetup;
 }
@@ -58,7 +58,7 @@
 	
 	NSArray *dataSources = [self dctInternal_tableViewDataSources];
 	
-	if (self.type == DCTSectionedTableViewDataSourceTypeRow) {
+	if (self.type == DCTSplitTableViewDataSourceTypeRow) {
 		
 		__block NSInteger row = indexPath.row;
 		
@@ -85,7 +85,7 @@
 
 - (NSInteger)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewSectionForDataSection:(NSInteger)section {
 	
-	if (self.type == DCTSectionedTableViewDataSourceTypeRow) 
+	if (self.type == DCTSplitTableViewDataSourceTypeRow) 
 		section = 0;
 	else 
 		section = [[self dctInternal_tableViewDataSources] indexOfObject:dataSource];
@@ -97,7 +97,7 @@
 
 - (NSIndexPath *)dataIndexPathForTableViewIndexPath:(NSIndexPath *)indexPath {
 	
-	if (self.type == DCTSectionedTableViewDataSourceTypeRow) {
+	if (self.type == DCTSplitTableViewDataSourceTypeRow) {
 		
 		__block NSInteger totalRows = 0;
 		NSInteger row = indexPath.row;
@@ -128,7 +128,7 @@
 	
 	NSArray *dataSources = [self dctInternal_tableViewDataSources];
 	
-	if (self.type == DCTSectionedTableViewDataSourceTypeRow) {
+	if (self.type == DCTSplitTableViewDataSourceTypeRow) {
 		
 		NSAssert([dataSources count] > 0, @"Something's gone wrong.");
 		
@@ -140,7 +140,7 @@
 
 - (id<DCTTableViewDataSource>)childDataSourceForIndexPath:(NSIndexPath *)indexPath {
 	
-	if (self.type == DCTSectionedTableViewDataSourceTypeRow) {
+	if (self.type == DCTSplitTableViewDataSourceTypeRow) {
 		
 		__block NSInteger totalRows = 0;
 		__block id<DCTTableViewDataSource> dataSource = nil;

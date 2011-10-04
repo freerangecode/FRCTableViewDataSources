@@ -1,6 +1,6 @@
 /*
- DCTSectionedTableViewDataSource.h
- DCTUIKit
+ DCTSplitTableViewDataSource.h
+ DCTTableViewDataSource
  
  Created by Daniel Tull on 16.09.2010.
  
@@ -38,15 +38,15 @@
 #import "DCTParentTableViewDataSource.h"
 
 typedef enum {
-	DCTSectionedTableViewDataSourceTypeSection = 0,
-	DCTSectionedTableViewDataSourceTypeRow
-} DCTSectionedTableViewDataSourceType;
+	DCTSplitTableViewDataSourceTypeSection = 0,
+	DCTSplitTableViewDataSourceTypeRow
+} DCTSplitTableViewDataSourceType;
 
-@interface DCTSectionedTableViewDataSource : DCTParentTableViewDataSource <DCTParentTableViewDataSource>
+@interface DCTSplitTableViewDataSource : DCTParentTableViewDataSource <DCTParentTableViewDataSource>
 
 - (void)addChildTableViewDataSource:(id<DCTTableViewDataSource>)tableViewSectionDataSource;
 - (void)removeChildTableViewDataSource:(id<DCTTableViewDataSource>)tableViewSectionDataSource;
 
-@property (nonatomic, assign) DCTSectionedTableViewDataSourceType type;
+@property (nonatomic, assign) DCTSplitTableViewDataSourceType type;
 
 @end
