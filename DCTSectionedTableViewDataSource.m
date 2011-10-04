@@ -55,23 +55,68 @@
 }
 
 - (NSIndexPath *)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewIndexPathForDataIndexPath:(NSIndexPath *)indexPath {
-	NSIndexPath *ip = [NSIndexPath indexPathForRow:indexPath.row inSection:[[self dctInternal_tableViewDataSources] indexOfObject:dataSource]];	
 	
-	if (self.parent == nil) return ip;
+	NSArray *dataSources = [self dctInternal_tableViewDataSources];
 	
-	return [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:ip];	
+	if (self.type == DCTSectionedTableViewDataSourceTypeRow) {
+		
+		__block NSInteger row = indexPath.row;
+		
+		[dataSources enumerateObjectsUsingBlock:^(id<DCTTableViewDataSource> ds, NSUInteger idx, BOOL *stop) {
+						
+			if ([ds isEqual:dataSource])
+				*stop = YES;
+			else
+				row += [ds tableView:self.tableView numberOfRowsInSection:0];
+			
+		}];
+		
+		indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+		
+	} else {
+		
+		indexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:[dataSources indexOfObject:dataSource]];
+	}
+	
+	if (!self.parent) return indexPath;
+	
+	return [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:indexPath];
 }
 
 - (NSInteger)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewSectionForDataSection:(NSInteger)section {
-	section = [[self dctInternal_tableViewDataSources] indexOfObject:dataSource];
-		
+	
+	if (self.type == DCTSectionedTableViewDataSourceTypeRow) 
+		section = 0;
+	else 
+		section = [[self dctInternal_tableViewDataSources] indexOfObject:dataSource];
+	
 	if (!self.parent) return section;
 	
 	return [self.parent childTableViewDataSource:self tableViewSectionForDataSection:section];
-	
 }
 
 - (NSIndexPath *)dataIndexPathForTableViewIndexPath:(NSIndexPath *)indexPath {
+	
+	if (self.type == DCTSectionedTableViewDataSourceTypeRow) {
+		
+		__block NSInteger totalRows = 0;
+		NSInteger row = indexPath.row;
+		
+		[[self dctInternal_tableViewDataSources] enumerateObjectsUsingBlock:^(id<DCTTableViewDataSource> ds, NSUInteger idx, BOOL *stop) {
+			
+			NSInteger numberOfRows = [ds tableView:self.tableView numberOfRowsInSection:0];
+						
+			if ((totalRows + numberOfRows) > row)
+				*stop = YES;
+			else
+				totalRows += numberOfRows;
+		}];
+		
+		row = indexPath.row - totalRows;
+		
+		return [NSIndexPath indexPathForRow:row inSection:0];
+	}
+	
 	return [NSIndexPath indexPathForRow:indexPath.row inSection:0];
 }
 
@@ -80,10 +125,42 @@
 }
 
 - (id<DCTTableViewDataSource>)childDataSourceForSection:(NSInteger)section {
-	return [[self dctInternal_tableViewDataSources] objectAtIndex:section];
+	
+	NSArray *dataSources = [self dctInternal_tableViewDataSources];
+	
+	if (self.type == DCTSectionedTableViewDataSourceTypeRow) {
+		
+		NSAssert([dataSources count] > 0, @"Something's gone wrong.");
+		
+		return [dataSources objectAtIndex:0];
+	}
+	
+	return [dataSources objectAtIndex:section];
 }
 
 - (id<DCTTableViewDataSource>)childDataSourceForIndexPath:(NSIndexPath *)indexPath {
+	
+	if (self.type == DCTSectionedTableViewDataSourceTypeRow) {
+		
+		__block NSInteger totalRows = 0;
+		__block id<DCTTableViewDataSource> dataSource = nil;
+		NSInteger row = indexPath.row;
+		
+		[[self dctInternal_tableViewDataSources] enumerateObjectsUsingBlock:^(id<DCTTableViewDataSource> ds, NSUInteger idx, BOOL *stop) {
+			
+			NSInteger numberOfRows = [ds tableView:self.tableView numberOfRowsInSection:0];
+			
+			totalRows += numberOfRows;
+			
+			if (totalRows > row) {
+				dataSource = ds;
+				*stop = YES;
+			}
+		}];
+		
+		return dataSource;
+	}
+	
 	return [[self dctInternal_tableViewDataSources] objectAtIndex:indexPath.section];
 }
 
@@ -155,7 +232,8 @@
 
 - (NSMutableArray *)dctInternal_tableViewDataSources {
 	
-	if (dctInternal_tableViewDataSources == nil) dctInternal_tableViewDataSources = [[NSMutableArray alloc] init];
+	if (!dctInternal_tableViewDataSources) 
+		dctInternal_tableViewDataSources = [[NSMutableArray alloc] init];
 	
 	return dctInternal_tableViewDataSources;	
 }
