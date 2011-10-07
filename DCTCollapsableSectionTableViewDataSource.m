@@ -26,7 +26,6 @@
 
 @implementation DCTCollapsableSectionTableViewDataSource {
 	__strong NSString *tableViewCellIdentifier;
-	__dct_weak id<DCTParentTableViewDataSource> parent;
 	__strong UITableViewCell *headerCell;
 }
 
@@ -40,7 +39,6 @@
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:DCTTableViewCellWillBeReusedNotification object:headerCell];
-	dct_nil(parent);
 }
 
 - (id)init {
