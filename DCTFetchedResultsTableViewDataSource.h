@@ -1,8 +1,8 @@
 /*
  DCTFetchedResultsTableViewDataSource.h
- DCTUIKit
+ DCTTableViewDataSources
  
- Created by Daniel Tull on 20.5.2011.
+ Created by Daniel Tull on 20.05.2011.
  
  
  

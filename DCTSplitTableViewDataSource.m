@@ -1,6 +1,6 @@
 /*
  DCTSplitTableViewDataSource.m
- DCTTableViewDataSource
+ DCTTableViewDataSources
  
  Created by Daniel Tull on 16.09.2010.
  
