@@ -41,7 +41,7 @@
 #else
 #define dct_weak unsafe_unretained
 #define __dct_weak __unsafe_unretained
-#define dct_nil(x) $x = nil
+#define dct_nil(x) x = nil
 #endif
 
 #import <Foundation/Foundation.h>
