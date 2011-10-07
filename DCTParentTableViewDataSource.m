@@ -17,6 +17,12 @@
 @synthesize tableView;
 @synthesize parent;
 
+#pragma mark - NSObject
+
+- (void)dealloc {
+	dct_nil(self.parent);
+}
+
 #pragma mark - DCTTableViewDataSource
 
 - (void)reloadData {

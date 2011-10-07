@@ -37,9 +37,7 @@
 #import "DCTTableViewDataSource.h"
 #import "DCTTableViewCell.h"
 
-@implementation DCTTableViewDataSource {
-	__dct_weak id<DCTParentTableViewDataSource> parent;
-}
+@implementation DCTTableViewDataSource
 
 @synthesize tableView;
 @synthesize cellClass;
@@ -49,7 +47,7 @@
 #pragma mark - NSObject
 
 - (void)dealloc {
-	dct_nil(parent);
+	dct_nil(self.parent);
 }
 
 - (id)init {
