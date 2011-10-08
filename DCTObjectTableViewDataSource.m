@@ -35,6 +35,7 @@
  */
 
 #import "DCTObjectTableViewDataSource.h"
+#import "DCTParentTableViewDataSource.h"
 
 @implementation DCTObjectTableViewDataSource {
 	UITableViewCell *cell;

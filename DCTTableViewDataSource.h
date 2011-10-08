@@ -49,23 +49,7 @@
 #import "DCTTableViewCell.h"
 
 @protocol DCTTableViewDataSource;
-
-@protocol DCTParentTableViewDataSource <DCTTableViewDataSource>
-
-@property (nonatomic, readonly) NSArray *childTableViewDataSources;
-
-- (NSIndexPath *)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewIndexPathForDataIndexPath:(NSIndexPath *)indexPath;
-- (NSInteger)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewSectionForDataSection:(NSInteger)section;
-
-- (NSIndexPath *)dataIndexPathForTableViewIndexPath:(NSIndexPath *)indexPath;
-- (NSInteger)dataSectionForTableViewSection:(NSInteger)section;
-
-- (id<DCTTableViewDataSource>)childDataSourceForSection:(NSInteger)section;
-- (id<DCTTableViewDataSource>)childDataSourceForIndexPath:(NSIndexPath *)indexPath;
-
-- (BOOL)tableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource;
-
-@end
+@protocol DCTParentTableViewDataSource;
 
 
 /** A protocol to extend the UITableViewDataSoruce for the purposes of more reusable objects to use as datasources.

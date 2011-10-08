@@ -36,6 +36,30 @@
 
 #import "DCTTableViewDataSource.h"
 
+
+
+
+@protocol DCTParentTableViewDataSource <DCTTableViewDataSource>
+
+@property (nonatomic, readonly) NSArray *childTableViewDataSources;
+
+- (NSIndexPath *)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewIndexPathForDataIndexPath:(NSIndexPath *)indexPath;
+- (NSInteger)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewSectionForDataSection:(NSInteger)section;
+
+- (NSIndexPath *)dataIndexPathForTableViewIndexPath:(NSIndexPath *)indexPath;
+- (NSInteger)dataSectionForTableViewSection:(NSInteger)section;
+
+- (id<DCTTableViewDataSource>)childDataSourceForSection:(NSInteger)section;
+- (id<DCTTableViewDataSource>)childDataSourceForIndexPath:(NSIndexPath *)indexPath;
+
+- (BOOL)tableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource;
+
+@end
+
+
+
+
+
 // Subclasses should implement the DCTParentTableViewDataSource protocol
 
 @interface DCTParentTableViewDataSource : NSObject <DCTTableViewDataSource>
