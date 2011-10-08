@@ -127,7 +127,7 @@
 	return 0;
 }
 
-- (id<DCTTableViewDataSource>)childDataSourceForSection:(NSInteger)section {
+- (id<DCTTableViewDataSource>)childTableViewDataSourceForSection:(NSInteger)section {
 	
 	NSArray *dataSources = [self dctInternal_tableViewDataSources];
 	

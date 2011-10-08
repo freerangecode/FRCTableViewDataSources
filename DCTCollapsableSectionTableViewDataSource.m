@@ -130,7 +130,7 @@
 	return 0;
 }
 
-- (id<DCTTableViewDataSource>)childDataSourceForSection:(NSInteger)section {
+- (id<DCTTableViewDataSource>)childTableViewDataSourceForSection:(NSInteger)section {
 	return self.childTableViewDataSource;
 }
 

@@ -75,7 +75,7 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section {
-	id<DCTTableViewDataSource> ds = [self.dctInternal_ptvdsSelf childDataSourceForSection:section];
+	id<DCTTableViewDataSource> ds = [self.dctInternal_ptvdsSelf childTableViewDataSourceForSection:section];
 	section = [self.dctInternal_ptvdsSelf convertSection:section toChildTableViewDataSource:ds];
 	return [ds tableView:tv numberOfRowsInSection:section];
 }
@@ -89,7 +89,7 @@
 #pragma mark Optional
 
 - (NSString *)tableView:(UITableView *)tv titleForHeaderInSection:(NSInteger)section {
-	id<DCTTableViewDataSource> ds = [self.dctInternal_ptvdsSelf childDataSourceForSection:section];
+	id<DCTTableViewDataSource> ds = [self.dctInternal_ptvdsSelf childTableViewDataSourceForSection:section];
 	
 	if (![ds respondsToSelector:_cmd]) return nil;
 	
@@ -98,7 +98,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tv titleForFooterInSection:(NSInteger)section {
-	id<DCTTableViewDataSource> ds = [self.dctInternal_ptvdsSelf childDataSourceForSection:section];
+	id<DCTTableViewDataSource> ds = [self.dctInternal_ptvdsSelf childTableViewDataSourceForSection:section];
 	
 	if (![ds respondsToSelector:_cmd]) return nil;
 	

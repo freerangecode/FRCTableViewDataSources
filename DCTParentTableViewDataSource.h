@@ -50,7 +50,7 @@
 - (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource;
 - (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath toChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource;
 
-- (id<DCTTableViewDataSource>)childDataSourceForSection:(NSInteger)section;
+- (id<DCTTableViewDataSource>)childTableViewDataSourceForSection:(NSInteger)section;
 - (id<DCTTableViewDataSource>)childDataSourceForIndexPath:(NSIndexPath *)indexPath;
 
 - (BOOL)childTableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource;
