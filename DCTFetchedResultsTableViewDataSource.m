@@ -250,7 +250,7 @@
 	
 	if (self.parent == nil) return indexPath;
 	
-	return [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:indexPath];
+	return [self.parent convertIndexPath:indexPath fromChildTableViewDataSource:self];
 }
 
 - (NSUInteger)dctInternal_tableViewSectionFromDataSection:(NSUInteger)section {
@@ -258,7 +258,7 @@
 	if (self.parent == nil) return section;
 	
 	NSIndexPath *ip = [NSIndexPath indexPathForRow:0 inSection:section];
-	ip = [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:ip];
+	ip = [self.parent convertIndexPath:ip fromChildTableViewDataSource:self];
 	return ip.section;
 }
 

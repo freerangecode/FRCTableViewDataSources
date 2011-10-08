@@ -54,7 +54,7 @@
 	return [[self dctInternal_tableViewDataSources] copy];
 }
 
-- (NSIndexPath *)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewIndexPathForDataIndexPath:(NSIndexPath *)indexPath {
+- (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
 	
 	NSArray *dataSources = [self dctInternal_tableViewDataSources];
 	
@@ -80,7 +80,7 @@
 	
 	if (!self.parent) return indexPath;
 	
-	return [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:indexPath];
+	return [self.parent convertIndexPath:indexPath fromChildTableViewDataSource:self];
 }
 
 - (NSInteger)convertSection:(NSInteger)section fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
