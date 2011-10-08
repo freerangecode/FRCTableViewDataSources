@@ -46,8 +46,8 @@
 - (IBAction)dctInternal_titleTapped:(UITapGestureRecognizer *)sender;
 - (void)dctInternal_headerCellWillBeReused:(NSNotification *)notification;
 
-- (NSArray *)dctInternal_indexPathsForCollapsableCells;
-- (NSArray *)dctInternal_indexPathsForCollapsableCellsIndexPathEnumator:(void (^)(NSIndexPath *))block;
+- (NSArray *)dctInternal_tableViewIndexPathsForCollapsableCells;
+- (NSArray *)dctInternal_tableViewIndexPathsForCollapsableCellsIndexPathEnumator:(void (^)(NSIndexPath *))block;
 - (NSIndexPath *)dctInternal_headerTableViewIndexPath;
 - (void)dctInternal_setOpened;
 - (void)dctInternal_setClosed;
@@ -232,15 +232,15 @@
 	headerCell = nil;
 }
 
-- (NSArray *)dctInternal_indexPathsForCollapsableCells {
-	return [self dctInternal_indexPathsForCollapsableCellsIndexPathEnumator:nil];
+- (NSArray *)dctInternal_tableViewIndexPathsForCollapsableCells {
+	return [self dctInternal_tableViewIndexPathsForCollapsableCellsIndexPathEnumator:nil];
 }
 
-- (NSArray *)dctInternal_indexPathsForCollapsableCellsIndexPathEnumator:(void (^)(NSIndexPath *))block {
+- (NSArray *)dctInternal_tableViewIndexPathsForCollapsableCellsIndexPathEnumator:(void (^)(NSIndexPath *))block {
 	
 	NSInteger numberOfRows = [self.childTableViewDataSource tableView:self.tableView numberOfRowsInSection:0];
 	
-	if (numberOfRows < 0) return nil;
+	if (numberOfRows == 0) return nil;
 	
 	NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:numberOfRows];
 	
@@ -270,7 +270,7 @@
 	if (self.tableView.style == UITableViewStyleGrouped)
 		tableViewHeight -= 20.0f;
 	
-	NSArray *indexPaths = [self dctInternal_indexPathsForCollapsableCellsIndexPathEnumator:^(NSIndexPath *ip) {
+	NSArray *indexPaths = [self dctInternal_tableViewIndexPathsForCollapsableCellsIndexPathEnumator:^(NSIndexPath *ip) {
 		
 		if (totalCellHeight < tableViewHeight) { // Add this check so we can reduce the amount of calls to heightForObject:width:
 			Class cellClass = [self cellClassAtIndexPath:ip];
@@ -296,7 +296,7 @@
 }
 
 - (void)dctInternal_setClosed {
-	NSArray *indexPaths = [self dctInternal_indexPathsForCollapsableCells];
+	NSArray *indexPaths = [self dctInternal_tableViewIndexPathsForCollapsableCells];
 	
 	if ([indexPaths count] == 0) return;
 	
