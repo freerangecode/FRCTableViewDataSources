@@ -115,8 +115,8 @@
 	return [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:indexPath];
 }
 
-- (NSInteger)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewSectionForDataSection:(NSInteger)section {
-	return [self.parent childTableViewDataSource:self tableViewSectionForDataSection:section];
+- (NSInteger)convertSection:(NSInteger)section fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
+	return [self.parent convertSection:section fromChildTableViewDataSource:self];
 }
 
 - (NSIndexPath *)dataIndexPathForTableViewIndexPath:(NSIndexPath *)indexPath {

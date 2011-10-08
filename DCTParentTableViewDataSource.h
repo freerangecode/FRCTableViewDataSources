@@ -44,8 +44,9 @@
 
 @property (nonatomic, readonly) NSArray *childTableViewDataSources;
 
+- (NSInteger)convertSection:(NSInteger)section fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource;
+
 - (NSIndexPath *)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewIndexPathForDataIndexPath:(NSIndexPath *)indexPath;
-- (NSInteger)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewSectionForDataSection:(NSInteger)section;
 
 - (NSIndexPath *)dataIndexPathForTableViewIndexPath:(NSIndexPath *)indexPath;
 - (NSInteger)dataSectionForTableViewSection:(NSInteger)section;

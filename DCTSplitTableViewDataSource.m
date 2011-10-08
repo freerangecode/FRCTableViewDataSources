@@ -83,16 +83,16 @@
 	return [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:indexPath];
 }
 
-- (NSInteger)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewSectionForDataSection:(NSInteger)section {
+- (NSInteger)convertSection:(NSInteger)section fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
 	
 	if (self.type == DCTSplitTableViewDataSourceTypeRow) 
 		section = 0;
 	else 
 		section = [[self dctInternal_tableViewDataSources] indexOfObject:dataSource];
 	
-	if (!self.parent) return section;
+	if (self.parent) section = [self.parent convertSection:section fromChildTableViewDataSource:self];
 	
-	return [self.parent childTableViewDataSource:self tableViewSectionForDataSection:section];
+	return section;
 }
 
 - (NSIndexPath *)dataIndexPathForTableViewIndexPath:(NSIndexPath *)indexPath {
