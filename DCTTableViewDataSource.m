@@ -42,7 +42,6 @@
 @synthesize tableView;
 @synthesize cellClass;
 @synthesize parent;
-@synthesize cellGenerator;
 
 #pragma mark - NSObject
 
@@ -105,9 +104,6 @@
 		cellIdentifier = [theCellClass reuseIdentifier];
 	
     UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:cellIdentifier];
-	
-	if (!cell && self.cellGenerator)
-		cell = self.cellGenerator(tv, indexPath);
 	
 	if (!cell && [theCellClass isSubclassOfClass:[DCTTableViewCell class]])
 		cell = [theCellClass cell];

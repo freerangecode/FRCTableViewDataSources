@@ -48,8 +48,6 @@
 #import <UIKit/UIKit.h>
 #import "DCTTableViewCell.h"
 
-typedef UITableViewCell *(^DCTTableViewDataSourceCellGenerator)(UITableView *tableView, NSIndexPath *indexPath);
-
 @protocol DCTTableViewDataSource;
 
 @protocol DCTParentTableViewDataSource <DCTTableViewDataSource>
@@ -90,6 +88,5 @@ typedef UITableViewCell *(^DCTTableViewDataSourceCellGenerator)(UITableView *tab
 @interface DCTTableViewDataSource : NSObject <DCTTableViewDataSource>
 
 @property (nonatomic, assign) Class cellClass;
-@property (nonatomic, copy) DCTTableViewDataSourceCellGenerator cellGenerator;
 
 @end
