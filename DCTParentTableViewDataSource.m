@@ -76,8 +76,7 @@
 
 - (NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section {
 	id<DCTTableViewDataSource> ds = [self.dctInternal_ptvdsSelf childDataSourceForSection:section];
-	section = [self.dctInternal_ptvdsSelf dataSectionForTableViewSection:section];
-	
+	section = [self.dctInternal_ptvdsSelf convertSection:section toChildTableViewDataSource:ds];
 	return [ds tableView:tv numberOfRowsInSection:section];
 }
 
@@ -91,7 +90,7 @@
 
 - (NSString *)tableView:(UITableView *)tv titleForHeaderInSection:(NSInteger)section {
 	id<DCTTableViewDataSource> ds = [self.dctInternal_ptvdsSelf childDataSourceForSection:section];
-	section = [self.dctInternal_ptvdsSelf dataSectionForTableViewSection:section];
+	section = [self.dctInternal_ptvdsSelf convertSection:section toChildTableViewDataSource:ds];
 	
 	if (![ds respondsToSelector:_cmd]) return nil;
 	
@@ -100,7 +99,7 @@
 
 - (NSString *)tableView:(UITableView *)tv titleForFooterInSection:(NSInteger)section {
 	id<DCTTableViewDataSource> ds = [self.dctInternal_ptvdsSelf childDataSourceForSection:section];
-	section = [self.dctInternal_ptvdsSelf dataSectionForTableViewSection:section];
+	section = [self.dctInternal_ptvdsSelf convertSection:section toChildTableViewDataSource:ds];
 	
 	if (![ds respondsToSelector:_cmd]) return nil;
 	

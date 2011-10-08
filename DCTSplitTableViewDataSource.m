@@ -120,7 +120,10 @@
 	return [NSIndexPath indexPathForRow:indexPath.row inSection:0];
 }
 
-- (NSInteger)dataSectionForTableViewSection:(NSInteger)section {
+- (NSInteger)convertSection:(NSInteger)section toChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
+	
+	NSAssert([dctInternal_tableViewDataSources containsObject:dataSource], @"dataSource should be a child table view data source");
+	
 	return 0;
 }
 
