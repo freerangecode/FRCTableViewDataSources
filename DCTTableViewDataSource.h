@@ -70,7 +70,8 @@ typedef UITableViewCell *(^DCTTableViewDataSourceCellGenerator)(UITableView *tab
 @end
 
 
-
+/** A protocol to extend the UITableViewDataSoruce for the purposes of more reusable objects to use as datasources.
+ */
 @protocol DCTTableViewDataSource <UITableViewDataSource>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
@@ -84,7 +85,8 @@ typedef UITableViewCell *(^DCTTableViewDataSourceCellGenerator)(UITableView *tab
 @end
 
 
-
+/** A class that provides a basic implementation of the DCTTableViewDataSource protocol
+ */
 @interface DCTTableViewDataSource : NSObject <DCTTableViewDataSource>
 
 @property (nonatomic, assign) Class cellClass;
