@@ -165,7 +165,7 @@
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
 	
-	if (self.parent != nil && ![self.parent tableViewDataSourceShouldUpdateCells:self])
+	if (self.parent != nil && ![self.parent childTableViewDataSourceShouldUpdateCells:self])
 		return;
 	
     [self.tableView beginUpdates];
@@ -177,7 +177,7 @@
 		   atIndex:(NSUInteger)sectionIndex
 	 forChangeType:(NSFetchedResultsChangeType)type {
 	
-	if (self.parent != nil && ![self.parent tableViewDataSourceShouldUpdateCells:self])
+	if (self.parent != nil && ![self.parent childTableViewDataSourceShouldUpdateCells:self])
 		return;
 	
 	sectionIndex = [self dctInternal_tableViewSectionFromDataSection:sectionIndex];
@@ -202,7 +202,7 @@
 	 forChangeType:(NSFetchedResultsChangeType)type
 	  newIndexPath:(NSIndexPath *)newIndexPath {
 	
-	if (self.parent != nil && ![self.parent tableViewDataSourceShouldUpdateCells:self])
+	if (self.parent != nil && ![self.parent childTableViewDataSourceShouldUpdateCells:self])
 		return;
 	
 	indexPath = [self dctInternal_tableViewIndexPathFromDataIndexPath:indexPath];
@@ -238,7 +238,7 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
 	
-	if (self.parent != nil && ![self.parent tableViewDataSourceShouldUpdateCells:self])
+	if (self.parent != nil && ![self.parent childTableViewDataSourceShouldUpdateCells:self])
 		return;
 	
     [self.tableView endUpdates];

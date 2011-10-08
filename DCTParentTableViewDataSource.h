@@ -53,7 +53,7 @@
 - (id<DCTTableViewDataSource>)childDataSourceForSection:(NSInteger)section;
 - (id<DCTTableViewDataSource>)childDataSourceForIndexPath:(NSIndexPath *)indexPath;
 
-- (BOOL)tableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource;
+- (BOOL)childTableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource;
 
 @end
 

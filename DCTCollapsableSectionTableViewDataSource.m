@@ -138,13 +138,13 @@
 	return self.childTableViewDataSource;
 }
 
-- (BOOL)tableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource {
+- (BOOL)childTableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource {
 	
 	if (!self.opened) return NO;
 	
 	if (self.parent == nil) return YES;
 	
-	return [self.parent tableViewDataSourceShouldUpdateCells:self];	
+	return [self.parent childTableViewDataSourceShouldUpdateCells:self];	
 }
 
 #pragma mark - UITableViewDataSource

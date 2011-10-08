@@ -167,11 +167,11 @@
 	return [[self dctInternal_tableViewDataSources] objectAtIndex:indexPath.section];
 }
 
-- (BOOL)tableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource {
+- (BOOL)childTableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource {
 	
 	if (!self.parent) return YES;
 		
-	return [self.parent tableViewDataSourceShouldUpdateCells:self];	
+	return [self.parent childTableViewDataSourceShouldUpdateCells:self];	
 }
 
 
