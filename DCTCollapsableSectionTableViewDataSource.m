@@ -58,7 +58,7 @@
 	__strong UITableViewCell *headerCell;
 }
 
-@synthesize tableViewDataSource;
+@synthesize childTableViewDataSource;
 @synthesize greyWhenEmpty;
 @synthesize title;
 @synthesize type;
@@ -82,7 +82,7 @@
 #pragma mark - DCTTableViewDataSource
 
 - (void)reloadData {
-	[self.tableViewDataSource reloadData];
+	[self.childTableViewDataSource reloadData];
 }
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath {
@@ -90,7 +90,7 @@
 	if (indexPath.row == 0) return nil;
 	
 	NSIndexPath *ip = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
-	return [self.tableViewDataSource objectAtIndexPath:ip];
+	return [self.childTableViewDataSource objectAtIndexPath:ip];
 }
 
 - (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {
@@ -98,24 +98,24 @@
 	if (indexPath.row == 0) return self.titleCellClass;
 	
 	NSIndexPath *ip = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
-	return [self.tableViewDataSource cellClassAtIndexPath:ip];
+	return [self.childTableViewDataSource cellClassAtIndexPath:ip];
 }
 
 #pragma mark - DCTCollapsableSectionTableViewDataSource
 
-- (id<DCTTableViewDataSource>)tableViewDataSource {
+- (id<DCTTableViewDataSource>)childTableViewDataSource {
 	
-	if (!tableViewDataSource) [self loadTableViewDataSource];
+	if (!childTableViewDataSource) [self loadChildTableViewDataSource];
 	
-	return tableViewDataSource;
+	return childTableViewDataSource;
 }
 
-- (void)loadTableViewDataSource {}
+- (void)loadChildTableViewDataSource {}
 
 #pragma mark - DCTTableViewDataSourceParent
 
 - (NSArray *)childTableViewDataSources {
-	return [NSArray arrayWithObject:self.tableViewDataSource];
+	return [NSArray arrayWithObject:self.childTableViewDataSource];
 }
 
 - (NSIndexPath *)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewIndexPathForDataIndexPath:(NSIndexPath *)indexPath {
@@ -139,11 +139,11 @@
 }
 
 - (id<DCTTableViewDataSource>)childDataSourceForSection:(NSInteger)section {
-	return self.tableViewDataSource;
+	return self.childTableViewDataSource;
 }
 
 - (id<DCTTableViewDataSource>)childDataSourceForIndexPath:(NSIndexPath *)indexPath {
-	return self.tableViewDataSource;
+	return self.childTableViewDataSource;
 }
 
 - (BOOL)tableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource {
@@ -181,7 +181,7 @@
 	cell.textLabel.text = self.title;
 	cell.accessoryView = nil;
 
-	NSInteger numberOfRows = [self.tableViewDataSource tableView:tv numberOfRowsInSection:0];
+	NSInteger numberOfRows = [self.childTableViewDataSource tableView:tv numberOfRowsInSection:0];
 	
 	if (numberOfRows == 0 && self.greyWhenEmpty)
 		cell.textLabel.textColor = [UIColor lightGrayColor];
@@ -252,7 +252,7 @@
 
 - (NSArray *)dctInternal_indexPathsForCollapsableCellsIndexPathEnumator:(void (^)(NSIndexPath *))block {
 	
-	NSInteger numberOfRows = [self.tableViewDataSource tableView:self.tableView numberOfRowsInSection:0];
+	NSInteger numberOfRows = [self.childTableViewDataSource tableView:self.tableView numberOfRowsInSection:0];
 	
 	if (numberOfRows < 0) return nil;
 	
@@ -355,11 +355,11 @@
 	[self dctInternal_setupTableViewDataSource];
 }
 
-- (void)setTableViewDataSource:(id<DCTTableViewDataSource>)ds {
+- (void)setChildTableViewDataSource:(id<DCTTableViewDataSource>)ds {
 	
-	if (tableViewDataSource == ds) return;
+	if (childTableViewDataSource == ds) return;
 	
-	tableViewDataSource = ds;
+	childTableViewDataSource = ds;
 	
 	[self dctInternal_setupTableViewDataSource];	
 }
@@ -374,8 +374,8 @@
 }
 
 - (void)dctInternal_setupTableViewDataSource {	
-	self.tableViewDataSource.tableView = self.tableView;
-	self.tableViewDataSource.parent = self;
+	self.childTableViewDataSource.tableView = self.tableView;
+	self.childTableViewDataSource.parent = self;
 	[self.tableView dct_registerDCTTableViewCellSubclass:self.titleCellClass];
 }
 
