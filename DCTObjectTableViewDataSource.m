@@ -37,12 +37,9 @@
 #import "DCTObjectTableViewDataSource.h"
 #import "DCTParentTableViewDataSource.h"
 
-@implementation DCTObjectTableViewDataSource {
-	UITableViewCell *cell;
-}
+@implementation DCTObjectTableViewDataSource
 
 @synthesize object;
-@synthesize cell;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	return 1;
@@ -50,13 +47,6 @@
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath {
 	return self.object;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-	
-	return self.cell;
 }
 
 - (void)reloadData {
