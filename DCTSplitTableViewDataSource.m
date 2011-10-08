@@ -56,6 +56,8 @@
 
 - (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
 	
+	NSAssert([dctInternal_tableViewDataSources containsObject:dataSource], @"dataSource should be a child table view data source");
+	
 	NSArray *dataSources = [self dctInternal_tableViewDataSources];
 	
 	if (self.type == DCTSplitTableViewDataSourceTypeRow) {
@@ -83,6 +85,8 @@
 
 - (NSInteger)convertSection:(NSInteger)section fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
 	
+	NSAssert([dctInternal_tableViewDataSources containsObject:dataSource], @"dataSource should be a child table view data source");
+	
 	if (self.type == DCTSplitTableViewDataSourceTypeRow) 
 		section = 0;
 	else 
@@ -92,6 +96,8 @@
 }
 
 - (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath toChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
+	
+	NSAssert([dctInternal_tableViewDataSources containsObject:dataSource], @"dataSource should be a child table view data source");
 	
 	if (self.type == DCTSplitTableViewDataSourceTypeRow) {
 		
@@ -117,9 +123,7 @@
 }
 
 - (NSInteger)convertSection:(NSInteger)section toChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
-	
 	NSAssert([dctInternal_tableViewDataSources containsObject:dataSource], @"dataSource should be a child table view data source");
-	
 	return 0;
 }
 

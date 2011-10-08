@@ -116,28 +116,29 @@
 
 - (void)loadChildTableViewDataSource {}
 
-#pragma mark - DCTTableViewDataSourceParent
+#pragma mark - DCTParentTableViewDataSource
 
 - (NSArray *)childTableViewDataSources {
 	return [NSArray arrayWithObject:self.childTableViewDataSource];
 }
 
 - (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
+	NSAssert(dataSource == self.childTableViewDataSource, @"dataSource should be the childTableViewDataSource");
 	return [NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section];
 }
 
-- (NSInteger)convertSection:(NSInteger)section fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
-	return section;
-}
-
 - (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath toChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
+	NSAssert(dataSource == self.childTableViewDataSource, @"dataSource should be the childTableViewDataSource");
 	return [NSIndexPath indexPathForRow:indexPath.row-1 inSection:0];
 }
 
-- (NSInteger)convertSection:(NSInteger)section toChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
-	
+- (NSInteger)convertSection:(NSInteger)section fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
 	NSAssert(dataSource == self.childTableViewDataSource, @"dataSource should be the childTableViewDataSource");
-	
+	return section;
+}
+
+- (NSInteger)convertSection:(NSInteger)section toChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {	
+	NSAssert(dataSource == self.childTableViewDataSource, @"dataSource should be the childTableViewDataSource");
 	return 0;
 }
 
