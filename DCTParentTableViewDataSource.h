@@ -48,8 +48,7 @@
 - (NSInteger)convertSection:(NSInteger)section toChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource;
 
 - (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource;
-
-- (NSIndexPath *)dataIndexPathForTableViewIndexPath:(NSIndexPath *)indexPath;
+- (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath toChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource;
 
 - (id<DCTTableViewDataSource>)childDataSourceForSection:(NSInteger)section;
 - (id<DCTTableViewDataSource>)childDataSourceForIndexPath:(NSIndexPath *)indexPath;

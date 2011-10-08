@@ -119,7 +119,7 @@
 	return [self.parent convertSection:section fromChildTableViewDataSource:self];
 }
 
-- (NSIndexPath *)dataIndexPathForTableViewIndexPath:(NSIndexPath *)indexPath {
+- (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath toChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
 	return [NSIndexPath indexPathForRow:indexPath.row-1 inSection:0];
 }
 

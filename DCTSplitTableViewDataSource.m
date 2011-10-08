@@ -95,7 +95,7 @@
 	return section;
 }
 
-- (NSIndexPath *)dataIndexPathForTableViewIndexPath:(NSIndexPath *)indexPath {
+- (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath toChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
 	
 	if (self.type == DCTSplitTableViewDataSourceTypeRow) {
 		
