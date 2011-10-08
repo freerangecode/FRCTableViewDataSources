@@ -125,7 +125,9 @@ NSString *const DCTTableViewCellWillBeReusedNotification = @"DCTTableViewCellWil
 @implementation UITableView (DCTTableViewCell)
 
 - (void)dct_registerDCTTableViewCellSubclass:(Class)tableViewCellClass {
-	
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_5_0	
+
 	if (![tableViewCellClass isSubclassOfClass:[DCTTableViewCell class]]) return;
 	
 	NSString *nibName = [tableViewCellClass nibName];
@@ -136,6 +138,9 @@ NSString *const DCTTableViewCellWillBeReusedNotification = @"DCTTableViewCellWil
 	NSString *reuseIdentifier = [tableViewCellClass reuseIdentifier];
 	
 	[self registerNib:nib forCellReuseIdentifier:reuseIdentifier];
+
+#endif
+	
 }
 
 @end
