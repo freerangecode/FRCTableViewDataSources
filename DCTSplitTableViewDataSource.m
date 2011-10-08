@@ -78,9 +78,7 @@
 		indexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:[dataSources indexOfObject:dataSource]];
 	}
 	
-	if (!self.parent) return indexPath;
-	
-	return [self.parent convertIndexPath:indexPath fromChildTableViewDataSource:self];
+	return indexPath;
 }
 
 - (NSInteger)convertSection:(NSInteger)section fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
@@ -89,8 +87,6 @@
 		section = 0;
 	else 
 		section = [[self dctInternal_tableViewDataSources] indexOfObject:dataSource];
-	
-	if (self.parent) section = [self.parent convertSection:section fromChildTableViewDataSource:self];
 	
 	return section;
 }

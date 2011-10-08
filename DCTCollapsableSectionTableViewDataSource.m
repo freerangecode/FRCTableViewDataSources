@@ -108,15 +108,11 @@
 }
 
 - (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
-	indexPath = [NSIndexPath indexPathForRow:(indexPath.row+1) inSection:indexPath.section];
-	
-	if (self.parent == nil) return indexPath;	
-	
-	return [self.parent convertIndexPath:indexPath fromChildTableViewDataSource:self];
+	return [NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section];
 }
 
 - (NSInteger)convertSection:(NSInteger)section fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
-	return [self.parent convertSection:section fromChildTableViewDataSource:self];
+	return section;
 }
 
 - (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath toChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
@@ -253,7 +249,7 @@
 		
 		if (block) block(ip);
 		
-		if (self.parent) ip = [self.parent convertIndexPath:ip fromChildTableViewDataSource:self];
+		if (self.parent) ip = [self.tableView dct_convertIndexPath:ip fromChildTableViewDataSource:self];
 		[indexPaths addObject:ip];
 	}
 	
@@ -262,7 +258,7 @@
 
 - (NSIndexPath *)dctInternal_headerIndexPath {
 	NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-	if (self.parent) headerIndexPath = [self.parent convertIndexPath:headerIndexPath fromChildTableViewDataSource:self];
+	if (self.parent) headerIndexPath = [self.tableView dct_convertIndexPath:headerIndexPath fromChildTableViewDataSource:self];
 	return headerIndexPath;
 }
 
@@ -291,7 +287,7 @@
 	[self.tableView endUpdates];
 	
 	NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-	if (self.parent) headerIndexPath = [self.parent convertIndexPath:headerIndexPath fromChildTableViewDataSource:self];
+	if (self.parent) headerIndexPath = [self.tableView dct_convertIndexPath:headerIndexPath fromChildTableViewDataSource:self];
 	
 	if (totalCellHeight < tableViewHeight) {
 		[self.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionNone animated:YES];

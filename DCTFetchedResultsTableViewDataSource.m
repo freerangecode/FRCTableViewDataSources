@@ -37,6 +37,7 @@
 #import "DCTFetchedResultsTableViewDataSource.h"
 #import "DCTTableViewCell.h"
 #import "DCTParentTableViewDataSource.h"
+#import "UITableView+DCTTableViewDataSources.h"
 
 
 @interface DCTFetchedResultsTableViewDataSource ()
@@ -205,8 +206,8 @@
 	if (self.parent != nil && ![self.parent childTableViewDataSourceShouldUpdateCells:self])
 		return;
 	
-	indexPath = [self dctInternal_tableViewIndexPathFromDataIndexPath:indexPath];
-	newIndexPath = [self dctInternal_tableViewIndexPathFromDataIndexPath:newIndexPath];
+	indexPath = [self.tableView dct_convertIndexPath:indexPath fromChildTableViewDataSource:self];
+	newIndexPath = [self.tableView dct_convertIndexPath:newIndexPath fromChildTableViewDataSource:self];
 	
     UITableView *tv = self.tableView;
 	
@@ -250,7 +251,7 @@
 	
 	if (self.parent == nil) return indexPath;
 	
-	return [self.parent convertIndexPath:indexPath fromChildTableViewDataSource:self];
+	return [self.tableView dct_convertIndexPath:indexPath fromChildTableViewDataSource:self];
 }
 
 - (NSUInteger)dctInternal_tableViewSectionFromDataSection:(NSUInteger)section {
@@ -258,7 +259,7 @@
 	if (self.parent == nil) return section;
 	
 	NSIndexPath *ip = [NSIndexPath indexPathForRow:0 inSection:section];
-	ip = [self.parent convertIndexPath:ip fromChildTableViewDataSource:self];
+	ip = [self.tableView dct_convertIndexPath:ip fromChildTableViewDataSource:self];
 	return ip.section;
 }
 

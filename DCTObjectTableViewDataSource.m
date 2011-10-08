@@ -36,6 +36,7 @@
 
 #import "DCTObjectTableViewDataSource.h"
 #import "DCTParentTableViewDataSource.h"
+#import "UITableView+DCTTableViewDataSources.h"
 
 @implementation DCTObjectTableViewDataSource
 
@@ -51,7 +52,7 @@
 
 - (void)reloadData {
 	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-	if (self.parent) indexPath = [self.parent convertIndexPath:indexPath fromChildTableViewDataSource:self];
+	indexPath = [self.tableView dct_convertIndexPath:indexPath fromChildTableViewDataSource:self];
 	[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 

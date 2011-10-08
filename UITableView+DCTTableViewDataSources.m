@@ -8,8 +8,35 @@
 
 #import "UITableView+DCTTableViewDataSources.h"
 #import "DCTTableViewCell.h"
+#import "DCTParentTableViewDataSource.h"
+#import "DCTTableViewDataSource.h"
 
 @implementation UITableView (DCTTableViewDataSources)
+
+- (NSInteger)dct_convertSection:(NSInteger)section fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
+	
+	id<DCTParentTableViewDataSource> parent = dataSource.parent;
+	
+	while (parent) {
+		section = [parent convertSection:section fromChildTableViewDataSource:dataSource];
+		dataSource = parent;
+		parent = dataSource.parent;
+	}
+	
+	return section;
+}
+
+- (NSIndexPath *)dct_convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
+	id<DCTParentTableViewDataSource> parent = dataSource.parent;
+	
+	while (parent) {
+		indexPath = [parent convertIndexPath:indexPath fromChildTableViewDataSource:dataSource];
+		dataSource = parent;
+		parent = dataSource.parent;
+	}
+	
+	return indexPath;
+}
 
 - (void)dct_registerDCTTableViewCellSubclass:(Class)tableViewCellClass {
 	
