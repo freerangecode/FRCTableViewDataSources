@@ -46,25 +46,6 @@ NSString *const DCTTableViewCellWillBeReusedNotification = @"DCTTableViewCellWil
 
 @synthesize cellConfigurer;
 
-#pragma mark - NSObject
-
-- (id)init {
-	
-	if (!(self = [super init])) return nil;
-	
-	self.cellConfigurer = ^(UITableViewCell *cell, id object) {
-		cell.textLabel.text = [object description];
-	};
-	
-    return self;
-}
-
-- (void)awakeFromNib {
-	self.cellConfigurer = ^(UITableViewCell *cell, id object) {
-		cell.textLabel.text = [object description];
-	};
-}
-
 #pragma mark - UITableViewCell
 
 - (void)prepareForReuse {
