@@ -220,10 +220,8 @@
 	
 	id object = [self objectAtIndexPath:indexPath];
 	
-	if ([cell conformsToProtocol:@protocol(DCTTableViewCell)]) {
-		id<DCTTableViewCell> dctCell = (id<DCTTableViewCell>)cell;
-		[dctCell configureWithObject:object];
-	}
+	if ([cell conformsToProtocol:@protocol(DCTTableViewCellObjectConfiguration)])
+		[(id<DCTTableViewCellObjectConfiguration>)cell configureWithObject:object];
 	
 	[self configureCell:headerCell atIndexPath:indexPath withObject:object];
 	
@@ -288,7 +286,7 @@
 	NSArray *indexPaths = [self dctInternal_indexPathsForCollapsableCellsIndexPathEnumator:^(NSIndexPath *ip) {
 		
 		if (totalCellHeight < tableViewHeight) { // Add this check so we can reduce the amount of calls to heightForObject:width:
-			Class<DCTTableViewCell> cellClass = [self cellClassAtIndexPath:ip];
+			Class cellClass = [self cellClassAtIndexPath:ip];
 			totalCellHeight += [cellClass heightForObject:[self objectAtIndexPath:ip] width:self.tableView.bounds.size.width];
 		}
 		

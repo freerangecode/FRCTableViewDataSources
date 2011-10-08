@@ -83,7 +83,7 @@
 	return indexPath;
 }
 
-- (Class<DCTTableViewCell>)cellClassAtIndexPath:(NSIndexPath *)indexPath {
+- (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {
 	return [self cellClass];
 }
 
@@ -116,8 +116,8 @@
 	
 	[self configureCell:cell atIndexPath:indexPath withObject:object];
 	
-	if ([cell conformsToProtocol:@protocol(DCTTableViewCell)])
-		[((id <DCTTableViewCell>)cell) configureWithObject:object];
+	if ([cell conformsToProtocol:@protocol(DCTTableViewCellObjectConfiguration)])
+		[(id<DCTTableViewCellObjectConfiguration>)cell configureWithObject:object];
 	
 	return cell;
 }

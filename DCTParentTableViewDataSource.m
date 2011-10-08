@@ -64,7 +64,7 @@
 	return [ds objectAtIndexPath:indexPath];
 }
 
-- (Class<DCTTableViewCell>)cellClassAtIndexPath:(NSIndexPath *)indexPath {
+- (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {
 	id<DCTTableViewDataSource> ds = [self.dctInternal_ptvdsSelf childDataSourceForIndexPath:indexPath];
 	indexPath = [self.dctInternal_ptvdsSelf dataIndexPathForTableViewIndexPath:indexPath];
 	return [ds cellClassAtIndexPath:indexPath];
