@@ -23,6 +23,9 @@
 		parent = dataSource.parent;
 	}
 	
+	NSAssert(parent == nil, @"Parent should equal nil at this point");
+	NSAssert(dataSource == self.dataSource, @"dataSource should now be the tableview's dataSource");
+	
 	return section;
 }
 
