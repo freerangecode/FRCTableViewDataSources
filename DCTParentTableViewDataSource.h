@@ -38,7 +38,8 @@
 
 
 
-
+/** 
+ */
 @protocol DCTParentTableViewDataSource <DCTTableViewDataSource>
 
 @property (nonatomic, readonly) NSArray *childTableViewDataSources;
@@ -60,7 +61,9 @@
 
 
 
-// Subclasses should implement the DCTParentTableViewDataSource protocol
-
+/** This is an abstract class that implements forwarding of the UITableViewDataSource methods to child data source objects.
+ 
+ Subclasses must implement the DCTParentTableViewDataSource protocol.
+*/
 @interface DCTParentTableViewDataSource : NSObject <DCTTableViewDataSource>
 @end
