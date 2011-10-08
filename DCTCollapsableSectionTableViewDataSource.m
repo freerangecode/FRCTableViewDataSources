@@ -112,8 +112,7 @@
 	
 	if (self.parent == nil) return indexPath;	
 	
-	return [self.parent childTableViewDataSource:self tableViewIngit status
-						 dexPathForDataIndexPath:indexPath];
+	return [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:indexPath];
 }
 
 - (NSInteger)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewSectionForDataSection:(NSInteger)section {
