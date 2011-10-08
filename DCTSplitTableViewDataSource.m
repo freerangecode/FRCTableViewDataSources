@@ -172,7 +172,7 @@
 }
 
 
-#pragma mark - DCTTableViewSectionController methods
+#pragma mark - DCTSplitTableViewDataSource methods
 
 - (void)addChildTableViewDataSource:(id<DCTTableViewDataSource>)tableViewDataSource {
 	
@@ -201,13 +201,7 @@
 	[self.tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-- (void)setTableViewDataSources:(NSArray *)array {
-	dctInternal_tableViewDataSources = [array mutableCopy];
-	
-	if (!tableViewHasSetup) return;
-	
-	[self.tableView reloadData];	
-}
+#pragma mark - DCTTableViewDataSource methods
 
 - (void)setTableView:(UITableView *)tv {
 	
