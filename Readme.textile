@@ -14,11 +14,11 @@ h2. iOS 5 and Automatic Reference Counting (ARC)
 
 This project uses ARC, but will work fine with iOS 4.3-style ARC. 
 
-It will also work fine when compiled to use iOS 4.3 as the base SDK. When doing so, the new iOS 5 call (`registerNib:forCellReuseIdentifier:` on UITableView) is not used. If you use the DCTTableViewDataSource implementation of `tableView:cellForRowAtIndexPath:` in data source subclasses, it will yield no ill effect and still give you the nib-based table cell.
+It will also work fine when compiled to use iOS 4.3 as the base SDK. When doing so, the new iOS 5 call (@registerNib:forCellReuseIdentifier:@ on UITableView) is not used. If you use the DCTTableViewDataSource implementation of @tableView:cellForRowAtIndexPath:@ in data source subclasses, it will yield no ill effect and still give you the nib-based table cell.
 
 h2. Example
 
-In the following example I assume we have a `sectionedDataSource` ivar and a few other things. This will create a table view with a list of all the projects plus a cell at the bottom to add a new project.
+In the following example I assume we have a @sectionedDataSource@ ivar and a few other things. This will create a table view with a list of all the projects plus a cell at the bottom to add a new project.
 
 bc. sectionedDataSource = [[DCTSplitTableViewDataSource alloc] init];
 sectionedDataSource.type = DCTSplitTableViewDataSourceTypeSection;
