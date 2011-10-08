@@ -51,11 +51,15 @@
 - (NSIndexPath *)dctInternal_headerTableViewIndexPath;
 - (void)dctInternal_setOpened;
 - (void)dctInternal_setClosed;
+
+- (void)dctInternal_headerCheck;
+- (BOOL)dctInternal_childTableViewDataSourceCurrentlyHasCells;
 @end
 
 @implementation DCTCollapsableSectionTableViewDataSource {
 	__strong NSString *tableViewCellIdentifier;
 	__strong UITableViewCell *headerCell;
+	BOOL childTableViewDataSourceHasCells;
 }
 
 @synthesize childTableViewDataSource;
@@ -136,6 +140,8 @@
 
 - (BOOL)childTableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource {
 	
+	[self performSelector:@selector(dctInternal_headerCheck) withObject:nil afterDelay:0.01];
+	
 	if (!self.opened) return NO;
 	
 	if (self.parent == nil) return YES;
@@ -169,9 +175,9 @@
 	cell.textLabel.text = self.title;
 	cell.accessoryView = nil;
 
-	NSInteger numberOfRows = [self.childTableViewDataSource tableView:tv numberOfRowsInSection:0];
+	childTableViewDataSourceHasCells = ([self dctInternal_childTableViewDataSourceCurrentlyHasCells]);
 	
-	if (numberOfRows == 0 && self.greyWhenEmpty)
+	if (!childTableViewDataSourceHasCells && self.greyWhenEmpty)
 		cell.textLabel.textColor = [UIColor lightGrayColor];
 	else
 		cell.textLabel.textColor = [UIColor blackColor];
@@ -191,7 +197,7 @@
 		
 	} else if (self.type == DCTCollapsableSectionTableViewDataSourceTypeDisclosure) {
 		
-		if (numberOfRows > 0) {
+		if (childTableViewDataSourceHasCells) {
 			
 			UIImage *image = [UIImage imageNamed:@"DCTCollapsableSectionTableViewDataSourceDisclosureButton.png"];
 			UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -241,6 +247,8 @@
 	NSInteger numberOfRows = [self.childTableViewDataSource tableView:self.tableView numberOfRowsInSection:0];
 	
 	if (numberOfRows == 0) return nil;
+	
+	childTableViewDataSourceHasCells = YES;
 	
 	NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:numberOfRows];
 	
@@ -369,6 +377,20 @@
 
 - (IBAction)dctInternal_disclosureButtonTapped:(UIButton *)sender {
 	self.opened = !self.opened;
+}
+
+- (void)dctInternal_headerCheck {
+	
+	if (childTableViewDataSourceHasCells == [self dctInternal_childTableViewDataSourceCurrentlyHasCells]) return;
+	
+	childTableViewDataSourceHasCells = !childTableViewDataSourceHasCells;
+	
+	NSIndexPath *header = [self dctInternal_headerTableViewIndexPath];
+	[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:header] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (BOOL)dctInternal_childTableViewDataSourceCurrentlyHasCells {
+	return ([self.childTableViewDataSource tableView:self.tableView numberOfRowsInSection:0] > 0);
 }
 
 @end
