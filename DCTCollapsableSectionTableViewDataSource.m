@@ -37,6 +37,7 @@
 #import "DCTCollapsableSectionTableViewDataSource.h"
 #import "DCTParentTableViewDataSource.h"
 #import "DCTTableViewCell.h"
+#import "UITableView+DCTTableViewDataSources.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DCTCollapsableSectionTableViewDataSource ()

@@ -36,6 +36,7 @@
 
 #import "DCTTableViewDataSource.h"
 #import "DCTTableViewCell.h"
+#import "UITableView+DCTTableViewDataSources.h"
 
 @implementation DCTTableViewDataSource
 

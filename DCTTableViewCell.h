@@ -57,8 +57,3 @@ typedef void (^DCTTableViewDataSourceCellConfigureBlock)(UITableViewCell *cell, 
 
 @end
 
-
-
-@interface UITableView (DCTTableViewCell)
-- (void)dct_registerDCTTableViewCellSubclass:(Class)tableViewCellSubclass;
-@end
