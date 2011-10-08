@@ -90,19 +90,19 @@
 
 - (NSString *)tableView:(UITableView *)tv titleForHeaderInSection:(NSInteger)section {
 	id<DCTTableViewDataSource> ds = [self.dctInternal_ptvdsSelf childDataSourceForSection:section];
-	section = [self.dctInternal_ptvdsSelf convertSection:section toChildTableViewDataSource:ds];
 	
 	if (![ds respondsToSelector:_cmd]) return nil;
 	
+	section = [self.dctInternal_ptvdsSelf convertSection:section toChildTableViewDataSource:ds];
 	return [ds tableView:tv titleForHeaderInSection:section];
 }
 
 - (NSString *)tableView:(UITableView *)tv titleForFooterInSection:(NSInteger)section {
 	id<DCTTableViewDataSource> ds = [self.dctInternal_ptvdsSelf childDataSourceForSection:section];
-	section = [self.dctInternal_ptvdsSelf convertSection:section toChildTableViewDataSource:ds];
 	
 	if (![ds respondsToSelector:_cmd]) return nil;
 	
+	section = [self.dctInternal_ptvdsSelf convertSection:section toChildTableViewDataSource:ds];
 	return [ds tableView:tv titleForFooterInSection:section];
 }
 
@@ -110,10 +110,10 @@
 
 - (BOOL)tableView:(UITableView *)tv canEditRowAtIndexPath:(NSIndexPath *)indexPath {
 	id<DCTTableViewDataSource> ds = [self.dctInternal_ptvdsSelf childDataSourceForIndexPath:indexPath];
-	indexPath = [self.dctInternal_ptvdsSelf dataIndexPathForTableViewIndexPath:indexPath];
 	
 	if (![ds respondsToSelector:_cmd]) return NO;
 	
+	indexPath = [self.dctInternal_ptvdsSelf dataIndexPathForTableViewIndexPath:indexPath];
 	return [ds tableView:tv canEditRowAtIndexPath:indexPath];
 }
 
@@ -121,10 +121,10 @@
 
 - (BOOL)tableView:(UITableView *)tv canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
 	id<DCTTableViewDataSource> ds = [self.dctInternal_ptvdsSelf childDataSourceForIndexPath:indexPath];
-	indexPath = [self.dctInternal_ptvdsSelf dataIndexPathForTableViewIndexPath:indexPath];
 	
 	if (![ds respondsToSelector:_cmd]) return NO;
 	
+	indexPath = [self.dctInternal_ptvdsSelf dataIndexPathForTableViewIndexPath:indexPath];
 	return [ds tableView:tv canMoveRowAtIndexPath:indexPath];
 }
 
@@ -132,10 +132,10 @@
 
 - (void)tableView:(UITableView *)tv commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 	id<DCTTableViewDataSource> ds = [self.dctInternal_ptvdsSelf childDataSourceForIndexPath:indexPath];
-	indexPath = [self.dctInternal_ptvdsSelf dataIndexPathForTableViewIndexPath:indexPath];
 	
 	if (![ds respondsToSelector:_cmd]) return;
 	
+	indexPath = [self.dctInternal_ptvdsSelf dataIndexPathForTableViewIndexPath:indexPath];
 	[ds tableView:tv commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
 }
 
