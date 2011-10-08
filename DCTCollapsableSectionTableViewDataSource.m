@@ -101,17 +101,6 @@
 	return [self.childTableViewDataSource cellClassAtIndexPath:ip];
 }
 
-#pragma mark - DCTCollapsableSectionTableViewDataSource
-
-- (id<DCTTableViewDataSource>)childTableViewDataSource {
-	
-	if (!childTableViewDataSource) [self loadChildTableViewDataSource];
-	
-	return childTableViewDataSource;
-}
-
-- (void)loadChildTableViewDataSource {}
-
 #pragma mark - DCTTableViewDataSourceParent
 
 - (NSArray *)childTableViewDataSources {
@@ -123,7 +112,8 @@
 	
 	if (self.parent == nil) return indexPath;	
 	
-	return [self.parent childTableViewDataSource:self tableViewIndexPathForDataIndexPath:indexPath];
+	return [self.parent childTableViewDataSource:self tableViewIngit status
+						 dexPathForDataIndexPath:indexPath];
 }
 
 - (NSInteger)childTableViewDataSource:(id<DCTTableViewDataSource>)dataSource tableViewSectionForDataSection:(NSInteger)section {
