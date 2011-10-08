@@ -134,7 +134,7 @@
 	return self.childTableViewDataSource;
 }
 
-- (id<DCTTableViewDataSource>)childDataSourceForIndexPath:(NSIndexPath *)indexPath {
+- (id<DCTTableViewDataSource>)childTableViewDataSourceForIndexPath:(NSIndexPath *)indexPath {
 	return self.childTableViewDataSource;
 }
 

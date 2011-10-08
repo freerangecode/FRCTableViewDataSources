@@ -141,7 +141,7 @@
 	return [dataSources objectAtIndex:section];
 }
 
-- (id<DCTTableViewDataSource>)childDataSourceForIndexPath:(NSIndexPath *)indexPath {
+- (id<DCTTableViewDataSource>)childTableViewDataSourceForIndexPath:(NSIndexPath *)indexPath {
 	
 	if (self.type == DCTSplitTableViewDataSourceTypeRow) {
 		
