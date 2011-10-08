@@ -39,12 +39,6 @@
 #import "DCTParentTableViewDataSource.h"
 #import "UITableView+DCTTableViewDataSources.h"
 
-
-@interface DCTFetchedResultsTableViewDataSource ()
-- (NSIndexPath *)dctInternal_tableViewIndexPathFromDataIndexPath:(NSIndexPath *)indexPath;
-- (NSUInteger)dctInternal_tableViewSectionFromDataSection:(NSUInteger)section;
-@end
-
 @implementation DCTFetchedResultsTableViewDataSource
 
 @synthesize managedObjectContext;
@@ -181,7 +175,7 @@
 	if (self.parent != nil && ![self.parent childTableViewDataSourceShouldUpdateCells:self])
 		return;
 	
-	sectionIndex = [self dctInternal_tableViewSectionFromDataSection:sectionIndex];
+	sectionIndex = [self.tableView dct_convertSection:sectionIndex fromChildTableViewDataSource:self];
 	
     switch(type) {
         case NSFetchedResultsChangeInsert:
@@ -243,24 +237,6 @@
 		return;
 	
     [self.tableView endUpdates];
-}
-
-#pragma mark - Internals
-
-- (NSIndexPath *)dctInternal_tableViewIndexPathFromDataIndexPath:(NSIndexPath *)indexPath {
-	
-	if (self.parent == nil) return indexPath;
-	
-	return [self.tableView dct_convertIndexPath:indexPath fromChildTableViewDataSource:self];
-}
-
-- (NSUInteger)dctInternal_tableViewSectionFromDataSection:(NSUInteger)section {
-	
-	if (self.parent == nil) return section;
-	
-	NSIndexPath *ip = [NSIndexPath indexPathForRow:0 inSection:section];
-	ip = [self.tableView dct_convertIndexPath:ip fromChildTableViewDataSource:self];
-	return ip.section;
 }
 
 

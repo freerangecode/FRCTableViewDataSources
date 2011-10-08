@@ -48,7 +48,7 @@
 
 - (NSArray *)dctInternal_indexPathsForCollapsableCells;
 - (NSArray *)dctInternal_indexPathsForCollapsableCellsIndexPathEnumator:(void (^)(NSIndexPath *))block;
-- (NSIndexPath *)dctInternal_headerIndexPath;
+- (NSIndexPath *)dctInternal_headerTableViewIndexPath;
 - (void)dctInternal_setOpened;
 - (void)dctInternal_setClosed;
 @end
@@ -249,17 +249,16 @@
 		
 		if (block) block(ip);
 		
-		if (self.parent) ip = [self.tableView dct_convertIndexPath:ip fromChildTableViewDataSource:self];
+		ip = [self.tableView dct_convertIndexPath:ip fromChildTableViewDataSource:self];
 		[indexPaths addObject:ip];
 	}
 	
 	return [indexPaths copy];
 }
 
-- (NSIndexPath *)dctInternal_headerIndexPath {
+- (NSIndexPath *)dctInternal_headerTableViewIndexPath {
 	NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-	if (self.parent) headerIndexPath = [self.tableView dct_convertIndexPath:headerIndexPath fromChildTableViewDataSource:self];
-	return headerIndexPath;
+	return [self.tableView dct_convertIndexPath:headerIndexPath fromChildTableViewDataSource:self];
 }
 
 - (void)dctInternal_setOpened {
@@ -286,8 +285,7 @@
 	[self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 	[self.tableView endUpdates];
 	
-	NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-	if (self.parent) headerIndexPath = [self.tableView dct_convertIndexPath:headerIndexPath fromChildTableViewDataSource:self];
+	NSIndexPath *headerIndexPath = [self dctInternal_headerTableViewIndexPath];
 	
 	if (totalCellHeight < tableViewHeight) {
 		[self.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionNone animated:YES];
@@ -306,7 +304,7 @@
 	[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 	[self.tableView endUpdates];
 	
-	[self.tableView scrollToRowAtIndexPath:[self dctInternal_headerIndexPath]
+	[self.tableView scrollToRowAtIndexPath:[self dctInternal_headerTableViewIndexPath]
 						  atScrollPosition:UITableViewScrollPositionNone
 								  animated:YES];
 }
