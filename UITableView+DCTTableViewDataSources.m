@@ -27,6 +27,7 @@
 }
 
 - (NSIndexPath *)dct_convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
+	
 	id<DCTParentTableViewDataSource> parent = dataSource.parent;
 	
 	while (parent) {
@@ -34,6 +35,9 @@
 		dataSource = parent;
 		parent = dataSource.parent;
 	}
+	
+	NSAssert(parent == nil, @"Parent should equal nil at this point");
+	NSAssert(dataSource == self.dataSource, @"dataSource should now be the tableview's dataSource");
 	
 	return indexPath;
 }
