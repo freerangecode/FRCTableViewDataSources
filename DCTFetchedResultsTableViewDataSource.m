@@ -206,7 +206,7 @@
 		return;
 	
 	indexPath = [self dctInternal_tableViewIndexPathFromDataIndexPath:indexPath];
-	newIndexPath = [self dctInternal_tableViewIndexPathFromDataIndexPath:indexPath];
+	newIndexPath = [self dctInternal_tableViewIndexPathFromDataIndexPath:newIndexPath];
 	
     UITableView *tv = self.tableView;
 	
