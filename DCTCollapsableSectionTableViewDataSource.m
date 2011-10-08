@@ -78,7 +78,7 @@
 	
 	if (!(self = [super init])) return nil;
 	
-	titleCellClass = [UITableViewCell class];
+	titleCellClass = [DCTTableViewCell class];
 	
 	return self;
 }
@@ -93,16 +93,16 @@
 	
 	if (indexPath.row == 0) return nil;
 	
-	NSIndexPath *ip = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
-	return [self.childTableViewDataSource objectAtIndexPath:ip];
+	indexPath = [self convertIndexPath:indexPath toChildTableViewDataSource:self.childTableViewDataSource];
+	return [self.childTableViewDataSource objectAtIndexPath:indexPath];
 }
 
 - (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {
 	
 	if (indexPath.row == 0) return self.titleCellClass;
 	
-	NSIndexPath *ip = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
-	return [self.childTableViewDataSource cellClassAtIndexPath:ip];
+	indexPath = [self convertIndexPath:indexPath toChildTableViewDataSource:self.childTableViewDataSource];
+	return [self.childTableViewDataSource cellClassAtIndexPath:indexPath];
 }
 
 #pragma mark - DCTCollapsableSectionTableViewDataSource
