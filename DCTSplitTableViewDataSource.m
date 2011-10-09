@@ -204,6 +204,8 @@
 
 - (void)removeChildTableViewDataSource:(id<DCTTableViewDataSource>)tableViewDataSource {
 	
+	NSAssert([dctInternal_tableViewDataSources containsObject:tableViewDataSource], @"dataSource should be a child table view data source");
+	
 	NSMutableArray *childDataSources = [self dctInternal_tableViewDataSources];
 	
 	
@@ -252,7 +254,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section {
-	
+	tableViewHasSetup = YES;
 	if (self.type == DCTSplitTableViewDataSourceTypeSection)
 		return [super tableView:tv numberOfRowsInSection:section];
 	
@@ -271,6 +273,8 @@
 - (NSArray *)dctInternal_indexPathsForDataSource:(id<DCTTableViewDataSource>)dataSource {
 	
 	NSInteger numberOfRows = [dataSource tableView:self.tableView numberOfRowsInSection:0];
+	
+	NSLog(@"%@:%@ %i", self, NSStringFromSelector(_cmd), numberOfRows);
 	
 	NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:numberOfRows];
 	
