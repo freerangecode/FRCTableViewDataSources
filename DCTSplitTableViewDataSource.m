@@ -35,10 +35,12 @@
  */
 
 #import "DCTSplitTableViewDataSource.h"
+#import "UITableView+DCTTableViewDataSources.h"
 
 @interface DCTSplitTableViewDataSource ()
 - (NSMutableArray *)dctInternal_tableViewDataSources;
 - (void)dctInternal_setupDataSource:(id<DCTTableViewDataSource>)dataSource;
+- (NSArray *)dctInternal_indexPathsForDataSource:(id<DCTTableViewDataSource>)dataSource;
 @end
 
 @implementation DCTSplitTableViewDataSource {
@@ -179,29 +181,53 @@
 
 - (void)addChildTableViewDataSource:(id<DCTTableViewDataSource>)tableViewDataSource {
 	
-	NSMutableArray *ds = [self dctInternal_tableViewDataSources];
+	NSMutableArray *childDataSources = [self dctInternal_tableViewDataSources];
 	
-	[ds addObject:tableViewDataSource];
+	[childDataSources addObject:tableViewDataSource];
 	
 	[self dctInternal_setupDataSource:tableViewDataSource];
 	
 	if (!tableViewHasSetup) return;
 	
-	NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:[ds indexOfObject:tableViewDataSource]];
-	[self.tableView insertSections:indexSet withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
+	if (self.type == DCTSplitTableViewDataSourceTypeRow) {
+		
+		NSArray *indexPaths = [self dctInternal_indexPathsForDataSource:tableViewDataSource];
+		[self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
+		
+	} else {
+		
+		NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:[childDataSources indexOfObject:tableViewDataSource]];
+		[self.tableView insertSections:indexSet withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
+		t
+	}
 }
 
 - (void)removeChildTableViewDataSource:(id<DCTTableViewDataSource>)tableViewDataSource {
 	
-	NSMutableArray *ds = [self dctInternal_tableViewDataSources];
+	NSMutableArray *childDataSources = [self dctInternal_tableViewDataSources];
 	
-	NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:[ds indexOfObject:tableViewDataSource]];
 	
-	[ds removeObject:tableViewDataSource];
+	if (self.type == DCTSplitTableViewDataSourceTypeRow) {
+		
+		NSArray *indexPaths = [self dctInternal_indexPathsForDataSource:tableViewDataSource];
+		
+		[childDataSources removeObject:tableViewDataSource];
+		
+		if (!tableViewHasSetup) return;
+		
+		[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
 	
-	if (!tableViewHasSetup) return;
+	} else {
 	
-	[self.tableView deleteSections:indexSet withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
+		NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:[childDataSources indexOfObject:tableViewDataSource]];
+	
+		[childDataSources removeObject:tableViewDataSource];
+	
+		if (!tableViewHasSetup) return;
+	
+		[self.tableView deleteSections:indexSet withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
+	
+	}
 }
 
 #pragma mark - DCTTableViewDataSource methods
@@ -241,6 +267,21 @@
 }
 
 #pragma mark - Private methods
+
+- (NSArray *)dctInternal_indexPathsForDataSource:(id<DCTTableViewDataSource>)dataSource {
+	
+	NSInteger numberOfRows = [dataSource tableView:self.tableView numberOfRowsInSection:0];
+	
+	NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:numberOfRows];
+	
+	for (NSInteger i = 0; i < numberOfRows; i++) {
+		NSIndexPath *ip = [NSIndexPath indexPathForRow:i inSection:0];
+		ip = [self.tableView dct_convertIndexPath:ip fromChildTableViewDataSource:dataSource];
+		[indexPaths addObject:ip];
+	}
+	
+	return [indexPaths copy];
+}
 
 - (NSMutableArray *)dctInternal_tableViewDataSources {
 	
