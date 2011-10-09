@@ -9,12 +9,21 @@
 #import <UIKit/UIKit.h>
 @protocol DCTTableViewDataSource;
 
+
+
+
 @interface UITableView (DCTTableViewDataSources)
+- (void)dct_logTableViewDataSources;
 
 - (NSInteger)dct_convertSection:(NSInteger)section fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource;
 
 - (NSIndexPath *)dct_convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource;
 
 - (void)dct_registerDCTTableViewCellSubclass:(Class)tableViewCellSubclass;
+
+
+
+
+
 
 @end

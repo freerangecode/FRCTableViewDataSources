@@ -11,7 +11,43 @@
 #import "DCTParentTableViewDataSource.h"
 #import "DCTTableViewDataSource.h"
 
+
+@interface NSObject (DCTTableViewDataSources)
+- (void)dct_logTableViewDataSourcesLevel:(NSInteger)level;
+@end
+@implementation NSObject (DCTTableViewDataSources)
+
+- (void)dct_logTableViewDataSourcesLevel:(NSInteger)level {
+	
+	if (![self conformsToProtocol:@protocol(DCTTableViewDataSource)]) return;
+	
+	NSMutableString *string = [[NSMutableString alloc] init];
+	
+	for (NSInteger i = 0; i < level; i++)
+		[string appendString:@"    "];
+	
+	NSLog(@"%@%@", string, self);
+	
+	if ([self conformsToProtocol:@protocol(DCTParentTableViewDataSource)]) {
+		for (id object in [(id<DCTParentTableViewDataSource>)self childTableViewDataSources])
+			[object dct_logTableViewDataSourcesLevel:level+1];
+	}
+}
+
+@end
+
 @implementation UITableView (DCTTableViewDataSources)
+
+- (void)dct_logTableViewDataSources {
+	
+	
+	NSLog(@"-------------");
+	NSLog(@"Logging data sources for %@", self);
+	NSLog(@"-------------");
+	
+	[(NSObject *)self.dataSource dct_logTableViewDataSourcesLevel:0];
+	NSLog(@"-------------");
+}
 
 - (NSInteger)dct_convertSection:(NSInteger)section fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
 	
