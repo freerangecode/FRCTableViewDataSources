@@ -50,14 +50,13 @@
 #import <UIKit/UIKit.h>
 #import "DCTTableViewCell.h"
 
-@protocol DCTTableViewDataSource;
 @class DCTParentTableViewDataSource;
 
-
-
-/** A protocol to extend the UITableViewDataSoruce for the purposes of more reusable objects to use as datasources.
+/** A class that provides a basic implementation of the DCTTableViewDataSource protocol
  */
-@protocol DCTTableViewDataSource <UITableViewDataSource>
+@interface DCTTableViewDataSource : NSObject <UITableViewDataSource>
+
+@property (nonatomic, assign) Class cellClass;
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, dct_weak) DCTParentTableViewDataSource *parent;
@@ -66,14 +65,5 @@
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 - (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath;
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withObject:(id)object;
-
-@end
-
-
-/** A class that provides a basic implementation of the DCTTableViewDataSource protocol
- */
-@interface DCTTableViewDataSource : NSObject <DCTTableViewDataSource>
-
-@property (nonatomic, assign) Class cellClass;
 
 @end

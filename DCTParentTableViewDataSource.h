@@ -41,19 +41,19 @@
  
  Subclasses must implement the DCTParentTableViewDataSource protocol.
 */
-@interface DCTParentTableViewDataSource : NSObject <DCTTableViewDataSource>
+@interface DCTParentTableViewDataSource : DCTTableViewDataSource
 
 @property (nonatomic, readonly) NSArray *childTableViewDataSources;
 
-- (NSInteger)convertSection:(NSInteger)section fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource;
-- (NSInteger)convertSection:(NSInteger)section toChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource;
+- (NSInteger)convertSection:(NSInteger)section fromChildTableViewDataSource:(DCTTableViewDataSource *)dataSource;
+- (NSInteger)convertSection:(NSInteger)section toChildTableViewDataSource:(DCTTableViewDataSource *)dataSource;
 
-- (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource;
-- (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath toChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource;
+- (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(DCTTableViewDataSource *)dataSource;
+- (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath toChildTableViewDataSource:(DCTTableViewDataSource *)dataSource;
 
-- (id<DCTTableViewDataSource>)childTableViewDataSourceForSection:(NSInteger)section;
-- (id<DCTTableViewDataSource>)childTableViewDataSourceForIndexPath:(NSIndexPath *)indexPath;
+- (DCTTableViewDataSource *)childTableViewDataSourceForSection:(NSInteger)section;
+- (DCTTableViewDataSource *)childTableViewDataSourceForIndexPath:(NSIndexPath *)indexPath;
 
-- (BOOL)childTableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource;
+- (BOOL)childTableViewDataSourceShouldUpdateCells:(DCTTableViewDataSource *)dataSource;
 
 @end

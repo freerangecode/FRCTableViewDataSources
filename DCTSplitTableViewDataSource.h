@@ -47,8 +47,8 @@ typedef enum {
 /** A class to provide a way of displaying data from multiple data sources in a table view. */
 @interface DCTSplitTableViewDataSource : DCTParentTableViewDataSource
 
-- (void)addChildTableViewDataSource:(id<DCTTableViewDataSource>)tableViewSectionDataSource;
-- (void)removeChildTableViewDataSource:(id<DCTTableViewDataSource>)tableViewSectionDataSource;
+- (void)addChildTableViewDataSource:(DCTTableViewDataSource *)tableViewSectionDataSource;
+- (void)removeChildTableViewDataSource:(DCTTableViewDataSource *)tableViewSectionDataSource;
 
 @property (nonatomic, assign) DCTSplitTableViewDataSourceType type;
 

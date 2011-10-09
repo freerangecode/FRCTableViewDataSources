@@ -47,7 +47,7 @@
 
 @interface DCTCollapsableSectionTableViewDataSource : DCTParentTableViewDataSource
 
-@property (nonatomic, strong) id<DCTTableViewDataSource> childTableViewDataSource;
+@property (nonatomic, strong) DCTTableViewDataSource *childTableViewDataSource;
 @property (nonatomic, assign) Class titleCellClass;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, assign, getter = isOpen) BOOL open;

@@ -126,7 +126,7 @@
 - (void)dctInternal_headerCheck;
 - (BOOL)dctInternal_childTableViewDataSourceCurrentlyHasCells;
 
-- (void)dctInternal_setSplitChild:(id<DCTTableViewDataSource>)dataSource;
+- (void)dctInternal_setSplitChild:(DCTTableViewDataSource *)dataSource;
 
 @end
 
@@ -169,7 +169,7 @@
 
 #pragma mark - DCTCollapsableSectionTableViewDataSource
 
-- (void)setChildTableViewDataSource:(id<DCTTableViewDataSource>)ds {
+- (void)setChildTableViewDataSource:(DCTTableViewDataSource *)ds {
 	
 	if (childTableViewDataSource == ds) return;
 	
@@ -200,7 +200,7 @@
 	return [NSArray arrayWithObject:splitDataSource];
 }
 
-- (BOOL)childTableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource {
+- (BOOL)childTableViewDataSourceShouldUpdateCells:(DCTTableViewDataSource *)dataSource {
 	
 	[self performSelector:@selector(dctInternal_headerCheck) withObject:nil afterDelay:0.01];
 	
@@ -271,7 +271,7 @@
 	return [self.tableView dct_convertIndexPath:headerIndexPath fromChildTableViewDataSource:self];
 }
 
-- (void)dctInternal_setSplitChild:(id<DCTTableViewDataSource>)dataSource {
+- (void)dctInternal_setSplitChild:(DCTTableViewDataSource *)dataSource {
 	NSArray *children = splitDataSource.childTableViewDataSources;
 	if ([children count] > 1) [splitDataSource removeChildTableViewDataSource:[children lastObject]];
 	
