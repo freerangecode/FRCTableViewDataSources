@@ -38,15 +38,6 @@
 
 @implementation DCTParentTableViewDataSource
 
-@synthesize tableView;
-@synthesize parent;
-
-#pragma mark - NSObject
-
-- (void)dealloc {
-	dct_nil(self.parent);
-}
-
 #pragma mark - DCTTableViewDataSource
 
 - (void)reloadData {
@@ -65,8 +56,6 @@
 	indexPath = [self convertIndexPath:indexPath toChildTableViewDataSource:ds];
 	return [ds cellClassAtIndexPath:indexPath];
 }
-
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withObject:(id)object {}
 
 #pragma mark - DCTParentTableViewDataSource
 
