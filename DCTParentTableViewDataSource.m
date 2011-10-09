@@ -95,11 +95,11 @@
 }
 
 - (id<DCTTableViewDataSource>)childTableViewDataSourceForSection:(NSInteger)section {
-	return nil;
+	return [self.childTableViewDataSources lastObject];
 }
 
 - (id<DCTTableViewDataSource>)childTableViewDataSourceForIndexPath:(NSIndexPath *)indexPath {
-	return nil;
+	return [self.childTableViewDataSources lastObject];
 }
 
 - (BOOL)childTableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource {

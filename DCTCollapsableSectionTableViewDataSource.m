@@ -200,34 +200,6 @@
 	return [NSArray arrayWithObject:splitDataSource];
 }
 
-- (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
-	NSAssert(dataSource == splitDataSource, @"dataSource should be the splitDataSource");
-	return indexPath;
-}
-
-- (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath toChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
-	NSAssert(dataSource == splitDataSource, @"dataSource should be the splitDataSource");
-	return indexPath;
-}
-
-- (NSInteger)convertSection:(NSInteger)section fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
-	NSAssert(dataSource == splitDataSource, @"dataSource should be the splitDataSource");
-	return section;
-}
-
-- (NSInteger)convertSection:(NSInteger)section toChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {	
-	NSAssert(dataSource == splitDataSource, @"dataSource should be the splitDataSource");
-	return section;
-}
-
-- (id<DCTTableViewDataSource>)childTableViewDataSourceForSection:(NSInteger)section {
-	return splitDataSource;
-}
-
-- (id<DCTTableViewDataSource>)childTableViewDataSourceForIndexPath:(NSIndexPath *)indexPath {
-	return splitDataSource;
-}
-
 - (BOOL)childTableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource {
 	
 	[self performSelector:@selector(dctInternal_headerCheck) withObject:nil afterDelay:0.01];
