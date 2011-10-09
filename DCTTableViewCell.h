@@ -39,11 +39,6 @@
 extern NSString *const DCTTableViewCellWillBeReusedNotification;
 
 
-typedef void (^DCTTableViewDataSourceCellConfigureBlock)(UITableViewCell *cell, id object);
-
-
-
-
 
 @protocol DCTTableViewCellObjectConfiguration <NSObject>
 
@@ -54,14 +49,10 @@ typedef void (^DCTTableViewDataSourceCellConfigureBlock)(UITableViewCell *cell, 
 
 
 
-
-
 @interface DCTTableViewCell : UITableViewCell <DCTTableViewCellObjectConfiguration>
 
 + (id)cell;
 + (NSString *)reuseIdentifier;
 + (NSString *)nibName;
-
-@property (nonatomic, copy) DCTTableViewDataSourceCellConfigureBlock cellConfigurer;
 
 @end

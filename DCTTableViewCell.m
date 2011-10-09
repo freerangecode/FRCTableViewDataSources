@@ -44,8 +44,6 @@ NSString *const DCTTableViewCellWillBeReusedNotification = @"DCTTableViewCellWil
 
 @implementation DCTTableViewCell
 
-@synthesize cellConfigurer;
-
 #pragma mark - UITableViewCell
 
 - (void)prepareForReuse {
@@ -90,11 +88,7 @@ NSString *const DCTTableViewCellWillBeReusedNotification = @"DCTTableViewCellWil
 }
 
 - (void)configureWithObject:(id)object {
-
-	if (self.cellConfigurer) 
-		self.cellConfigurer(self, object);
-	else
-		self.textLabel.text = [object description];
+	self.textLabel.text = [object description];
 }
 
 + (CGFloat)heightForObject:(id)object width:(CGFloat)width {
