@@ -115,11 +115,9 @@
 
 
 @interface DCTCollapsableSectionTableViewDataSource ()
-- (void)dctInternal_setupTableViewDataSource;
+
 - (IBAction)dctInternal_titleTapped:(UITapGestureRecognizer *)sender;
 - (void)dctInternal_headerCellWillBeReused:(NSNotification *)notification;
-
-- (NSArray *)dctInternal_tableViewIndexPathsForCollapsableCells;
 - (NSArray *)dctInternal_tableViewIndexPathsForCollapsableCellsIndexPathEnumator:(void (^)(NSIndexPath *))block;
 - (NSIndexPath *)dctInternal_headerTableViewIndexPath;
 - (void)dctInternal_setOpened;
@@ -179,7 +177,6 @@
 	
 	if (self.open && childTableViewDataSource) [splitDataSource addChildTableViewDataSource:childTableViewDataSource];
 	
-	[self dctInternal_setupTableViewDataSource];
 	[self dctInternal_headerCheck];
 }
 
@@ -259,10 +256,6 @@
 
 - (IBAction)dctInternal_titleTapped:(UITapGestureRecognizer *)sender {
 	self.open = !self.open;
-}
-
-- (NSArray *)dctInternal_tableViewIndexPathsForCollapsableCells {
-	return [self dctInternal_tableViewIndexPathsForCollapsableCellsIndexPathEnumator:nil];
 }
 
 - (NSArray *)dctInternal_tableViewIndexPathsForCollapsableCellsIndexPathEnumator:(void (^)(NSIndexPath *))block {
@@ -359,8 +352,7 @@
 	if (tv == self.tableView) return;
 	
 	[super setTableView:tv];
-	
-	[self dctInternal_setupTableViewDataSource];
+	splitDataSource.tableView = self.tableView;
 }
 
 - (void)setTitleCellClass:(Class)cellClass {
@@ -368,14 +360,7 @@
 	if (titleCellClass == cellClass) return;
 	
 	titleCellClass = cellClass;
-	
-	[self dctInternal_setupTableViewDataSource];
-}
-
-- (void)dctInternal_setupTableViewDataSource {	
-	self.childTableViewDataSource.tableView = self.tableView;
-	splitDataSource.tableView = self.tableView;
-	[self.tableView dct_registerDCTTableViewCellSubclass:self.titleCellClass];
+	headerDataSource.cellClass = cellClass;
 }
 
 - (void)dctInternal_headerCheck {
