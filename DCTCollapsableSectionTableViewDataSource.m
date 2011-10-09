@@ -39,21 +39,26 @@
 #import "DCTTableViewCell.h"
 #import "UITableView+DCTTableViewDataSources.h"
 #import <QuartzCore/QuartzCore.h>
+#import "DCTObjectTableViewDataSource.h"
+#import "DCTSplitTableViewDataSource.h"
 
 
 
 @implementation DCTCollapsableSectionTableViewDataSourceHeader {
 	__strong NSString *title;
 	BOOL open;
+	BOOL empty;
 }
 @synthesize title;
 @synthesize open;
-- (id)initWithTitle:(NSString *)aTitle open:(BOOL)isOpen {
+@synthesize empty;
+- (id)initWithTitle:(NSString *)aTitle open:(BOOL)isOpen empty:(BOOL)isEmpty {
 	
 	if (!(self = [super init])) return nil;
 	
 	title = [aTitle copy];
 	open = isOpen;
+	empty = isEmpty;
 	
 	return self;
 }
@@ -70,8 +75,28 @@
 @end
 @implementation DCTCollapsableSectionTableViewDataSourceHeaderTableViewCell
 - (void)configureWithObject:(DCTCollapsableSectionTableViewDataSourceHeader *)object {
+	
 	self.textLabel.text = object.title;
-	self.accessoryView = nil;
+	
+	if (object.empty) {
+		
+		self.textLabel.textColor = [UIColor lightGrayColor];
+		self.accessoryView = nil;
+		self.accessoryType = UITableViewCellAccessoryNone;
+		
+	} else {
+		
+		UIImage *image = [UIImage imageNamed:@"DCTCollapsableSectionTableViewDataSourceDisclosureIndicator.png"];
+		UIImageView *iv = [[UIImageView alloc] initWithImage:image];
+		iv.highlightedImage = [UIImage imageNamed:@"DCTCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted.png"];
+		
+		self.accessoryView = iv;
+		self.textLabel.textColor = [UIColor blackColor];
+		
+		self.accessoryView.layer.transform = CATransform3DMakeRotation(object.open ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
+	}	
+	
+	self.selectionStyle = UITableViewCellSelectionStyleBlue;
 }
 @end
 
@@ -91,7 +116,6 @@
 
 @interface DCTCollapsableSectionTableViewDataSource ()
 - (void)dctInternal_setupTableViewDataSource;
-- (IBAction)dctInternal_disclosureButtonTapped:(UIButton *)sender;
 - (IBAction)dctInternal_titleTapped:(UITapGestureRecognizer *)sender;
 - (void)dctInternal_headerCellWillBeReused:(NSNotification *)notification;
 
@@ -109,15 +133,17 @@
 	__strong NSString *tableViewCellIdentifier;
 	__strong UITableViewCell *headerCell;
 	BOOL childTableViewDataSourceHasCells;
+	
+	__strong DCTSplitTableViewDataSource *splitDataSource;
+	__strong DCTObjectTableViewDataSource *headerDataSource;
 }
 
 @synthesize childTableViewDataSource;
-@synthesize greyWhenEmpty;
 @synthesize title;
-@synthesize type;
-@synthesize opened;
+@synthesize open;
 @synthesize titleCellClass;
-@synthesize titleSelectionHandler;
+
+#pragma mark - NSObject
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:DCTTableViewCellWillBeReusedNotification object:headerCell];
@@ -127,83 +153,73 @@
 	
 	if (!(self = [super init])) return nil;
 	
-	titleCellClass = [DCTCollapsableSectionTableViewDataSourceHeaderTableViewCell class];
+	splitDataSource = [[DCTSplitTableViewDataSource alloc] init];
+	splitDataSource.type = DCTSplitTableViewDataSourceTypeRow;
+	splitDataSource.parent = self;
+	
+	headerDataSource = [[DCTObjectTableViewDataSource alloc] init];
+	headerDataSource.cellClass = [DCTCollapsableSectionTableViewDataSourceHeaderTableViewCell class];
+	headerDataSource.object = [[DCTCollapsableSectionTableViewDataSourceHeader alloc] initWithTitle:self.title open:self.open empty:![self dctInternal_childTableViewDataSourceCurrentlyHasCells]];
+	
+	[splitDataSource addChildTableViewDataSource:headerDataSource];
 	
 	return self;
 }
 
-#pragma mark - DCTTableViewDataSource
-
-- (void)reloadData {
-	[self.childTableViewDataSource reloadData];
-}
-
-- (id)objectAtIndexPath:(NSIndexPath *)indexPath {
-	
-	if (indexPath.row == 0) return nil;
-	
-	indexPath = [self convertIndexPath:indexPath toChildTableViewDataSource:self.childTableViewDataSource];
-	return [self.childTableViewDataSource objectAtIndexPath:indexPath];
-}
-
-- (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {
-	
-	if (indexPath.row == 0) return self.titleCellClass;
-	
-	indexPath = [self convertIndexPath:indexPath toChildTableViewDataSource:self.childTableViewDataSource];
-	return [self.childTableViewDataSource cellClassAtIndexPath:indexPath];
-}
-
 #pragma mark - DCTCollapsableSectionTableViewDataSource
 
-- (id<DCTTableViewDataSource>)childTableViewDataSource {
+- (void)setChildTableViewDataSource:(id<DCTTableViewDataSource>)ds {
 	
-	if (!childTableViewDataSource) [self loadChildTableViewDataSource];
+	if (childTableViewDataSource == ds) return;
 	
-	return childTableViewDataSource;
+	if (self.open && childTableViewDataSource) [splitDataSource removeChildTableViewDataSource:childTableViewDataSource];
+	
+	childTableViewDataSource = ds;
+	
+	if (self.open && childTableViewDataSource) [splitDataSource addChildTableViewDataSource:childTableViewDataSource];
+	
+	[self dctInternal_setupTableViewDataSource];	
 }
-
-- (void)loadChildTableViewDataSource {}
 
 #pragma mark - DCTParentTableViewDataSource
 
 - (NSArray *)childTableViewDataSources {
-	return [NSArray arrayWithObject:self.childTableViewDataSource];
+	return [NSArray arrayWithObject:splitDataSource];
 }
 
 - (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
-	NSAssert(dataSource == self.childTableViewDataSource, @"dataSource should be the childTableViewDataSource");
-	return [NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section];
+	NSAssert(dataSource == splitDataSource, @"dataSource should be the splitDataSource");
+	return indexPath;
 }
 
 - (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath toChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
-	NSAssert(dataSource == self.childTableViewDataSource, @"dataSource should be the childTableViewDataSource");
-	return [NSIndexPath indexPathForRow:indexPath.row-1 inSection:0];
+	NSAssert(dataSource == splitDataSource, @"dataSource should be the splitDataSource");
+	return indexPath;
 }
 
 - (NSInteger)convertSection:(NSInteger)section fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
-	NSAssert(dataSource == self.childTableViewDataSource, @"dataSource should be the childTableViewDataSource");
+	NSAssert(dataSource == splitDataSource, @"dataSource should be the splitDataSource");
 	return section;
 }
 
 - (NSInteger)convertSection:(NSInteger)section toChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {	
-	NSAssert(dataSource == self.childTableViewDataSource, @"dataSource should be the childTableViewDataSource");
-	return 0;
+	NSAssert(dataSource == splitDataSource, @"dataSource should be the splitDataSource");
+	return section;
 }
 
 - (id<DCTTableViewDataSource>)childTableViewDataSourceForSection:(NSInteger)section {
-	return self.childTableViewDataSource;
+	return splitDataSource;
 }
 
 - (id<DCTTableViewDataSource>)childTableViewDataSourceForIndexPath:(NSIndexPath *)indexPath {
-	return self.childTableViewDataSource;
+	return splitDataSource;
 }
 
 - (BOOL)childTableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource {
 	
 	[self performSelector:@selector(dctInternal_headerCheck) withObject:nil afterDelay:0.01];
 	
-	if (!self.opened) return NO;
+	if (!self.open) return NO;
 	
 	if (self.parent == nil) return YES;
 	
@@ -216,87 +232,38 @@
 	
 	NSInteger numberOfRows = 0;
 	
-	if (self.opened) numberOfRows = [super tableView:tv numberOfRowsInSection:0];
+	if (self.open) numberOfRows = [super tableView:tv numberOfRowsInSection:0];
 	
 	return numberOfRows + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	if (indexPath.row > 0)
-		return [super tableView:tv cellForRowAtIndexPath:indexPath];
+	if (indexPath.row == 0)
+		headerDataSource.object = [[DCTCollapsableSectionTableViewDataSourceHeader alloc] initWithTitle:self.title open:self.open empty:![self dctInternal_childTableViewDataSourceCurrentlyHasCells]];
 	
-	if (tableViewCellIdentifier == nil) 
-		tableViewCellIdentifier = NSStringFromClass(self.titleCellClass);
+	UITableViewCell *cell = [super tableView:tv cellForRowAtIndexPath:indexPath];
 	
-	UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:tableViewCellIdentifier];
-	
-	if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableViewCellIdentifier];
-	
-	cell.textLabel.text = self.title;
-	cell.accessoryView = nil;
-
-	childTableViewDataSourceHasCells = ([self dctInternal_childTableViewDataSourceCurrentlyHasCells]);
-	
-	if (!childTableViewDataSourceHasCells && self.greyWhenEmpty)
-		cell.textLabel.textColor = [UIColor lightGrayColor];
-	else
-		cell.textLabel.textColor = [UIColor blackColor];
-	
-	if (self.type == DCTCollapsableSectionTableViewDataSourceTypeCell) {
+	if (indexPath.row == 0) {
 		
 		UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dctInternal_titleTapped:)]; 
 		[cell addGestureRecognizer:gr];
 		
-		UIImage *image = [UIImage imageNamed:@"DCTCollapsableSectionTableViewDataSourceDisclosureIndicator.png"];
-		UIImageView *iv = [[UIImageView alloc] initWithImage:image];
-		iv.highlightedImage = [UIImage imageNamed:@"DCTCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted.png"];
-		cell.accessoryView = iv;
-		cell.accessoryView.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
-		
-		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-		
-	} else if (self.type == DCTCollapsableSectionTableViewDataSourceTypeDisclosure) {
-		
-		if (childTableViewDataSourceHasCells) {
-			
-			UIImage *image = [UIImage imageNamed:@"DCTCollapsableSectionTableViewDataSourceDisclosureButton.png"];
-			UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-			button.frame = CGRectMake(0.0f, 0.0f, image.size.width, image.size.height);	
-			[button setBackgroundImage:image forState:UIControlStateNormal];
-			[button addTarget:self action:@selector(dctInternal_disclosureButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-			button.backgroundColor = [UIColor clearColor];
-			button.layer.transform = CATransform3DMakeRotation(self.opened ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
-			cell.accessoryView = button;
-		}
-		
-		if (!self.titleSelectionHandler) cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		[[NSNotificationCenter defaultCenter] removeObserver:self name:DCTTableViewCellWillBeReusedNotification object:headerCell];		
+		headerCell = cell;
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dctInternal_headerCellWillBeReused:) name:DCTTableViewCellWillBeReusedNotification object:headerCell];
 	}
 	
-	id object = [self objectAtIndexPath:indexPath];
-	
-	if ([cell conformsToProtocol:@protocol(DCTTableViewCellObjectConfiguration)])
-		[(id<DCTTableViewCellObjectConfiguration>)cell configureWithObject:object];
-	
-	[self configureCell:headerCell atIndexPath:indexPath withObject:object];
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self
-													name:DCTTableViewCellWillBeReusedNotification 
-												  object:headerCell];
-	
-	headerCell = cell;
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(dctInternal_headerCellWillBeReused:) 
-												 name:DCTTableViewCellWillBeReusedNotification 
-											   object:headerCell];
-	
-	return headerCell;
+	return cell;
 }
 
 - (void)dctInternal_headerCellWillBeReused:(NSNotification *)notification {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:DCTTableViewCellWillBeReusedNotification object:headerCell];
 	headerCell = nil;
+}
+
+- (IBAction)dctInternal_titleTapped:(UITapGestureRecognizer *)sender {
+	self.open = !self.open;
 }
 
 - (NSArray *)dctInternal_tableViewIndexPathsForCollapsableCells {
@@ -378,11 +345,11 @@
 								  animated:YES];
 }
 
-- (void)setOpened:(BOOL)aBool {
+- (void)setOpen:(BOOL)aBool {
 	
-	if (opened == aBool) return;
+	if (open == aBool) return;
 	
-	opened = aBool;
+	open = aBool;
 	
 	if (aBool)
 		[self dctInternal_setOpened];
@@ -408,15 +375,6 @@
 	[self dctInternal_setupTableViewDataSource];
 }
 
-- (void)setChildTableViewDataSource:(id<DCTTableViewDataSource>)ds {
-	
-	if (childTableViewDataSource == ds) return;
-	
-	childTableViewDataSource = ds;
-	
-	[self dctInternal_setupTableViewDataSource];	
-}
-
 - (void)setTitleCellClass:(Class)cellClass {
 	
 	if (titleCellClass == cellClass) return;
@@ -430,14 +388,6 @@
 	self.childTableViewDataSource.tableView = self.tableView;
 	self.childTableViewDataSource.parent = self;
 	[self.tableView dct_registerDCTTableViewCellSubclass:self.titleCellClass];
-}
-
-- (IBAction)dctInternal_titleTapped:(UITapGestureRecognizer *)sender {
-	self.opened = !self.opened;
-}
-
-- (IBAction)dctInternal_disclosureButtonTapped:(UIButton *)sender {
-	self.opened = !self.opened;
 }
 
 - (void)dctInternal_headerCheck {

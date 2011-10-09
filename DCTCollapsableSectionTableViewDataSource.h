@@ -36,37 +36,20 @@
 
 #import "DCTParentTableViewDataSource.h"
 
-typedef enum {
-	DCTCollapsableSectionTableViewDataSourceTypeNotCollapsable = 0,
-	DCTCollapsableSectionTableViewDataSourceTypeCell,
-	DCTCollapsableSectionTableViewDataSourceTypeDisclosure
-} DCTCollapsableSectionTableViewDataSourceType;
-
-
 
 @interface DCTCollapsableSectionTableViewDataSourceHeader : NSObject
 @property (nonatomic, readonly) NSString *title;
 @property (nonatomic, readonly) BOOL open;
+@property (nonatomic, readonly) BOOL empty;
 @end
 
 
 
-
-typedef void (^DCTCollapsableSectionTableViewDataSourceSelectionBlock) ();
-
 @interface DCTCollapsableSectionTableViewDataSource : DCTParentTableViewDataSource <DCTParentTableViewDataSource>
 
 @property (nonatomic, strong) id<DCTTableViewDataSource> childTableViewDataSource;
-- (void)loadChildTableViewDataSource;
-
-@property (nonatomic, assign) DCTCollapsableSectionTableViewDataSourceType type;
-
 @property (nonatomic, assign) Class titleCellClass;
-@property (nonatomic, copy) DCTCollapsableSectionTableViewDataSourceSelectionBlock titleSelectionHandler;
-
 @property (nonatomic, copy) NSString *title;
-
-@property (nonatomic, assign) BOOL greyWhenEmpty;
-@property (nonatomic, assign) BOOL opened;
+@property (nonatomic, assign, getter = isOpen) BOOL open;
 
 @end
