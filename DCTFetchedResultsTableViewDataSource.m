@@ -172,6 +172,8 @@
 		   atIndex:(NSUInteger)sectionIndex
 	 forChangeType:(NSFetchedResultsChangeType)type {
 	
+	if (!self.tableView) return;
+	
 	if (self.parent != nil && ![self.parent childTableViewDataSourceShouldUpdateCells:self])
 		return;
 	
@@ -204,6 +206,8 @@
 	newIndexPath = [self.tableView dct_convertIndexPath:newIndexPath fromChildTableViewDataSource:self];
 	
     UITableView *tv = self.tableView;
+	
+	if (!tv) return;
 	
     switch(type) {
 			

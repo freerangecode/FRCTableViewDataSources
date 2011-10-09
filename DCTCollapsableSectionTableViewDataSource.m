@@ -177,9 +177,10 @@
 	
 	if (self.open && ds)
 		[self dctInternal_setSplitChild:ds];
-	else
+	else {
 		ds.parent = self; // This makes it ask us if it should update, to which we'll respond no when it's not showing.
-	
+		ds.tableView = nil;
+	}
 	[self dctInternal_headerCheck];
 }
 
@@ -344,6 +345,7 @@
 	
 	[splitDataSource removeChildTableViewDataSource:self.childTableViewDataSource];
 	self.childTableViewDataSource.parent = self; // This makes it ask us if it should update, to which we'll respond no when it's not showing.
+	self.childTableViewDataSource.tableView = nil;
 	
 	[self.tableView scrollToRowAtIndexPath:[self dctInternal_headerTableViewIndexPath]
 						  atScrollPosition:UITableViewScrollPositionNone
