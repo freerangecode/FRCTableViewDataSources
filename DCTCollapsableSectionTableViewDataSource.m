@@ -302,7 +302,7 @@
 	if ([indexPaths count] == 0) return;
 	
 	[self.tableView beginUpdates];
-	[self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+	[self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
 	[self.tableView endUpdates];
 	
 	NSIndexPath *headerIndexPath = [self dctInternal_headerTableViewIndexPath];
@@ -321,7 +321,7 @@
 	if ([indexPaths count] == 0) return;
 	
 	[self.tableView beginUpdates];
-	[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+	[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
 	[self.tableView endUpdates];
 	
 	[self.tableView scrollToRowAtIndexPath:[self dctInternal_headerTableViewIndexPath]

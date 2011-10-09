@@ -38,10 +38,12 @@
 	#define dct_weak weak
 	#define __dct_weak __weak
 	#define dct_nil(x)
+	#define DCTTableViewDataSourceTableViewRowAnimationAutomatic UITableViewRowAnimationAutomatic
 #else
 	#define dct_weak unsafe_unretained
 	#define __dct_weak __unsafe_unretained
 	#define dct_nil(x) x = nil
+	#define DCTTableViewDataSourceTableViewRowAnimationAutomatic UITableViewRowAnimationFade
 #endif
 
 #import <Foundation/Foundation.h>

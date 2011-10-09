@@ -209,12 +209,12 @@
 			
         case NSFetchedResultsChangeInsert:
             [tv insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-					  withRowAnimation:UITableViewRowAnimationAutomatic];
+					  withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
             break;
 			
         case NSFetchedResultsChangeDelete:
             [tv deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-					  withRowAnimation:UITableViewRowAnimationAutomatic];
+					  withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
             break;
 			
         case NSFetchedResultsChangeUpdate:
@@ -224,9 +224,9 @@
 			
         case NSFetchedResultsChangeMove:
             [tv deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-					  withRowAnimation:UITableViewRowAnimationAutomatic];
+					  withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
             [tv insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-					  withRowAnimation:UITableViewRowAnimationAutomatic];
+					  withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
             break;
     }
 }

@@ -188,7 +188,7 @@
 	if (!tableViewHasSetup) return;
 	
 	NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:[ds indexOfObject:tableViewDataSource]];
-	[self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+	[self.tableView insertSections:indexSet withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
 }
 
 - (void)removeChildTableViewDataSource:(id<DCTTableViewDataSource>)tableViewDataSource {
@@ -201,7 +201,7 @@
 	
 	if (!tableViewHasSetup) return;
 	
-	[self.tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+	[self.tableView deleteSections:indexSet withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
 }
 
 #pragma mark - DCTTableViewDataSource methods
