@@ -274,8 +274,6 @@
 	
 	NSInteger numberOfRows = [dataSource tableView:self.tableView numberOfRowsInSection:0];
 	
-	NSLog(@"%@:%@ %i", self, NSStringFromSelector(_cmd), numberOfRows);
-	
 	NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:numberOfRows];
 	
 	for (NSInteger i = 0; i < numberOfRows; i++) {
