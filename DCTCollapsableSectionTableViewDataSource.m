@@ -335,8 +335,6 @@
 	else 
 		[self dctInternal_setClosed];
 	
-	[self.tableView dct_logTableViewDataSources];
-	
 	UIView *accessoryView = headerCell.accessoryView;
 	
 	if (!accessoryView) return;
