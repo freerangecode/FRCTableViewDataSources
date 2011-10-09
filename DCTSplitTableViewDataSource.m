@@ -198,7 +198,7 @@
 		
 		NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:[childDataSources indexOfObject:tableViewDataSource]];
 		[self.tableView insertSections:indexSet withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
-		t
+		
 	}
 }
 
