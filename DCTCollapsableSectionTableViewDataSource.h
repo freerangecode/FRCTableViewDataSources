@@ -42,6 +42,16 @@ typedef enum {
 	DCTCollapsableSectionTableViewDataSourceTypeDisclosure
 } DCTCollapsableSectionTableViewDataSourceType;
 
+
+
+@interface DCTCollapsableSectionTableViewDataSourceHeader : NSObject
+@property (nonatomic, readonly) NSString *title;
+@property (nonatomic, readonly) BOOL open;
+@end
+
+
+
+
 typedef void (^DCTCollapsableSectionTableViewDataSourceSelectionBlock) ();
 
 @interface DCTCollapsableSectionTableViewDataSource : DCTParentTableViewDataSource <DCTParentTableViewDataSource>

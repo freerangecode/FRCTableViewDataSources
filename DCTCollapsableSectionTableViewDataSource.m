@@ -40,6 +40,55 @@
 #import "UITableView+DCTTableViewDataSources.h"
 #import <QuartzCore/QuartzCore.h>
 
+
+
+@implementation DCTCollapsableSectionTableViewDataSourceHeader {
+	__strong NSString *title;
+	BOOL open;
+}
+@synthesize title;
+@synthesize open;
+- (id)initWithTitle:(NSString *)aTitle open:(BOOL)isOpen {
+	
+	if (!(self = [super init])) return nil;
+	
+	title = [aTitle copy];
+	open = isOpen;
+	
+	return self;
+}
+@end
+
+
+
+
+
+
+
+
+@interface DCTCollapsableSectionTableViewDataSourceHeaderTableViewCell : DCTTableViewCell
+@end
+@implementation DCTCollapsableSectionTableViewDataSourceHeaderTableViewCell
+- (void)configureWithObject:(DCTCollapsableSectionTableViewDataSourceHeader *)object {
+	self.textLabel.text = object.title;
+	self.accessoryView = nil;
+}
+@end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @interface DCTCollapsableSectionTableViewDataSource ()
 - (void)dctInternal_setupTableViewDataSource;
 - (IBAction)dctInternal_disclosureButtonTapped:(UIButton *)sender;
@@ -78,7 +127,7 @@
 	
 	if (!(self = [super init])) return nil;
 	
-	titleCellClass = [DCTTableViewCell class];
+	titleCellClass = [DCTCollapsableSectionTableViewDataSourceHeaderTableViewCell class];
 	
 	return self;
 }
