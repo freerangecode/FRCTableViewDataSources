@@ -125,6 +125,9 @@
 
 - (void)dctInternal_headerCheck;
 - (BOOL)dctInternal_childTableViewDataSourceCurrentlyHasCells;
+
+- (void)dctInternal_setSplitChild:(id<DCTTableViewDataSource>)dataSource;
+
 @end
 
 @implementation DCTCollapsableSectionTableViewDataSource {
@@ -158,7 +161,6 @@
 	
 	headerDataSource = [[DCTObjectTableViewDataSource alloc] init];
 	headerDataSource.cellClass = [DCTCollapsableSectionTableViewDataSourceHeaderTableViewCell class];
-	headerDataSource.object = [[DCTCollapsableSectionTableViewDataSourceHeader alloc] initWithTitle:self.title open:self.open empty:![self dctInternal_childTableViewDataSourceCurrentlyHasCells]];
 	
 	[splitDataSource addChildTableViewDataSource:headerDataSource];
 	
@@ -171,13 +173,21 @@
 	
 	if (childTableViewDataSource == ds) return;
 	
-	if (self.open && childTableViewDataSource) [splitDataSource removeChildTableViewDataSource:childTableViewDataSource];
-	
 	childTableViewDataSource = ds;
 	
-	if (self.open && childTableViewDataSource) [splitDataSource addChildTableViewDataSource:childTableViewDataSource];
+	if (self.open && ds) [self dctInternal_setSplitChild:ds];
 	
 	[self dctInternal_headerCheck];
+}
+
+#pragma mark - DCTTableViewDataSource
+
+- (id)objectAtIndexPath:(NSIndexPath *)indexPath {
+	
+	if (indexPath.row == 0) 
+		return [[DCTCollapsableSectionTableViewDataSourceHeader alloc] initWithTitle:self.title open:self.open empty:![self dctInternal_childTableViewDataSourceCurrentlyHasCells]];
+	
+	return [super objectAtIndexPath:indexPath];
 }
 
 #pragma mark - DCTParentTableViewDataSource
@@ -232,7 +242,7 @@
 	tableViewHasSetup = YES;
 	
 	if (indexPath.row == 0)
-		headerDataSource.object = [[DCTCollapsableSectionTableViewDataSourceHeader alloc] initWithTitle:self.title open:self.open empty:![self dctInternal_childTableViewDataSourceCurrentlyHasCells]];
+		headerDataSource.object = [self objectAtIndexPath:indexPath];
 	
 	UITableViewCell *cell = [super tableView:tv cellForRowAtIndexPath:indexPath];
 	
@@ -285,9 +295,16 @@
 	return [self.tableView dct_convertIndexPath:headerIndexPath fromChildTableViewDataSource:self];
 }
 
-- (void)dctInternal_setOpened {
+- (void)dctInternal_setSplitChild:(id<DCTTableViewDataSource>)dataSource {
+	NSArray *children = splitDataSource.childTableViewDataSources;
+	if ([children count] > 1) [splitDataSource removeChildTableViewDataSource:[children lastObject]];
 	
 	[splitDataSource addChildTableViewDataSource:self.childTableViewDataSource];
+}
+
+- (void)dctInternal_setOpened {
+	
+	[self dctInternal_setSplitChild:self.childTableViewDataSource];
 	
 	__block CGFloat totalCellHeight = headerCell.bounds.size.height;
 	CGFloat tableViewHeight = self.tableView.bounds.size.height;
@@ -319,6 +336,9 @@
 
 - (void)dctInternal_setClosed {
 	
+	NSArray *children = splitDataSource.childTableViewDataSources;
+	if ([children count] == 1) return;
+	
 	[splitDataSource removeChildTableViewDataSource:self.childTableViewDataSource];
 		
 	[self.tableView scrollToRowAtIndexPath:[self dctInternal_headerTableViewIndexPath]
@@ -336,7 +356,9 @@
 		[self dctInternal_setOpened];
 	else 
 		[self dctInternal_setClosed];
-		
+	
+	[self.tableView dct_logTableViewDataSources];
+	
 	UIView *accessoryView = headerCell.accessoryView;
 	
 	if (!accessoryView) return;
