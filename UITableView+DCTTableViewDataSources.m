@@ -28,8 +28,8 @@
 	
 	NSLog(@"%@%@", string, self);
 	
-	if ([self conformsToProtocol:@protocol(DCTParentTableViewDataSource)]) {
-		for (id object in [(id<DCTParentTableViewDataSource>)self childTableViewDataSources])
+	if ([self isKindOfClass:[DCTParentTableViewDataSource class]]) {
+		for (id object in [(DCTParentTableViewDataSource *)self childTableViewDataSources])
 			[object dct_logTableViewDataSourcesLevel:level+1];
 	}
 }
@@ -51,7 +51,7 @@
 
 - (NSInteger)dct_convertSection:(NSInteger)section fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
 	
-	id<DCTParentTableViewDataSource> parent = dataSource.parent;
+	DCTParentTableViewDataSource *parent = dataSource.parent;
 	
 	while (parent) {
 		section = [parent convertSection:section fromChildTableViewDataSource:dataSource];
@@ -67,7 +67,7 @@
 
 - (NSIndexPath *)dct_convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(id<DCTTableViewDataSource>)dataSource {
 	
-	id<DCTParentTableViewDataSource> parent = dataSource.parent;
+	DCTParentTableViewDataSource *parent = dataSource.parent;
 	
 	while (parent) {
 		indexPath = [parent convertIndexPath:indexPath fromChildTableViewDataSource:dataSource];

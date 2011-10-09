@@ -51,7 +51,7 @@
 #import "DCTTableViewCell.h"
 
 @protocol DCTTableViewDataSource;
-@protocol DCTParentTableViewDataSource;
+@class DCTParentTableViewDataSource;
 
 
 
@@ -60,7 +60,7 @@
 @protocol DCTTableViewDataSource <UITableViewDataSource>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
-@property (nonatomic, dct_weak) id<DCTParentTableViewDataSource> parent;
+@property (nonatomic, dct_weak) DCTParentTableViewDataSource *parent;
 
 - (void)reloadData;
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;

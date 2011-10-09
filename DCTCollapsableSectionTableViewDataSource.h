@@ -45,7 +45,7 @@
 
 
 
-@interface DCTCollapsableSectionTableViewDataSource : DCTParentTableViewDataSource <DCTParentTableViewDataSource>
+@interface DCTCollapsableSectionTableViewDataSource : DCTParentTableViewDataSource
 
 @property (nonatomic, strong) id<DCTTableViewDataSource> childTableViewDataSource;
 @property (nonatomic, assign) Class titleCellClass;

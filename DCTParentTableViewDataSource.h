@@ -37,10 +37,11 @@
 #import "DCTTableViewDataSource.h"
 
 
-
-/** 
- */
-@protocol DCTParentTableViewDataSource <DCTTableViewDataSource>
+/** This is an abstract class that implements forwarding of the UITableViewDataSource methods to child data source objects.
+ 
+ Subclasses must implement the DCTParentTableViewDataSource protocol.
+*/
+@interface DCTParentTableViewDataSource : NSObject <DCTTableViewDataSource>
 
 @property (nonatomic, readonly) NSArray *childTableViewDataSources;
 
@@ -55,15 +56,4 @@
 
 - (BOOL)childTableViewDataSourceShouldUpdateCells:(id<DCTTableViewDataSource>)dataSource;
 
-@end
-
-
-
-
-
-/** This is an abstract class that implements forwarding of the UITableViewDataSource methods to child data source objects.
- 
- Subclasses must implement the DCTParentTableViewDataSource protocol.
-*/
-@interface DCTParentTableViewDataSource : NSObject <DCTTableViewDataSource>
 @end
