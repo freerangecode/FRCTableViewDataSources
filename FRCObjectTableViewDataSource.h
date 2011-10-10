@@ -1,6 +1,6 @@
 /*
- DCTObjectTableViewDataSource.h
- DCTTableViewDataSources
+ FRCObjectTableViewDataSource.h
+ FRCTableViewDataSources
  
  Created by Daniel Tull on 19.09.2011.
  
@@ -36,6 +36,6 @@
 
 #import "DCTTableViewDataSource.h"
 
-@interface DCTObjectTableViewDataSource : DCTTableViewDataSource
+@interface FRCObjectTableViewDataSource : DCTTableViewDataSource
 @property (nonatomic, strong) id object;
 @end

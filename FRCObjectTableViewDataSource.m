@@ -1,6 +1,6 @@
 /*
- DCTObjectTableViewDataSource.m
- DCTTableViewDataSources
+ FRCObjectTableViewDataSource.m
+ FRCTableViewDataSources
  
  Created by Daniel Tull on 19.09.2011.
  
@@ -34,11 +34,11 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "DCTObjectTableViewDataSource.h"
+#import "FRCObjectTableViewDataSource.h"
 #import "DCTParentTableViewDataSource.h"
 #import "UITableView+DCTTableViewDataSources.h"
 
-@implementation DCTObjectTableViewDataSource
+@implementation FRCObjectTableViewDataSource
 
 @synthesize object;
 
