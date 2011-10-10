@@ -44,7 +44,7 @@
 
 
 
-@implementation DCTCollapsableSectionTableViewDataSourceHeader {
+@implementation FRCCollapsableSectionTableViewDataSourceHeader {
 	__strong NSString *title;
 	BOOL open;
 	BOOL empty;
@@ -74,7 +74,7 @@
 @interface DCTCollapsableSectionTableViewDataSourceHeaderTableViewCell : DCTTableViewCell
 @end
 @implementation DCTCollapsableSectionTableViewDataSourceHeaderTableViewCell
-- (void)configureWithObject:(DCTCollapsableSectionTableViewDataSourceHeader *)object {
+- (void)configureWithObject:(FRCCollapsableSectionTableViewDataSourceHeader *)object {
 	
 	self.textLabel.text = object.title;
 	
@@ -189,7 +189,7 @@
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath {
 	
 	if (indexPath.row == 0) 
-		return [[DCTCollapsableSectionTableViewDataSourceHeader alloc] initWithTitle:self.title open:self.open empty:![self dctInternal_childTableViewDataSourceCurrentlyHasCells]];
+		return [[FRCCollapsableSectionTableViewDataSourceHeader alloc] initWithTitle:self.title open:self.open empty:![self dctInternal_childTableViewDataSourceCurrentlyHasCells]];
 	
 	return [super objectAtIndexPath:indexPath];
 }

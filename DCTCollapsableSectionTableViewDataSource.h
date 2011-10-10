@@ -36,7 +36,7 @@
 
 #import "DCTParentTableViewDataSource.h"
 
-@interface DCTCollapsableSectionTableViewDataSourceHeader : NSObject
+@interface FRCCollapsableSectionTableViewDataSourceHeader : NSObject
 @property (nonatomic, readonly) NSString *title;
 @property (nonatomic, readonly) BOOL open;
 @property (nonatomic, readonly) BOOL empty;
