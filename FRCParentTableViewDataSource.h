@@ -38,8 +38,6 @@
 
 
 /** This is an abstract class that implements forwarding of the UITableViewDataSource methods to child data source objects.
- 
- Subclasses must implement the DCTParentTableViewDataSource protocol.
 */
 @interface FRCParentTableViewDataSource : FRCTableViewDataSource
 

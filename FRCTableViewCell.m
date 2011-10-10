@@ -51,7 +51,7 @@ NSString *const FRCTableViewCellWillBeReusedNotification = @"FRCTableViewCellWil
 	[[NSNotificationCenter defaultCenter] postNotificationName:FRCTableViewCellWillBeReusedNotification object:self];
 }
 
-#pragma mark - DCTTableViewCell
+#pragma mark - FRCTableViewCell
 
 + (id)cell {
 	

@@ -50,7 +50,7 @@
 
 @synthesize type;
 
-#pragma mark - DCTParentTableViewDataSource
+#pragma mark - FRCParentTableViewDataSource
 
 - (NSArray *)childTableViewDataSources {
 	return [[self frcInternal_tableViewDataSources] copy];
@@ -177,7 +177,7 @@
 }
 
 
-#pragma mark - DCTSplitTableViewDataSource methods
+#pragma mark - FRCSplitTableViewDataSource methods
 
 - (void)addChildTableViewDataSource:(FRCTableViewDataSource *)tableViewDataSource {
 	

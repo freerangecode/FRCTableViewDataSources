@@ -47,7 +47,7 @@
 #pragma mark - NSObject
 
 - (void)dealloc {
-	dct_nil(self.parent);
+	frc_nil(self.parent);
 }
 
 - (id)init {

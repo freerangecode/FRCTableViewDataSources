@@ -37,7 +37,7 @@
 #import "FRCTableViewDataSource.h"
 #import <CoreData/CoreData.h>
 
-typedef NSFetchRequest *(^DCTFetchRequestBlock)();
+typedef NSFetchRequest *(^FRCFetchRequestBlock)();
 
 @interface FRCFetchedResultsTableViewDataSource : FRCTableViewDataSource <NSFetchedResultsControllerDelegate>
 
@@ -45,7 +45,7 @@ typedef NSFetchRequest *(^DCTFetchRequestBlock)();
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 @property (nonatomic, strong) NSFetchRequest *fetchRequest;
-@property (nonatomic, copy) DCTFetchRequestBlock fetchRequestBlock;
+@property (nonatomic, copy) FRCFetchRequestBlock fetchRequestBlock;
 
 - (void)loadFetchRequest;
 - (void)loadFetchedResultsController;

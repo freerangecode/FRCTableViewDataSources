@@ -58,7 +58,7 @@
 	return [self.fetchedResultsController objectAtIndexPath:indexPath];
 }
 
-#pragma mark - DCTFetchedResultsTableViewDataSource
+#pragma mark - FRCFetchedResultsTableViewDataSource
 
 - (void)setFetchRequest:(NSFetchRequest *)fr {
 	

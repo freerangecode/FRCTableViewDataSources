@@ -35,14 +35,14 @@
  */
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_5_0
-	#define dct_weak weak
-	#define __dct_weak __weak
-	#define dct_nil(x)
+	#define frc_weak weak
+	#define __frc_weak __weak
+	#define frc_nil(x)
 	#define FRCTableViewDataSourceTableViewRowAnimationAutomatic UITableViewRowAnimationAutomatic
 #else
-	#define dct_weak unsafe_unretained
-	#define __dct_weak __unsafe_unretained
-	#define dct_nil(x) x = nil
+	#define frc_weak unsafe_unretained
+	#define __frc_weak __unsafe_unretained
+	#define frc_nil(x) x = nil
 	#define FRCTableViewDataSourceTableViewRowAnimationAutomatic UITableViewRowAnimationFade
 #endif
 
@@ -58,7 +58,7 @@
 @property (nonatomic, assign) Class cellClass;
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
-@property (nonatomic, dct_weak) FRCParentTableViewDataSource *parent;
+@property (nonatomic, frc_weak) FRCParentTableViewDataSource *parent;
 
 - (void)reloadData;
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;

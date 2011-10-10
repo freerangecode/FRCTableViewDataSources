@@ -57,7 +57,7 @@
 	return [ds cellClassAtIndexPath:indexPath];
 }
 
-#pragma mark - DCTParentTableViewDataSource
+#pragma mark - FRCParentTableViewDataSource
 
 - (NSArray *)childTableViewDataSources {
 	return nil;

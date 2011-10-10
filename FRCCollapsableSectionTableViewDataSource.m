@@ -194,7 +194,7 @@
 	return [super objectAtIndexPath:indexPath];
 }
 
-#pragma mark - DCTParentTableViewDataSource
+#pragma mark - FRCParentTableViewDataSource
 
 - (NSArray *)childTableViewDataSources {
 	return [NSArray arrayWithObject:splitDataSource];
