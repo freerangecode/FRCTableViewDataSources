@@ -1,12 +1,12 @@
 /*
- DCTSplitTableViewDataSource.h
+ DCTTableViewCell.h
  DCTTableViewDataSources
  
- Created by Daniel Tull on 16.09.2010.
+ Created by Daniel Tull on 09.07.2011.
  
  
  
- Copyright (c) 2010 Daniel Tull. All rights reserved.
+ Copyright (c) 2011 Daniel Tull. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -35,21 +35,24 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "FRCParentTableViewDataSource.h"
 
-typedef enum {
-	DCTSplitTableViewDataSourceTypeSection = 0,
-	DCTSplitTableViewDataSourceTypeRow
-} DCTSplitTableViewDataSourceType;
+extern NSString *const FRCTableViewCellWillBeReusedNotification;
 
 
 
-/** A class to provide a way of displaying data from multiple data sources in a table view. */
-@interface DCTSplitTableViewDataSource : FRCParentTableViewDataSource
+@protocol DCTTableViewCellObjectConfiguration <NSObject>
 
-- (void)addChildTableViewDataSource:(DCTTableViewDataSource *)tableViewSectionDataSource;
-- (void)removeChildTableViewDataSource:(DCTTableViewDataSource *)tableViewSectionDataSource;
+- (void)configureWithObject:(id)object;
++ (CGFloat)heightForObject:(id)object width:(CGFloat)width;
 
-@property (nonatomic, assign) DCTSplitTableViewDataSourceType type;
+@end
+
+
+
+@interface FRCTableViewCell : UITableViewCell <DCTTableViewCellObjectConfiguration>
+
++ (id)cell;
++ (NSString *)reuseIdentifier;
++ (NSString *)nibName;
 
 @end

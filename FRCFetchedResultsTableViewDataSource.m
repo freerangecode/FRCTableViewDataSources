@@ -35,7 +35,7 @@
  */
 
 #import "FRCFetchedResultsTableViewDataSource.h"
-#import "DCTTableViewCell.h"
+#import "FRCTableViewCell.h"
 #import "FRCParentTableViewDataSource.h"
 #import "UITableView+DCTTableViewDataSources.h"
 

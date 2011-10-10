@@ -35,7 +35,7 @@
  */
 
 #import "DCTTableViewDataSource.h"
-#import "DCTTableViewCell.h"
+#import "FRCTableViewCell.h"
 #import "UITableView+DCTTableViewDataSources.h"
 
 @implementation DCTTableViewDataSource
@@ -54,7 +54,7 @@
     
     if (!(self = [super init])) return nil;
 	
-	self.cellClass = [DCTTableViewCell class];
+	self.cellClass = [FRCTableViewCell class];
 	
     return self;
 }
@@ -101,12 +101,12 @@
 	
 	Class theCellClass = [self cellClassAtIndexPath:indexPath];
 	
-	if ([theCellClass isSubclassOfClass:[DCTTableViewCell class]])
+	if ([theCellClass isSubclassOfClass:[FRCTableViewCell class]])
 		cellIdentifier = [theCellClass reuseIdentifier];
 	
     UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:cellIdentifier];
 	
-	if (!cell && [theCellClass isSubclassOfClass:[DCTTableViewCell class]])
+	if (!cell && [theCellClass isSubclassOfClass:[FRCTableViewCell class]])
 		cell = [theCellClass cell];
 	
 	if (!cell)

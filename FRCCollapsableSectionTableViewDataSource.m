@@ -36,7 +36,7 @@
 
 #import "FRCCollapsableSectionTableViewDataSource.h"
 #import "FRCParentTableViewDataSource.h"
-#import "DCTTableViewCell.h"
+#import "FRCTableViewCell.h"
 #import "UITableView+DCTTableViewDataSources.h"
 #import <QuartzCore/QuartzCore.h>
 #import "FRCObjectTableViewDataSource.h"
@@ -71,7 +71,7 @@
 
 
 
-@interface DCTCollapsableSectionTableViewDataSourceHeaderTableViewCell : DCTTableViewCell
+@interface DCTCollapsableSectionTableViewDataSourceHeaderTableViewCell : FRCTableViewCell
 @end
 @implementation DCTCollapsableSectionTableViewDataSourceHeaderTableViewCell
 - (void)configureWithObject:(FRCCollapsableSectionTableViewDataSourceHeader *)object {
@@ -148,7 +148,7 @@
 #pragma mark - NSObject
 
 - (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:DCTTableViewCellWillBeReusedNotification object:headerCell];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:FRCTableViewCellWillBeReusedNotification object:headerCell];
 }
 
 - (id)init {
@@ -227,16 +227,16 @@
 		UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dctInternal_titleTapped:)]; 
 		[cell addGestureRecognizer:gr];
 		
-		[[NSNotificationCenter defaultCenter] removeObserver:self name:DCTTableViewCellWillBeReusedNotification object:headerCell];		
+		[[NSNotificationCenter defaultCenter] removeObserver:self name:FRCTableViewCellWillBeReusedNotification object:headerCell];		
 		headerCell = cell;
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dctInternal_headerCellWillBeReused:) name:DCTTableViewCellWillBeReusedNotification object:headerCell];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dctInternal_headerCellWillBeReused:) name:FRCTableViewCellWillBeReusedNotification object:headerCell];
 	}
 	
 	return cell;
 }
 
 - (void)dctInternal_headerCellWillBeReused:(NSNotification *)notification {
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:DCTTableViewCellWillBeReusedNotification object:headerCell];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:FRCTableViewCellWillBeReusedNotification object:headerCell];
 	headerCell = nil;
 }
 

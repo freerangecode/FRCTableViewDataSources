@@ -35,7 +35,7 @@
  */
 
 #import "UITableView+DCTTableViewDataSources.h"
-#import "DCTTableViewCell.h"
+#import "FRCTableViewCell.h"
 #import "FRCParentTableViewDataSource.h"
 #import "DCTTableViewDataSource.h"
 
@@ -114,7 +114,7 @@
 	
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_5_0	
 	
-	if (![tableViewCellClass isSubclassOfClass:[DCTTableViewCell class]]) return;
+	if (![tableViewCellClass isSubclassOfClass:[FRCTableViewCell class]]) return;
 	
 	NSString *nibName = [tableViewCellClass nibName];
 	

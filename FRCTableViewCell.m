@@ -34,21 +34,21 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "DCTTableViewCell.h"
+#import "FRCTableViewCell.h"
 
-NSString *const DCTTableViewCellWillBeReusedNotification = @"DCTTableViewCellWillBeReusedNotification";
+NSString *const FRCTableViewCellWillBeReusedNotification = @"FRCTableViewCellWillBeReusedNotification";
 
-@interface DCTTableViewCell ()
+@interface FRCTableViewCell ()
 + (BOOL)dctInternal_nibExistsWithNibName:(NSString *)nibName bundle:(NSBundle *)bundle;
 @end
 
-@implementation DCTTableViewCell
+@implementation FRCTableViewCell
 
 #pragma mark - UITableViewCell
 
 - (void)prepareForReuse {
 	[super prepareForReuse];
-	[[NSNotificationCenter defaultCenter] postNotificationName:DCTTableViewCellWillBeReusedNotification object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:FRCTableViewCellWillBeReusedNotification object:self];
 }
 
 #pragma mark - DCTTableViewCell
