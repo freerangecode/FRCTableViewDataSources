@@ -278,7 +278,7 @@
 	
 	for (NSInteger i = 0; i < numberOfRows; i++) {
 		NSIndexPath *ip = [NSIndexPath indexPathForRow:i inSection:0];
-		ip = [self.tableView dct_convertIndexPath:ip fromChildTableViewDataSource:dataSource];
+		ip = [self.tableView frc_convertIndexPath:ip fromChildTableViewDataSource:dataSource];
 		[indexPaths addObject:ip];
 	}
 	

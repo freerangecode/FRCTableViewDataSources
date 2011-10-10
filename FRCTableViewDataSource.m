@@ -65,7 +65,7 @@
 	
 	cellClass = aCellClass;
 	
-	[self.tableView dct_registerDCTTableViewCellSubclass:self.cellClass];
+	[self.tableView frc_registerFRCTableViewCellSubclass:self.cellClass];
 }
 
 - (void)setTableView:(UITableView *)tv {
@@ -74,7 +74,7 @@
 	
 	tableView = tv;
 	
-	[self.tableView dct_registerDCTTableViewCellSubclass:self.cellClass];
+	[self.tableView frc_registerFRCTableViewCellSubclass:self.cellClass];
 }
 
 - (void)reloadData {}

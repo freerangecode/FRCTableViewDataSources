@@ -41,11 +41,11 @@
 
 
 @interface FRCTableViewDataSource (FRCTableViewDataSources)
-- (void)dct_logTableViewDataSourcesLevel:(NSInteger)level;
+- (void)frc_logTableViewDataSourcesLevel:(NSInteger)level;
 @end
 @implementation FRCTableViewDataSource (FRCTableViewDataSources)
 
-- (void)dct_logTableViewDataSourcesLevel:(NSInteger)level {
+- (void)frc_logTableViewDataSourcesLevel:(NSInteger)level {
 	
 	NSMutableString *string = [[NSMutableString alloc] init];
 	
@@ -56,7 +56,7 @@
 	
 	if ([self isKindOfClass:[FRCParentTableViewDataSource class]]) {
 		for (id object in [(FRCParentTableViewDataSource *)self childTableViewDataSources])
-			[object dct_logTableViewDataSourcesLevel:level+1];
+			[object frc_logTableViewDataSourcesLevel:level+1];
 	}
 }
 
@@ -64,7 +64,7 @@
 
 @implementation UITableView (FRCTableViewDataSources)
 
-- (void)dct_logTableViewDataSources {
+- (void)frc_logTableViewDataSources {
 	
 	id ds = self.dataSource;
 	if (![ds isKindOfClass:[FRCTableViewDataSource class]]) return;
@@ -74,11 +74,11 @@
 	NSLog(@"-------------");
 	NSLog(@"Logging data sources for %@", self);
 	NSLog(@"-------------");
-	[dataSource dct_logTableViewDataSourcesLevel:0];
+	[dataSource frc_logTableViewDataSourcesLevel:0];
 	NSLog(@"-------------");
 }
 
-- (NSInteger)dct_convertSection:(NSInteger)section fromChildTableViewDataSource:(FRCTableViewDataSource *)dataSource {
+- (NSInteger)frc_convertSection:(NSInteger)section fromChildTableViewDataSource:(FRCTableViewDataSource *)dataSource {
 	
 	FRCParentTableViewDataSource *parent = dataSource.parent;
 	
@@ -94,7 +94,7 @@
 	return section;
 }
 
-- (NSIndexPath *)dct_convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(FRCTableViewDataSource *)dataSource {
+- (NSIndexPath *)frc_convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(FRCTableViewDataSource *)dataSource {
 	
 	FRCParentTableViewDataSource *parent = dataSource.parent;
 	
@@ -110,7 +110,7 @@
 	return indexPath;
 }
 
-- (void)dct_registerDCTTableViewCellSubclass:(Class)tableViewCellClass {
+- (void)frc_registerFRCTableViewCellSubclass:(Class)tableViewCellClass {
 	
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_5_0	
 	

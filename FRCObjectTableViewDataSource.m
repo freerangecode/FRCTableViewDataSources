@@ -52,7 +52,7 @@
 
 - (void)reloadData {
 	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-	indexPath = [self.tableView dct_convertIndexPath:indexPath fromChildTableViewDataSource:self];
+	indexPath = [self.tableView frc_convertIndexPath:indexPath fromChildTableViewDataSource:self];
 	[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 

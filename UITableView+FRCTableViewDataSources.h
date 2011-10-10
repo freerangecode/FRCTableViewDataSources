@@ -39,11 +39,11 @@
 
 @interface UITableView (FRCTableViewDataSources)
 
-- (void)dct_logTableViewDataSources;
+- (void)frc_logTableViewDataSources;
 
-- (NSInteger)dct_convertSection:(NSInteger)section fromChildTableViewDataSource:(FRCTableViewDataSource *)dataSource;
-- (NSIndexPath *)dct_convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(FRCTableViewDataSource *)dataSource;
+- (NSInteger)frc_convertSection:(NSInteger)section fromChildTableViewDataSource:(FRCTableViewDataSource *)dataSource;
+- (NSIndexPath *)frc_convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(FRCTableViewDataSource *)dataSource;
 
-- (void)dct_registerDCTTableViewCellSubclass:(Class)tableViewCellSubclass;
+- (void)frc_registerFRCTableViewCellSubclass:(Class)tableViewCellSubclass;
 
 @end

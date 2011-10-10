@@ -259,7 +259,7 @@
 		
 		if (block) block(ip);
 		
-		ip = [self.tableView dct_convertIndexPath:ip fromChildTableViewDataSource:self.childTableViewDataSource];
+		ip = [self.tableView frc_convertIndexPath:ip fromChildTableViewDataSource:self.childTableViewDataSource];
 		[indexPaths addObject:ip];
 	}
 	
@@ -268,7 +268,7 @@
 
 - (NSIndexPath *)dctInternal_headerTableViewIndexPath {
 	NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-	return [self.tableView dct_convertIndexPath:headerIndexPath fromChildTableViewDataSource:self];
+	return [self.tableView frc_convertIndexPath:headerIndexPath fromChildTableViewDataSource:self];
 }
 
 - (void)dctInternal_setSplitChild:(FRCTableViewDataSource *)dataSource {

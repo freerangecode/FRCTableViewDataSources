@@ -177,7 +177,7 @@
 	if (self.parent != nil && ![self.parent childTableViewDataSourceShouldUpdateCells:self])
 		return;
 	
-	sectionIndex = [self.tableView dct_convertSection:sectionIndex fromChildTableViewDataSource:self];
+	sectionIndex = [self.tableView frc_convertSection:sectionIndex fromChildTableViewDataSource:self];
 	
     switch(type) {
         case NSFetchedResultsChangeInsert:
@@ -202,8 +202,8 @@
 	if (self.parent != nil && ![self.parent childTableViewDataSourceShouldUpdateCells:self])
 		return;
 	
-	indexPath = [self.tableView dct_convertIndexPath:indexPath fromChildTableViewDataSource:self];
-	newIndexPath = [self.tableView dct_convertIndexPath:newIndexPath fromChildTableViewDataSource:self];
+	indexPath = [self.tableView frc_convertIndexPath:indexPath fromChildTableViewDataSource:self];
+	newIndexPath = [self.tableView frc_convertIndexPath:newIndexPath fromChildTableViewDataSource:self];
 	
     UITableView *tv = self.tableView;
 	
