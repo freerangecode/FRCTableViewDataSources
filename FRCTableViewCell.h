@@ -1,5 +1,5 @@
 /*
- DCTTableViewCell.h
+ FRCTableViewCell.h
  FRCTableViewDataSources
  
  Created by Daniel Tull on 09.07.2011.
@@ -40,7 +40,7 @@ extern NSString *const FRCTableViewCellWillBeReusedNotification;
 
 
 
-@protocol DCTTableViewCellObjectConfiguration <NSObject>
+@protocol FRCTableViewCellObjectConfiguration <NSObject>
 
 - (void)configureWithObject:(id)object;
 + (CGFloat)heightForObject:(id)object width:(CGFloat)width;
@@ -49,7 +49,7 @@ extern NSString *const FRCTableViewCellWillBeReusedNotification;
 
 
 
-@interface FRCTableViewCell : UITableViewCell <DCTTableViewCellObjectConfiguration>
+@interface FRCTableViewCell : UITableViewCell <FRCTableViewCellObjectConfiguration>
 
 + (id)cell;
 + (NSString *)reuseIdentifier;

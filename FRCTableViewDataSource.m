@@ -116,8 +116,8 @@
 	
 	[self configureCell:cell atIndexPath:indexPath withObject:object];
 	
-	if ([cell conformsToProtocol:@protocol(DCTTableViewCellObjectConfiguration)])
-		[(id<DCTTableViewCellObjectConfiguration>)cell configureWithObject:object];
+	if ([cell conformsToProtocol:@protocol(FRCTableViewCellObjectConfiguration)])
+		[(id<FRCTableViewCellObjectConfiguration>)cell configureWithObject:object];
 	
 	return cell;
 }

@@ -71,9 +71,9 @@
 
 
 
-@interface DCTCollapsableSectionTableViewDataSourceHeaderTableViewCell : FRCTableViewCell
+@interface FRCCollapsableSectionTableViewDataSourceHeaderTableViewCell : FRCTableViewCell
 @end
-@implementation DCTCollapsableSectionTableViewDataSourceHeaderTableViewCell
+@implementation FRCCollapsableSectionTableViewDataSourceHeaderTableViewCell
 - (void)configureWithObject:(FRCCollapsableSectionTableViewDataSourceHeader *)object {
 	
 	self.textLabel.text = object.title;
@@ -86,9 +86,9 @@
 		
 	} else {
 		
-		UIImage *image = [UIImage imageNamed:@"DCTCollapsableSectionTableViewDataSourceDisclosureIndicator.png"];
+		UIImage *image = [UIImage imageNamed:@"FRCCollapsableSectionTableViewDataSourceDisclosureIndicator.png"];
 		UIImageView *iv = [[UIImageView alloc] initWithImage:image];
-		iv.highlightedImage = [UIImage imageNamed:@"DCTCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted.png"];
+		iv.highlightedImage = [UIImage imageNamed:@"FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted.png"];
 		
 		self.accessoryView = iv;
 		self.textLabel.textColor = [UIColor blackColor];
@@ -160,14 +160,14 @@
 	splitDataSource.parent = self;
 	
 	headerDataSource = [[FRCObjectTableViewDataSource alloc] init];
-	headerDataSource.cellClass = [DCTCollapsableSectionTableViewDataSourceHeaderTableViewCell class];
+	headerDataSource.cellClass = [FRCCollapsableSectionTableViewDataSourceHeaderTableViewCell class];
 	
 	[splitDataSource addChildTableViewDataSource:headerDataSource];
 	
 	return self;
 }
 
-#pragma mark - DCTCollapsableSectionTableViewDataSource
+#pragma mark - FRCCollapsableSectionTableViewDataSource
 
 - (void)setChildTableViewDataSource:(FRCTableViewDataSource *)ds {
 	

@@ -1,5 +1,5 @@
 /*
- DCTTableViewCell.m
+ FRCTableViewCell.m
  FRCTableViewDataSources
  
  Created by Daniel Tull on 09.07.2011.
