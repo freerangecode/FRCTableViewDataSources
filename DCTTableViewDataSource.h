@@ -49,7 +49,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@class DCTParentTableViewDataSource;
+@class FRCParentTableViewDataSource;
 
 /** A class that provides a basic implementation of the DCTTableViewDataSource protocol
  */
@@ -58,7 +58,7 @@
 @property (nonatomic, assign) Class cellClass;
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
-@property (nonatomic, dct_weak) DCTParentTableViewDataSource *parent;
+@property (nonatomic, dct_weak) FRCParentTableViewDataSource *parent;
 
 - (void)reloadData;
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;

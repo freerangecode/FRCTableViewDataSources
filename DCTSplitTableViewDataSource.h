@@ -35,7 +35,7 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "DCTParentTableViewDataSource.h"
+#import "FRCParentTableViewDataSource.h"
 
 typedef enum {
 	DCTSplitTableViewDataSourceTypeSection = 0,
@@ -45,7 +45,7 @@ typedef enum {
 
 
 /** A class to provide a way of displaying data from multiple data sources in a table view. */
-@interface DCTSplitTableViewDataSource : DCTParentTableViewDataSource
+@interface DCTSplitTableViewDataSource : FRCParentTableViewDataSource
 
 - (void)addChildTableViewDataSource:(DCTTableViewDataSource *)tableViewSectionDataSource;
 - (void)removeChildTableViewDataSource:(DCTTableViewDataSource *)tableViewSectionDataSource;

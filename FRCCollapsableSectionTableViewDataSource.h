@@ -34,7 +34,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "DCTParentTableViewDataSource.h"
+#import "FRCParentTableViewDataSource.h"
 
 @interface FRCCollapsableSectionTableViewDataSourceHeader : NSObject
 @property (nonatomic, readonly) NSString *title;
@@ -44,7 +44,7 @@
 
 
 
-@interface FRCCollapsableSectionTableViewDataSource : DCTParentTableViewDataSource
+@interface FRCCollapsableSectionTableViewDataSource : FRCParentTableViewDataSource
 
 @property (nonatomic, strong) DCTTableViewDataSource *childTableViewDataSource;
 @property (nonatomic, assign) Class titleCellClass;

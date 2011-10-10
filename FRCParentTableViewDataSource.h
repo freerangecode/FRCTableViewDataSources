@@ -1,6 +1,6 @@
 /*
- DCTParentTableViewDataSource.h
- DCTTableViewDataSources
+ FRCParentTableViewDataSource.h
+ FRCTableViewDataSources
  
  Created by Daniel Tull on 20.08.2011.
  
@@ -41,7 +41,7 @@
  
  Subclasses must implement the DCTParentTableViewDataSource protocol.
 */
-@interface DCTParentTableViewDataSource : DCTTableViewDataSource
+@interface FRCParentTableViewDataSource : DCTTableViewDataSource
 
 @property (nonatomic, readonly) NSArray *childTableViewDataSources;
 

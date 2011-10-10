@@ -35,7 +35,7 @@
  */
 
 #import "FRCCollapsableSectionTableViewDataSource.h"
-#import "DCTParentTableViewDataSource.h"
+#import "FRCParentTableViewDataSource.h"
 #import "DCTTableViewCell.h"
 #import "UITableView+DCTTableViewDataSources.h"
 #import <QuartzCore/QuartzCore.h>

@@ -1,6 +1,6 @@
 /*
- DCTParentTableViewDataSource.m
- DCTTableViewDataSources
+ FRCParentTableViewDataSource.m
+ FRCTableViewDataSources
  
  Created by Daniel Tull on 20.08.2011.
  
@@ -34,9 +34,9 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "DCTParentTableViewDataSource.h"
+#import "FRCParentTableViewDataSource.h"
 
-@implementation DCTParentTableViewDataSource
+@implementation FRCParentTableViewDataSource
 
 #pragma mark - DCTTableViewDataSource
 
