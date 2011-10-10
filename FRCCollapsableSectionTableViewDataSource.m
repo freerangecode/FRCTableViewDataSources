@@ -1,6 +1,6 @@
 /*
- DCTCollapsableSectionTableViewDataSource.m
- DCTTableViewDataSources
+ FRCCollapsableSectionTableViewDataSource.m
+ FRCTableViewDataSources
  
  Created by Daniel Tull on 30.06.2011.
  
@@ -34,7 +34,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "DCTCollapsableSectionTableViewDataSource.h"
+#import "FRCCollapsableSectionTableViewDataSource.h"
 #import "DCTParentTableViewDataSource.h"
 #import "DCTTableViewCell.h"
 #import "UITableView+DCTTableViewDataSources.h"
@@ -114,7 +114,7 @@
 
 
 
-@interface DCTCollapsableSectionTableViewDataSource ()
+@interface FRCCollapsableSectionTableViewDataSource ()
 
 - (IBAction)dctInternal_titleTapped:(UITapGestureRecognizer *)sender;
 - (void)dctInternal_headerCellWillBeReused:(NSNotification *)notification;
@@ -130,7 +130,7 @@
 
 @end
 
-@implementation DCTCollapsableSectionTableViewDataSource {
+@implementation FRCCollapsableSectionTableViewDataSource {
 	__strong NSString *tableViewCellIdentifier;
 	__strong UITableViewCell *headerCell;
 	BOOL childTableViewDataSourceHasCells;

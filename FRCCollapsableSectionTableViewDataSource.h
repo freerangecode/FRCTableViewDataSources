@@ -1,6 +1,6 @@
 /*
- DCTCollapsableSectionTableViewDataSource.h
- DCTTableViewDataSources
+ FRCCollapsableSectionTableViewDataSource.h
+ FRCTableViewDataSources
  
  Created by Daniel Tull on 30.06.2011.
  
@@ -44,7 +44,7 @@
 
 
 
-@interface DCTCollapsableSectionTableViewDataSource : DCTParentTableViewDataSource
+@interface FRCCollapsableSectionTableViewDataSource : DCTParentTableViewDataSource
 
 @property (nonatomic, strong) DCTTableViewDataSource *childTableViewDataSource;
 @property (nonatomic, assign) Class titleCellClass;
