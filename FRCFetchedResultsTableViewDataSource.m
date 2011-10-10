@@ -1,6 +1,6 @@
 /*
- DCTFetchedResultsTableViewDataSource.m
- DCTTableViewDataSources
+ FRCFetchedResultsTableViewDataSource.m
+ FRCTableViewDataSources
  
  Created by Daniel Tull on 20.05.2011.
  
@@ -34,12 +34,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "DCTFetchedResultsTableViewDataSource.h"
+#import "FRCFetchedResultsTableViewDataSource.h"
 #import "DCTTableViewCell.h"
 #import "DCTParentTableViewDataSource.h"
 #import "UITableView+DCTTableViewDataSources.h"
 
-@implementation DCTFetchedResultsTableViewDataSource
+@implementation FRCFetchedResultsTableViewDataSource
 
 @synthesize managedObjectContext;
 @synthesize fetchedResultsController;

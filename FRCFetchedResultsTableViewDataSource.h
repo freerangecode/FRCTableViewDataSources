@@ -1,6 +1,6 @@
 /*
- DCTFetchedResultsTableViewDataSource.h
- DCTTableViewDataSources
+ FRCFetchedResultsTableViewDataSource.h
+ FRCTableViewDataSources
  
  Created by Daniel Tull on 20.05.2011.
  
@@ -39,7 +39,7 @@
 
 typedef NSFetchRequest *(^DCTFetchRequestBlock)();
 
-@interface DCTFetchedResultsTableViewDataSource : DCTTableViewDataSource <NSFetchedResultsControllerDelegate>
+@interface FRCFetchedResultsTableViewDataSource : DCTTableViewDataSource <NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
