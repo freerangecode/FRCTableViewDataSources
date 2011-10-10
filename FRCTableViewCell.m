@@ -39,7 +39,7 @@
 NSString *const FRCTableViewCellWillBeReusedNotification = @"FRCTableViewCellWillBeReusedNotification";
 
 @interface FRCTableViewCell ()
-+ (BOOL)dctInternal_nibExistsWithNibName:(NSString *)nibName bundle:(NSBundle *)bundle;
++ (BOOL)frcInternal_nibExistsWithNibName:(NSString *)nibName bundle:(NSBundle *)bundle;
 @end
 
 @implementation FRCTableViewCell
@@ -81,7 +81,7 @@ NSString *const FRCTableViewCellWillBeReusedNotification = @"FRCTableViewCellWil
 	
 	NSString *nibName = NSStringFromClass(self);
 	
-	if ([self dctInternal_nibExistsWithNibName:nibName bundle:nil])
+	if ([self frcInternal_nibExistsWithNibName:nibName bundle:nil])
 		return nibName;
 	
 	return nil;	
@@ -97,7 +97,7 @@ NSString *const FRCTableViewCellWillBeReusedNotification = @"FRCTableViewCellWil
 
 #pragma mark - Internal
 
-+ (BOOL)dctInternal_nibExistsWithNibName:(NSString *)nibName bundle:(NSBundle *)bundle {
++ (BOOL)frcInternal_nibExistsWithNibName:(NSString *)nibName bundle:(NSBundle *)bundle {
 	
 	if (nibName == nil) return NO;
 	

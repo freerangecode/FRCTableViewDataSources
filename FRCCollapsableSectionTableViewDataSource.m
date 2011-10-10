@@ -116,17 +116,17 @@
 
 @interface FRCCollapsableSectionTableViewDataSource ()
 
-- (IBAction)dctInternal_titleTapped:(UITapGestureRecognizer *)sender;
-- (void)dctInternal_headerCellWillBeReused:(NSNotification *)notification;
-- (NSArray *)dctInternal_tableViewIndexPathsForCollapsableCellsIndexPathEnumator:(void (^)(NSIndexPath *))block;
-- (NSIndexPath *)dctInternal_headerTableViewIndexPath;
-- (void)dctInternal_setOpened;
-- (void)dctInternal_setClosed;
+- (IBAction)frcInternal_titleTapped:(UITapGestureRecognizer *)sender;
+- (void)frcInternal_headerCellWillBeReused:(NSNotification *)notification;
+- (NSArray *)frcInternal_tableViewIndexPathsForCollapsableCellsIndexPathEnumator:(void (^)(NSIndexPath *))block;
+- (NSIndexPath *)frcInternal_headerTableViewIndexPath;
+- (void)frcInternal_setOpened;
+- (void)frcInternal_setClosed;
 
-- (void)dctInternal_headerCheck;
-- (BOOL)dctInternal_childTableViewDataSourceCurrentlyHasCells;
+- (void)frcInternal_headerCheck;
+- (BOOL)frcInternal_childTableViewDataSourceCurrentlyHasCells;
 
-- (void)dctInternal_setSplitChild:(FRCTableViewDataSource *)dataSource;
+- (void)frcInternal_setSplitChild:(FRCTableViewDataSource *)dataSource;
 
 @end
 
@@ -176,12 +176,12 @@
 	childTableViewDataSource = ds;
 	
 	if (self.open && ds)
-		[self dctInternal_setSplitChild:ds];
+		[self frcInternal_setSplitChild:ds];
 	else {
 		ds.parent = self; // This makes it ask us if it should update, to which we'll respond no when it's not showing.
 		ds.tableView = nil;
 	}
-	[self dctInternal_headerCheck];
+	[self frcInternal_headerCheck];
 }
 
 #pragma mark - FRCTableViewDataSource
@@ -189,7 +189,7 @@
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath {
 	
 	if (indexPath.row == 0) 
-		return [[FRCCollapsableSectionTableViewDataSourceHeader alloc] initWithTitle:self.title open:self.open empty:![self dctInternal_childTableViewDataSourceCurrentlyHasCells]];
+		return [[FRCCollapsableSectionTableViewDataSourceHeader alloc] initWithTitle:self.title open:self.open empty:![self frcInternal_childTableViewDataSourceCurrentlyHasCells]];
 	
 	return [super objectAtIndexPath:indexPath];
 }
@@ -202,7 +202,7 @@
 
 - (BOOL)childTableViewDataSourceShouldUpdateCells:(FRCTableViewDataSource *)dataSource {
 	
-	[self performSelector:@selector(dctInternal_headerCheck) withObject:nil afterDelay:0.01];
+	[self performSelector:@selector(frcInternal_headerCheck) withObject:nil afterDelay:0.01];
 	
 	if (!self.open) return NO;
 	
@@ -224,27 +224,27 @@
 	
 	if (indexPath.row == 0) {
 		
-		UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dctInternal_titleTapped:)]; 
+		UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(frcInternal_titleTapped:)]; 
 		[cell addGestureRecognizer:gr];
 		
 		[[NSNotificationCenter defaultCenter] removeObserver:self name:FRCTableViewCellWillBeReusedNotification object:headerCell];		
 		headerCell = cell;
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dctInternal_headerCellWillBeReused:) name:FRCTableViewCellWillBeReusedNotification object:headerCell];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(frcInternal_headerCellWillBeReused:) name:FRCTableViewCellWillBeReusedNotification object:headerCell];
 	}
 	
 	return cell;
 }
 
-- (void)dctInternal_headerCellWillBeReused:(NSNotification *)notification {
+- (void)frcInternal_headerCellWillBeReused:(NSNotification *)notification {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:FRCTableViewCellWillBeReusedNotification object:headerCell];
 	headerCell = nil;
 }
 
-- (IBAction)dctInternal_titleTapped:(UITapGestureRecognizer *)sender {
+- (IBAction)frcInternal_titleTapped:(UITapGestureRecognizer *)sender {
 	self.open = !self.open;
 }
 
-- (NSArray *)dctInternal_tableViewIndexPathsForCollapsableCellsIndexPathEnumator:(void (^)(NSIndexPath *))block {
+- (NSArray *)frcInternal_tableViewIndexPathsForCollapsableCellsIndexPathEnumator:(void (^)(NSIndexPath *))block {
 	
 	NSInteger numberOfRows = [self.childTableViewDataSource tableView:self.tableView numberOfRowsInSection:0];
 	
@@ -266,21 +266,21 @@
 	return [indexPaths copy];
 }
 
-- (NSIndexPath *)dctInternal_headerTableViewIndexPath {
+- (NSIndexPath *)frcInternal_headerTableViewIndexPath {
 	NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 	return [self.tableView frc_convertIndexPath:headerIndexPath fromChildTableViewDataSource:self];
 }
 
-- (void)dctInternal_setSplitChild:(FRCTableViewDataSource *)dataSource {
+- (void)frcInternal_setSplitChild:(FRCTableViewDataSource *)dataSource {
 	NSArray *children = splitDataSource.childTableViewDataSources;
 	if ([children count] > 1) [splitDataSource removeChildTableViewDataSource:[children lastObject]];
 	
 	[splitDataSource addChildTableViewDataSource:self.childTableViewDataSource];
 }
 
-- (void)dctInternal_setOpened {
+- (void)frcInternal_setOpened {
 	
-	[self dctInternal_setSplitChild:self.childTableViewDataSource];
+	[self frcInternal_setSplitChild:self.childTableViewDataSource];
 	
 	__block CGFloat totalCellHeight = headerCell.bounds.size.height;
 	CGFloat tableViewHeight = self.tableView.bounds.size.height;
@@ -289,7 +289,7 @@
 	if (self.tableView.style == UITableViewStyleGrouped)
 		tableViewHeight -= 20.0f;
 	
-	NSArray *indexPaths = [self dctInternal_tableViewIndexPathsForCollapsableCellsIndexPathEnumator:^(NSIndexPath *ip) {
+	NSArray *indexPaths = [self frcInternal_tableViewIndexPathsForCollapsableCellsIndexPathEnumator:^(NSIndexPath *ip) {
 		
 		if (totalCellHeight < tableViewHeight) { // Add this check so we can reduce the amount of calls to heightForObject:width:
 			Class cellClass = [self cellClassAtIndexPath:ip];
@@ -300,7 +300,7 @@
 	
 	if ([indexPaths count] == 0) return;
 	
-	NSIndexPath *headerIndexPath = [self dctInternal_headerTableViewIndexPath];
+	NSIndexPath *headerIndexPath = [self frcInternal_headerTableViewIndexPath];
 	
 	if (totalCellHeight < tableViewHeight) {
 		[self.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionNone animated:YES];
@@ -310,7 +310,7 @@
 	}
 }
 
-- (void)dctInternal_setClosed {
+- (void)frcInternal_setClosed {
 	
 	NSArray *children = splitDataSource.childTableViewDataSources;
 	if ([children count] == 1) return;
@@ -319,7 +319,7 @@
 	self.childTableViewDataSource.parent = self; // This makes it ask us if it should update, to which we'll respond no when it's not showing.
 	self.childTableViewDataSource.tableView = nil;
 	
-	[self.tableView scrollToRowAtIndexPath:[self dctInternal_headerTableViewIndexPath]
+	[self.tableView scrollToRowAtIndexPath:[self frcInternal_headerTableViewIndexPath]
 						  atScrollPosition:UITableViewScrollPositionNone
 								  animated:YES];
 }
@@ -331,9 +331,9 @@
 	open = aBool;
 	
 	if (aBool)
-		[self dctInternal_setOpened];
+		[self frcInternal_setOpened];
 	else 
-		[self dctInternal_setClosed];
+		[self frcInternal_setClosed];
 	
 	UIView *accessoryView = headerCell.accessoryView;
 	
@@ -361,19 +361,19 @@
 	headerDataSource.cellClass = cellClass;
 }
 
-- (void)dctInternal_headerCheck {
+- (void)frcInternal_headerCheck {
 	
 	if (!tableViewHasSetup) return;
 	
-	if (childTableViewDataSourceHasCells == [self dctInternal_childTableViewDataSourceCurrentlyHasCells]) return;
+	if (childTableViewDataSourceHasCells == [self frcInternal_childTableViewDataSourceCurrentlyHasCells]) return;
 	
 	childTableViewDataSourceHasCells = !childTableViewDataSourceHasCells;
 	
-	NSIndexPath *header = [self dctInternal_headerTableViewIndexPath];
+	NSIndexPath *header = [self frcInternal_headerTableViewIndexPath];
 	[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:header] withRowAnimation:UITableViewRowAnimationFade];
 }
 
-- (BOOL)dctInternal_childTableViewDataSourceCurrentlyHasCells {
+- (BOOL)frcInternal_childTableViewDataSourceCurrentlyHasCells {
 	return ([self.childTableViewDataSource tableView:self.tableView numberOfRowsInSection:0] > 0);
 }
 
