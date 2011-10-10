@@ -79,24 +79,12 @@
 	self.textLabel.text = object.title;
 	
 	if (object.empty) {
-		
 		self.textLabel.textColor = [UIColor lightGrayColor];
-		self.accessoryView = nil;
-		self.accessoryType = UITableViewCellAccessoryNone;
-		
+		self.selectionStyle = UITableViewCellSelectionStyleNone;
 	} else {
-		
-		UIImage *image = [UIImage imageNamed:@"FRCCollapsableSectionTableViewDataSourceDisclosureIndicator.png"];
-		UIImageView *iv = [[UIImageView alloc] initWithImage:image];
-		iv.highlightedImage = [UIImage imageNamed:@"FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted.png"];
-		
-		self.accessoryView = iv;
 		self.textLabel.textColor = [UIColor blackColor];
-		
-		self.accessoryView.layer.transform = CATransform3DMakeRotation(object.open ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
-	}	
-	
-	self.selectionStyle = UITableViewCellSelectionStyleBlue;
+		self.selectionStyle = UITableViewCellSelectionStyleBlue;
+	}
 }
 @end
 
@@ -230,10 +218,23 @@
 		[[NSNotificationCenter defaultCenter] removeObserver:self name:FRCTableViewCellWillBeReusedNotification object:headerCell];		
 		headerCell = cell;
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(frcInternal_headerCellWillBeReused:) name:FRCTableViewCellWillBeReusedNotification object:headerCell];
+		
+		if ([self frcInternal_childTableViewDataSourceCurrentlyHasCells]) {
+			UIImage *image = [UIImage imageNamed:@"FRCCollapsableSectionTableViewDataSourceDisclosureIndicator.png"];
+			UIImageView *iv = [[UIImageView alloc] initWithImage:image];
+			iv.highlightedImage = [UIImage imageNamed:@"FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted.png"];
+			cell.accessoryView = iv;			
+			cell.accessoryView.layer.transform = CATransform3DMakeRotation(self.open ? (CGFloat)M_PI : 0.0f, 0.0f, 0.0f, 1.0f);
+		} else {
+			cell.accessoryView = nil;
+			cell.accessoryType = UITableViewCellAccessoryNone;
+		}	
 	}
 	
 	return cell;
 }
+
+#pragma mark - Internal
 
 - (void)frcInternal_headerCellWillBeReused:(NSNotification *)notification {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:FRCTableViewCellWillBeReusedNotification object:headerCell];
