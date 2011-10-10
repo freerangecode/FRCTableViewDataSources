@@ -21,7 +21,7 @@ h2. Example
 In the following example I assume we have a @sectionedDataSource@ ivar and a few other things. This will create a table view with a list of all the projects plus a cell at the bottom to add a new project.
 
 bc. sectionedDataSource = [[DCTSplitTableViewDataSource alloc] init];
-sectionedDataSource.type = DCTSplitTableViewDataSourceTypeSection;
+sectionedDataSource.type = FRCSplitTableViewDataSourceTypeSection;
 sectionedDataSource.tableView = self.tableView;
 DCTFetchedResultsTableViewDataSource *projectsDataSource = [[DCTFetchedResultsTableViewDataSource alloc] init];
 projectsDataSource.cellClass = [ProjectTableViewCell class];

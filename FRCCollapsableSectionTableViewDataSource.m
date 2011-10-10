@@ -40,7 +40,7 @@
 #import "UITableView+DCTTableViewDataSources.h"
 #import <QuartzCore/QuartzCore.h>
 #import "FRCObjectTableViewDataSource.h"
-#import "DCTSplitTableViewDataSource.h"
+#import "FRCSplitTableViewDataSource.h"
 
 
 
@@ -136,7 +136,7 @@
 	BOOL childTableViewDataSourceHasCells;
 	BOOL tableViewHasSetup;
 	
-	__strong DCTSplitTableViewDataSource *splitDataSource;
+	__strong FRCSplitTableViewDataSource *splitDataSource;
 	__strong FRCObjectTableViewDataSource	*headerDataSource;
 }
 
@@ -155,8 +155,8 @@
 	
 	if (!(self = [super init])) return nil;
 	
-	splitDataSource = [[DCTSplitTableViewDataSource alloc] init];
-	splitDataSource.type = DCTSplitTableViewDataSourceTypeRow;
+	splitDataSource = [[FRCSplitTableViewDataSource alloc] init];
+	splitDataSource.type = FRCSplitTableViewDataSourceTypeRow;
 	splitDataSource.parent = self;
 	
 	headerDataSource = [[FRCObjectTableViewDataSource alloc] init];
