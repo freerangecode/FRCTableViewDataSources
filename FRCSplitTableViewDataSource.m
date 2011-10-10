@@ -35,12 +35,12 @@
  */
 
 #import "FRCSplitTableViewDataSource.h"
-#import "UITableView+DCTTableViewDataSources.h"
+#import "UITableView+FRCTableViewDataSources.h"
 
 @interface FRCSplitTableViewDataSource ()
 - (NSMutableArray *)dctInternal_tableViewDataSources;
-- (void)dctInternal_setupDataSource:(DCTTableViewDataSource *)dataSource;
-- (NSArray *)dctInternal_indexPathsForDataSource:(DCTTableViewDataSource *)dataSource;
+- (void)dctInternal_setupDataSource:(FRCTableViewDataSource *)dataSource;
+- (NSArray *)dctInternal_indexPathsForDataSource:(FRCTableViewDataSource *)dataSource;
 @end
 
 @implementation FRCSplitTableViewDataSource {
@@ -56,7 +56,7 @@
 	return [[self dctInternal_tableViewDataSources] copy];
 }
 
-- (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(DCTTableViewDataSource *)dataSource {
+- (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(FRCTableViewDataSource *)dataSource {
 	
 	NSAssert([dctInternal_tableViewDataSources containsObject:dataSource], @"dataSource should be a child table view data source");
 	
@@ -66,7 +66,7 @@
 		
 		__block NSInteger row = indexPath.row;
 		
-		[dataSources enumerateObjectsUsingBlock:^(DCTTableViewDataSource *ds, NSUInteger idx, BOOL *stop) {
+		[dataSources enumerateObjectsUsingBlock:^(FRCTableViewDataSource *ds, NSUInteger idx, BOOL *stop) {
 						
 			if ([ds isEqual:dataSource])
 				*stop = YES;
@@ -85,7 +85,7 @@
 	return indexPath;
 }
 
-- (NSInteger)convertSection:(NSInteger)section fromChildTableViewDataSource:(DCTTableViewDataSource *)dataSource {
+- (NSInteger)convertSection:(NSInteger)section fromChildTableViewDataSource:(FRCTableViewDataSource *)dataSource {
 	
 	NSAssert([dctInternal_tableViewDataSources containsObject:dataSource], @"dataSource should be a child table view data source");
 	
@@ -97,7 +97,7 @@
 	return section;
 }
 
-- (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath toChildTableViewDataSource:(DCTTableViewDataSource *)dataSource {
+- (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath toChildTableViewDataSource:(FRCTableViewDataSource *)dataSource {
 	
 	NSAssert([dctInternal_tableViewDataSources containsObject:dataSource], @"dataSource should be a child table view data source");
 	
@@ -106,7 +106,7 @@
 		__block NSInteger totalRows = 0;
 		NSInteger row = indexPath.row;
 		
-		[[self dctInternal_tableViewDataSources] enumerateObjectsUsingBlock:^(DCTTableViewDataSource *ds, NSUInteger idx, BOOL *stop) {
+		[[self dctInternal_tableViewDataSources] enumerateObjectsUsingBlock:^(FRCTableViewDataSource *ds, NSUInteger idx, BOOL *stop) {
 			
 			NSInteger numberOfRows = [ds tableView:self.tableView numberOfRowsInSection:0];
 						
@@ -124,12 +124,12 @@
 	return [NSIndexPath indexPathForRow:indexPath.row inSection:0];
 }
 
-- (NSInteger)convertSection:(NSInteger)section toChildTableViewDataSource:(DCTTableViewDataSource *)dataSource {
+- (NSInteger)convertSection:(NSInteger)section toChildTableViewDataSource:(FRCTableViewDataSource *)dataSource {
 	NSAssert([dctInternal_tableViewDataSources containsObject:dataSource], @"dataSource should be a child table view data source");
 	return 0;
 }
 
-- (DCTTableViewDataSource *)childTableViewDataSourceForSection:(NSInteger)section {
+- (FRCTableViewDataSource *)childTableViewDataSourceForSection:(NSInteger)section {
 	
 	NSArray *dataSources = [self dctInternal_tableViewDataSources];
 	
@@ -143,15 +143,15 @@
 	return [dataSources objectAtIndex:section];
 }
 
-- (DCTTableViewDataSource *)childTableViewDataSourceForIndexPath:(NSIndexPath *)indexPath {
+- (FRCTableViewDataSource *)childTableViewDataSourceForIndexPath:(NSIndexPath *)indexPath {
 	
 	if (self.type == FRCSplitTableViewDataSourceTypeRow) {
 		
 		__block NSInteger totalRows = 0;
-		__block DCTTableViewDataSource * dataSource = nil;
+		__block FRCTableViewDataSource * dataSource = nil;
 		NSInteger row = indexPath.row;
 		
-		[[self dctInternal_tableViewDataSources] enumerateObjectsUsingBlock:^(DCTTableViewDataSource *ds, NSUInteger idx, BOOL *stop) {
+		[[self dctInternal_tableViewDataSources] enumerateObjectsUsingBlock:^(FRCTableViewDataSource *ds, NSUInteger idx, BOOL *stop) {
 			
 			NSInteger numberOfRows = [ds tableView:self.tableView numberOfRowsInSection:0];
 			
@@ -169,7 +169,7 @@
 	return [[self dctInternal_tableViewDataSources] objectAtIndex:indexPath.section];
 }
 
-- (BOOL)childTableViewDataSourceShouldUpdateCells:(DCTTableViewDataSource *)dataSource {
+- (BOOL)childTableViewDataSourceShouldUpdateCells:(FRCTableViewDataSource *)dataSource {
 	
 	if (!self.parent) return YES;
 		
@@ -179,7 +179,7 @@
 
 #pragma mark - DCTSplitTableViewDataSource methods
 
-- (void)addChildTableViewDataSource:(DCTTableViewDataSource *)tableViewDataSource {
+- (void)addChildTableViewDataSource:(FRCTableViewDataSource *)tableViewDataSource {
 	
 	NSMutableArray *childDataSources = [self dctInternal_tableViewDataSources];
 	
@@ -192,17 +192,17 @@
 	if (self.type == FRCSplitTableViewDataSourceTypeRow) {
 		
 		NSArray *indexPaths = [self dctInternal_indexPathsForDataSource:tableViewDataSource];
-		[self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
+		[self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
 		
 	} else {
 		
 		NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:[childDataSources indexOfObject:tableViewDataSource]];
-		[self.tableView insertSections:indexSet withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
+		[self.tableView insertSections:indexSet withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
 		
 	}
 }
 
-- (void)removeChildTableViewDataSource:(DCTTableViewDataSource *)tableViewDataSource {
+- (void)removeChildTableViewDataSource:(FRCTableViewDataSource *)tableViewDataSource {
 	
 	NSAssert([dctInternal_tableViewDataSources containsObject:tableViewDataSource], @"dataSource should be a child table view data source");
 	
@@ -217,7 +217,7 @@
 		
 		if (!tableViewHasSetup) return;
 		
-		[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
+		[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
 	
 	} else {
 	
@@ -227,12 +227,12 @@
 	
 		if (!tableViewHasSetup) return;
 	
-		[self.tableView deleteSections:indexSet withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
+		[self.tableView deleteSections:indexSet withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
 	
 	}
 }
 
-#pragma mark - DCTTableViewDataSource methods
+#pragma mark - FRCTableViewDataSource methods
 
 - (void)setTableView:(UITableView *)tv {
 	
@@ -240,7 +240,7 @@
 	
 	[super setTableView:tv];
 	
-	[[self dctInternal_tableViewDataSources] enumerateObjectsUsingBlock:^(DCTTableViewDataSource * ds, NSUInteger idx, BOOL *stop) {
+	[[self dctInternal_tableViewDataSources] enumerateObjectsUsingBlock:^(FRCTableViewDataSource * ds, NSUInteger idx, BOOL *stop) {
 		[self dctInternal_setupDataSource:ds];
 	}];
 }
@@ -261,7 +261,7 @@
 	
 	__block NSInteger numberOfRows = 0;
 	
-	[[self dctInternal_tableViewDataSources] enumerateObjectsUsingBlock:^(DCTTableViewDataSource * ds, NSUInteger idx, BOOL *stop) {
+	[[self dctInternal_tableViewDataSources] enumerateObjectsUsingBlock:^(FRCTableViewDataSource * ds, NSUInteger idx, BOOL *stop) {
 		numberOfRows += [ds tableView:self.tableView numberOfRowsInSection:0];
 	}];
 	
@@ -270,7 +270,7 @@
 
 #pragma mark - Private methods
 
-- (NSArray *)dctInternal_indexPathsForDataSource:(DCTTableViewDataSource *)dataSource {
+- (NSArray *)dctInternal_indexPathsForDataSource:(FRCTableViewDataSource *)dataSource {
 	
 	NSInteger numberOfRows = [dataSource tableView:self.tableView numberOfRowsInSection:0];
 	
@@ -293,7 +293,7 @@
 	return dctInternal_tableViewDataSources;	
 }
 		 
-- (void)dctInternal_setupDataSource:(DCTTableViewDataSource *)dataSource {
+- (void)dctInternal_setupDataSource:(FRCTableViewDataSource *)dataSource {
 	dataSource.tableView = self.tableView;
 	dataSource.parent = self;
 }

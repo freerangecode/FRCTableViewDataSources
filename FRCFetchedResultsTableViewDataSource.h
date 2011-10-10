@@ -34,12 +34,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "DCTTableViewDataSource.h"
+#import "FRCTableViewDataSource.h"
 #import <CoreData/CoreData.h>
 
 typedef NSFetchRequest *(^DCTFetchRequestBlock)();
 
-@interface FRCFetchedResultsTableViewDataSource : DCTTableViewDataSource <NSFetchedResultsControllerDelegate>
+@interface FRCFetchedResultsTableViewDataSource : FRCTableViewDataSource <NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;

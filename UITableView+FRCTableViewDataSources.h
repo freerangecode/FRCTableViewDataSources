@@ -1,6 +1,6 @@
 /*
- UITableView+DCTTableViewDataSources.h
- DCTTableViewDataSources
+ UITableView+FRCTableViewDataSources.h
+ FRCTableViewDataSources
  
  Created by Daniel Tull on 08.10.2011.
  
@@ -35,14 +35,14 @@
  */
 
 #import <UIKit/UIKit.h>
-@class DCTTableViewDataSource;
+@class FRCTableViewDataSource;
 
-@interface UITableView (DCTTableViewDataSources)
+@interface UITableView (FRCTableViewDataSources)
 
 - (void)dct_logTableViewDataSources;
 
-- (NSInteger)dct_convertSection:(NSInteger)section fromChildTableViewDataSource:(DCTTableViewDataSource *)dataSource;
-- (NSIndexPath *)dct_convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(DCTTableViewDataSource *)dataSource;
+- (NSInteger)dct_convertSection:(NSInteger)section fromChildTableViewDataSource:(FRCTableViewDataSource *)dataSource;
+- (NSIndexPath *)dct_convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(FRCTableViewDataSource *)dataSource;
 
 - (void)dct_registerDCTTableViewCellSubclass:(Class)tableViewCellSubclass;
 

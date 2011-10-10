@@ -1,6 +1,6 @@
 /*
- DCTTableViewDataSource.h
- DCTTableViewDataSources
+ FRCTableViewDataSource.h
+ FRCTableViewDataSources
  
  Created by Daniel Tull on 20.05.2011.
  
@@ -34,11 +34,11 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "DCTTableViewDataSource.h"
+#import "FRCTableViewDataSource.h"
 #import "FRCTableViewCell.h"
-#import "UITableView+DCTTableViewDataSources.h"
+#import "UITableView+FRCTableViewDataSources.h"
 
-@implementation DCTTableViewDataSource
+@implementation FRCTableViewDataSource
 
 @synthesize tableView;
 @synthesize cellClass;
@@ -59,7 +59,7 @@
     return self;
 }
 
-#pragma mark - DCTTableViewDataSource
+#pragma mark - FRCTableViewDataSource
 
 - (void)setCellClass:(Class)aCellClass {
 	

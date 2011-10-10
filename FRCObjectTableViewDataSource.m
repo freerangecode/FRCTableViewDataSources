@@ -36,7 +36,7 @@
 
 #import "FRCObjectTableViewDataSource.h"
 #import "FRCParentTableViewDataSource.h"
-#import "UITableView+DCTTableViewDataSources.h"
+#import "UITableView+FRCTableViewDataSources.h"
 
 @implementation FRCObjectTableViewDataSource
 

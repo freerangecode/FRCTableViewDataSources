@@ -1,6 +1,6 @@
 /*
- UITableView+DCTTableViewDataSources.m
- DCTTableViewDataSources
+ UITableView+FRCTableViewDataSources.m
+ FRCTableViewDataSources
  
  Created by Daniel Tull on 08.10.2011.
  
@@ -34,16 +34,16 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "UITableView+DCTTableViewDataSources.h"
+#import "UITableView+FRCTableViewDataSources.h"
 #import "FRCTableViewCell.h"
 #import "FRCParentTableViewDataSource.h"
-#import "DCTTableViewDataSource.h"
+#import "FRCTableViewDataSource.h"
 
 
-@interface DCTTableViewDataSource (DCTTableViewDataSources)
+@interface FRCTableViewDataSource (FRCTableViewDataSources)
 - (void)dct_logTableViewDataSourcesLevel:(NSInteger)level;
 @end
-@implementation DCTTableViewDataSource (DCTTableViewDataSources)
+@implementation FRCTableViewDataSource (FRCTableViewDataSources)
 
 - (void)dct_logTableViewDataSourcesLevel:(NSInteger)level {
 	
@@ -62,14 +62,14 @@
 
 @end
 
-@implementation UITableView (DCTTableViewDataSources)
+@implementation UITableView (FRCTableViewDataSources)
 
 - (void)dct_logTableViewDataSources {
 	
 	id ds = self.dataSource;
-	if (![ds isKindOfClass:[DCTTableViewDataSource class]]) return;
+	if (![ds isKindOfClass:[FRCTableViewDataSource class]]) return;
 	
-	DCTTableViewDataSource *dataSource = (DCTTableViewDataSource *)ds;
+	FRCTableViewDataSource *dataSource = (FRCTableViewDataSource *)ds;
 	
 	NSLog(@"-------------");
 	NSLog(@"Logging data sources for %@", self);
@@ -78,7 +78,7 @@
 	NSLog(@"-------------");
 }
 
-- (NSInteger)dct_convertSection:(NSInteger)section fromChildTableViewDataSource:(DCTTableViewDataSource *)dataSource {
+- (NSInteger)dct_convertSection:(NSInteger)section fromChildTableViewDataSource:(FRCTableViewDataSource *)dataSource {
 	
 	FRCParentTableViewDataSource *parent = dataSource.parent;
 	
@@ -94,7 +94,7 @@
 	return section;
 }
 
-- (NSIndexPath *)dct_convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(DCTTableViewDataSource *)dataSource {
+- (NSIndexPath *)dct_convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(FRCTableViewDataSource *)dataSource {
 	
 	FRCParentTableViewDataSource *parent = dataSource.parent;
 	

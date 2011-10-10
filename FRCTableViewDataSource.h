@@ -1,6 +1,6 @@
 /*
- DCTTableViewDataSource.m
- DCTTableViewDataSources
+ FRCTableViewDataSource.m
+ FRCTableViewDataSources
  
  Created by Daniel Tull on 20.05.2011.
  
@@ -38,12 +38,12 @@
 	#define dct_weak weak
 	#define __dct_weak __weak
 	#define dct_nil(x)
-	#define DCTTableViewDataSourceTableViewRowAnimationAutomatic UITableViewRowAnimationAutomatic
+	#define FRCTableViewDataSourceTableViewRowAnimationAutomatic UITableViewRowAnimationAutomatic
 #else
 	#define dct_weak unsafe_unretained
 	#define __dct_weak __unsafe_unretained
 	#define dct_nil(x) x = nil
-	#define DCTTableViewDataSourceTableViewRowAnimationAutomatic UITableViewRowAnimationFade
+	#define FRCTableViewDataSourceTableViewRowAnimationAutomatic UITableViewRowAnimationFade
 #endif
 
 #import <Foundation/Foundation.h>
@@ -51,9 +51,9 @@
 
 @class FRCParentTableViewDataSource;
 
-/** A class that provides a basic implementation of the DCTTableViewDataSource protocol
+/** A class that provides a basic implementation of the FRCTableViewDataSource protocol
  */
-@interface DCTTableViewDataSource : NSObject <UITableViewDataSource>
+@interface FRCTableViewDataSource : NSObject <UITableViewDataSource>
 
 @property (nonatomic, assign) Class cellClass;
 

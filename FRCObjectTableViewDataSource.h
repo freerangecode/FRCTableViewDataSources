@@ -34,8 +34,8 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "DCTTableViewDataSource.h"
+#import "FRCTableViewDataSource.h"
 
-@interface FRCObjectTableViewDataSource : DCTTableViewDataSource
+@interface FRCObjectTableViewDataSource : FRCTableViewDataSource
 @property (nonatomic, strong) id object;
 @end

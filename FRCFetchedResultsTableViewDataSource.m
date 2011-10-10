@@ -37,7 +37,7 @@
 #import "FRCFetchedResultsTableViewDataSource.h"
 #import "FRCTableViewCell.h"
 #import "FRCParentTableViewDataSource.h"
-#import "UITableView+DCTTableViewDataSources.h"
+#import "UITableView+FRCTableViewDataSources.h"
 
 @implementation FRCFetchedResultsTableViewDataSource
 
@@ -46,7 +46,7 @@
 @synthesize fetchRequestBlock;
 @synthesize fetchRequest;
 
-#pragma mark - DCTTableViewDataSource
+#pragma mark - FRCTableViewDataSource
 
 - (void)reloadData {
 
@@ -213,12 +213,12 @@
 			
         case NSFetchedResultsChangeInsert:
             [tv insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-					  withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
+					  withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
             break;
 			
         case NSFetchedResultsChangeDelete:
             [tv deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-					  withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
+					  withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
             break;
 			
         case NSFetchedResultsChangeUpdate:
@@ -228,9 +228,9 @@
 			
         case NSFetchedResultsChangeMove:
             [tv deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-					  withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
+					  withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
             [tv insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-					  withRowAnimation:DCTTableViewDataSourceTableViewRowAnimationAutomatic];
+					  withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
             break;
     }
 }

@@ -1,6 +1,6 @@
-h1. DCTTableViewDataSources
+h1. FRCTableViewDataSources
 
-DCTTableViewDataSources are a more structured way of making an object to use as a data source for a UITableView.
+FRCTableViewDataSources are a more structured way of making an object to use as a data source for a UITableView.
 
 h2. Features
 
@@ -14,7 +14,7 @@ h2. iOS 5 and Automatic Reference Counting (ARC)
 
 This project uses ARC, but will work fine with iOS 4.3-style ARC. 
 
-It will also work fine when compiled to use iOS 4.3 as the base SDK. When doing so, the new iOS 5 call (@registerNib:forCellReuseIdentifier:@ on UITableView) is not used. If you use the DCTTableViewDataSource implementation of @tableView:cellForRowAtIndexPath:@ in data source subclasses, it will yield no ill effect and still give you the nib-based table cell.
+It will also work fine when compiled to use iOS 4.3 as the base SDK. When doing so, the new iOS 5 call (@registerNib:forCellReuseIdentifier:@ on UITableView) is not used. If you use the FRCTableViewDataSource implementation of @tableView:cellForRowAtIndexPath:@ in data source subclasses, it will yield no ill effect and still give you the nib-based table cell.
 
 h2. Example
 
@@ -44,7 +44,7 @@ The master branch contains the code and should be used if you want to add these 
 
 To add this project as a submodule you should run the following from inside your project's git repository:
 
-bc. git submodule add git://github.com/danielctull/DCTTableViewDataSources.git
+bc. git submodule add git://github.com/danielctull/FRCTableViewDataSources.git
 
 To keep up to date with the latest changes `cd` into the directory that contains this submodule and pull the newest changes as usual:
 
@@ -56,7 +56,7 @@ This contains an Xcode project that demonstrates the code and is the branch to u
 
 To clone the demo branch, while also pulling in any necessary submodules run the following command:
 
-bc. git clone -b demo --recursive git://github.com/danielctull/DCTTableViewDataSources.git
+bc. git clone -b demo --recursive git://github.com/danielctull/FRCTableViewDataSources.git
 
 When changing to the demo branch you will need to run through the following set of commands:
 

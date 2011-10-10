@@ -37,7 +37,7 @@
 #import "FRCCollapsableSectionTableViewDataSource.h"
 #import "FRCParentTableViewDataSource.h"
 #import "FRCTableViewCell.h"
-#import "UITableView+DCTTableViewDataSources.h"
+#import "UITableView+FRCTableViewDataSources.h"
 #import <QuartzCore/QuartzCore.h>
 #import "FRCObjectTableViewDataSource.h"
 #import "FRCSplitTableViewDataSource.h"
@@ -126,7 +126,7 @@
 - (void)dctInternal_headerCheck;
 - (BOOL)dctInternal_childTableViewDataSourceCurrentlyHasCells;
 
-- (void)dctInternal_setSplitChild:(DCTTableViewDataSource *)dataSource;
+- (void)dctInternal_setSplitChild:(FRCTableViewDataSource *)dataSource;
 
 @end
 
@@ -169,7 +169,7 @@
 
 #pragma mark - DCTCollapsableSectionTableViewDataSource
 
-- (void)setChildTableViewDataSource:(DCTTableViewDataSource *)ds {
+- (void)setChildTableViewDataSource:(FRCTableViewDataSource *)ds {
 	
 	if (childTableViewDataSource == ds) return;
 	
@@ -184,7 +184,7 @@
 	[self dctInternal_headerCheck];
 }
 
-#pragma mark - DCTTableViewDataSource
+#pragma mark - FRCTableViewDataSource
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath {
 	
@@ -200,7 +200,7 @@
 	return [NSArray arrayWithObject:splitDataSource];
 }
 
-- (BOOL)childTableViewDataSourceShouldUpdateCells:(DCTTableViewDataSource *)dataSource {
+- (BOOL)childTableViewDataSourceShouldUpdateCells:(FRCTableViewDataSource *)dataSource {
 	
 	[self performSelector:@selector(dctInternal_headerCheck) withObject:nil afterDelay:0.01];
 	
@@ -271,7 +271,7 @@
 	return [self.tableView dct_convertIndexPath:headerIndexPath fromChildTableViewDataSource:self];
 }
 
-- (void)dctInternal_setSplitChild:(DCTTableViewDataSource *)dataSource {
+- (void)dctInternal_setSplitChild:(FRCTableViewDataSource *)dataSource {
 	NSArray *children = splitDataSource.childTableViewDataSources;
 	if ([children count] > 1) [splitDataSource removeChildTableViewDataSource:[children lastObject]];
 	

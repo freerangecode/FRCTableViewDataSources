@@ -34,26 +34,26 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "DCTTableViewDataSource.h"
+#import "FRCTableViewDataSource.h"
 
 
 /** This is an abstract class that implements forwarding of the UITableViewDataSource methods to child data source objects.
  
  Subclasses must implement the DCTParentTableViewDataSource protocol.
 */
-@interface FRCParentTableViewDataSource : DCTTableViewDataSource
+@interface FRCParentTableViewDataSource : FRCTableViewDataSource
 
 @property (nonatomic, readonly) NSArray *childTableViewDataSources;
 
-- (NSInteger)convertSection:(NSInteger)section fromChildTableViewDataSource:(DCTTableViewDataSource *)dataSource;
-- (NSInteger)convertSection:(NSInteger)section toChildTableViewDataSource:(DCTTableViewDataSource *)dataSource;
+- (NSInteger)convertSection:(NSInteger)section fromChildTableViewDataSource:(FRCTableViewDataSource *)dataSource;
+- (NSInteger)convertSection:(NSInteger)section toChildTableViewDataSource:(FRCTableViewDataSource *)dataSource;
 
-- (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(DCTTableViewDataSource *)dataSource;
-- (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath toChildTableViewDataSource:(DCTTableViewDataSource *)dataSource;
+- (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(FRCTableViewDataSource *)dataSource;
+- (NSIndexPath *)convertIndexPath:(NSIndexPath *)indexPath toChildTableViewDataSource:(FRCTableViewDataSource *)dataSource;
 
-- (DCTTableViewDataSource *)childTableViewDataSourceForSection:(NSInteger)section;
-- (DCTTableViewDataSource *)childTableViewDataSourceForIndexPath:(NSIndexPath *)indexPath;
+- (FRCTableViewDataSource *)childTableViewDataSourceForSection:(NSInteger)section;
+- (FRCTableViewDataSource *)childTableViewDataSourceForIndexPath:(NSIndexPath *)indexPath;
 
-- (BOOL)childTableViewDataSourceShouldUpdateCells:(DCTTableViewDataSource *)dataSource;
+- (BOOL)childTableViewDataSourceShouldUpdateCells:(FRCTableViewDataSource *)dataSource;
 
 @end

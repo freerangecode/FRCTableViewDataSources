@@ -1,6 +1,6 @@
 /*
  DCTTableViewCell.h
- DCTTableViewDataSources
+ FRCTableViewDataSources
  
  Created by Daniel Tull on 09.07.2011.
  
