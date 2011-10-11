@@ -44,16 +44,18 @@
  */
 @protocol FRCTableViewCellObjectConfiguration <NSObject>
 
-/** After dequeuing the cell (or getting the cell for the first time), the
- FRCTableViewDataSource calls this method with the associated object.
+/** Allows you to configure the cell with the given object.
  
- You should use this to configure the cell.
+ After dequeuing the cell (or getting the cell for the first time), the
+ FRCTableViewDataSource calls this method with the associated object.
  
  @param object The object the cell is representing.
  */
 - (void)configureWithObject:(id)object;
 
-/** In some cases, you may way to have a custom height for your cell. This 
+/** A way to provide a custom height given the object.
+ 
+ In some cases, you may way to have a custom height for your cell. This 
  class method allows us to determine how big a cell should be without having 
  an instance. Use this method to perform calculations for the height of 
  the cell.
@@ -80,7 +82,9 @@
  */
 + (id)cell;
 
-/** By default, in the FRCTableViewDataSource system one cell class maps to
+/** The reuse identifier for the cell.
+ 
+ By default, in the FRCTableViewDataSource system one cell class maps to
  one reuseIdentifier, which is the class name as a string. Subclass cells in 
  nibs should use the class name as a reuse identifier.
  
@@ -88,8 +92,9 @@
  */
 + (NSString *)reuseIdentifier;
 
-/** This is the nibName to use to load and find the table view cell. By 
- default it is the same name as the class.
+/** This is the nibName to use to load and find the table view cell.
+ 
+ By default it is the same name as the class.
  
  @return The nib name.
  */

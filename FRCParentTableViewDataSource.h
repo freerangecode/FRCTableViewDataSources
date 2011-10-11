@@ -81,8 +81,9 @@
 
 /// @name Retrieving child data sources
 
-/** This should return an array of all the child data sources. All these data 
- sources should have thier parent set as this data source.
+/** This should return an array of all the child data sources.
+ 
+ All these data sources should have thier parent set as this data source.
  */
 @property (nonatomic, readonly) NSArray *childTableViewDataSources;
 
@@ -107,9 +108,10 @@
 
 /// @name Parental guidance
 
-/** Allows the parent to prevent the child data source from updating. Children should use
- this method to determine whether they should insert, delete or update cells in their
- control.
+/** Allows the parent to prevent the child data source from updating. 
+ 
+ Children should use this method to determine whether they should insert, 
+ delete or update cells in their control.
  
  An example of this is FRCCollapsableSectionTableViewDataSource, which will return NO when
  it is closed. This way an updating child, like a FRCFetchedResultsTableViewDataSource

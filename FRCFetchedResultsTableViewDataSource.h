@@ -75,11 +75,13 @@ typedef NSFetchRequest *(^FRCFetchRequestBlock)();
  */
 @property (nonatomic, copy) FRCFetchRequestBlock fetchRequestBlock;
 
-/** Subclasses should use this method to load a fetch request. This method is 
- only called if the fetchRequest property is nil. */
+/** Subclasses should use this method to load a fetch request.
+ 
+ This method is only called if the fetchRequest property is nil. */
 - (void)loadFetchRequest;
 
-/** Subclasses should use this method to load a fetched results controller. 
+/** Subclasses should use this method to load a fetched results controller.
+ 
  This method is only called if the fetchedResultsController property is nil. */
 - (void)loadFetchedResultsController;
 

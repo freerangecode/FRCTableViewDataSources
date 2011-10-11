@@ -41,8 +41,10 @@
 
 /** @name Logging */
 
-/** Logs the hierarchy of the table view data sources by traversing the 
- childTableViewDataSources of the parents. 
+/** Logs the hierarchy of the table view data sources.
+ 
+ This is done by traversing the childTableViewDataSources of the parent
+ data sources as it goes down. 
  */
 - (void)frc_logTableViewDataSources;
 

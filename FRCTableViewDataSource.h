@@ -67,7 +67,9 @@
  */
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
-/** To enable nesting any data source has the potential to have a
+/** A parent data source, if one exists.
+ 
+ To enable nesting any data source has the potential to have a
  parent, although this is not always true (for instance the root 
  data source).
  */
