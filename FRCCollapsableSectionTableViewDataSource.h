@@ -51,4 +51,6 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, assign, getter = isOpen) BOOL open;
 
+- (void)loadChildTableViewDataSource;
+
 @end
