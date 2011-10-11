@@ -120,14 +120,15 @@ section and one row, displaying a cell with the given represented object.</p>
 appear in your table view, you would write this:</p>
 
 <pre><code>FRCObjectTableViewDataSource *ds = [[FRCObjectTableViewDataSource alloc] init];
-ds.object = @"This string";
+ds.object = @"Hello world!";
 tableview.dataSource = ds;
 </code></pre>
 
 <p>If you want a custom cell, you just assign its class to the cellClass property
 and an instance of that class will be created, if it conforms to
-<a href="../Protocols/FRCTableViewCellObjectConfiguration.html">FRCTableViewCellObjectConfiguration</a>, then it will get a message to
-configureWithObject: with the given <a href="#//api/name/object">object</a> for you to set up with.</p>
+FRCTableViewCellObjectConfiguration, then it will get a message to
+<a href="[FRCTableViewCell%20configureWithObject:]">configureWithObject:</a> with the
+given <a href="#//api/name/object">object</a> for you to set up with.</p>
 					</div>
 					
 					

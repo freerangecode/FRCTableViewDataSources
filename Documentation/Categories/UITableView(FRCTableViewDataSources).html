@@ -216,7 +216,27 @@ of the FRCTableViewDataSources.</p>
 	<div class="method-subsection method-declaration"><code>- (NSIndexPath *)frc_convertIndexPath:(NSIndexPath *)<em>indexPath</em> fromChildTableViewDataSource:(FRCTableViewDataSource *)<em>dataSource</em></code></div>
 	
 	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>indexPath</em></dt>
+			<dd><p>The index path in the given data source&rsquo;s co-ordinate space.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>dataSource</em></dt>
+			<dd><p>The data source to convert the index path from.</p></dd>
+		</dl>
+		
+	</div>
 	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The index path in the table view&rsquo;s co-ordinate space.</p>
+	</div>
 	
 	
 	
@@ -259,7 +279,27 @@ methods of the FRCTableViewDataSources.</p>
 	<div class="method-subsection method-declaration"><code>- (NSInteger)frc_convertSection:(NSInteger)<em>section</em> fromChildTableViewDataSource:(FRCTableViewDataSource *)<em>dataSource</em></code></div>
 	
 	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>section</em></dt>
+			<dd><p>The section in the given data source&rsquo;s co-ordinate space.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>dataSource</em></dt>
+			<dd><p>The data source to convert the section from.</p></dd>
+		</dl>
+		
+	</div>
 	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The section in the table view&rsquo;s co-ordinate space.</p>
+	</div>
 	
 	
 	
@@ -342,6 +382,16 @@ others. If iOS 5 is not available, this method does nothing.</p>
 	
 	<div class="method-subsection method-declaration"><code>- (void)frc_registerFRCTableViewCellSubclass:(Class)<em>tableViewCellSubclass</em></code></div>
 	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>tableViewCellSubclass</em></dt>
+			<dd><p>The <a href="../Classes/FRCTableViewCell.html">FRCTableViewCell</a> subclass of the cell to register.</p></dd>
+		</dl>
+		
+	</div>
 	
 	
 	

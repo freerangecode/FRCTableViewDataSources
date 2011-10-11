@@ -38,13 +38,30 @@
 	
 	
 	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/childTableViewDataSources">&nbsp;&nbsp;&nbsp;&nbsp;childTableViewDataSources</option>
+	
+	
 	
 	
 	
 	
 	<option value="instance_methods">Instance Methods</option>
 	
+	<option value="//api/name/childTableViewDataSourceForIndexPath:">&nbsp;&nbsp;&nbsp;&nbsp;- childTableViewDataSourceForIndexPath:</option>
+	
+	<option value="//api/name/childTableViewDataSourceForSection:">&nbsp;&nbsp;&nbsp;&nbsp;- childTableViewDataSourceForSection:</option>
+	
+	<option value="//api/name/childTableViewDataSourceShouldUpdateCells:">&nbsp;&nbsp;&nbsp;&nbsp;- childTableViewDataSourceShouldUpdateCells:</option>
+	
+	<option value="//api/name/convertIndexPath:fromChildTableViewDataSource:">&nbsp;&nbsp;&nbsp;&nbsp;- convertIndexPath:fromChildTableViewDataSource:</option>
+	
+	<option value="//api/name/convertIndexPath:toChildTableViewDataSource:">&nbsp;&nbsp;&nbsp;&nbsp;- convertIndexPath:toChildTableViewDataSource:</option>
+	
 	<option value="//api/name/convertSection:fromChildTableViewDataSource:">&nbsp;&nbsp;&nbsp;&nbsp;- convertSection:fromChildTableViewDataSource:</option>
+	
+	<option value="//api/name/convertSection:toChildTableViewDataSource:">&nbsp;&nbsp;&nbsp;&nbsp;- convertSection:toChildTableViewDataSource:</option>
 	
 	
 	
@@ -62,11 +79,23 @@
 
 <li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Conversion">Conversion</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Retrieving child data sources">Retrieving child data sources</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Parental guidance">Parental guidance</a></span></li>
+	
 </ul></li>
 
 
 
 
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/childTableViewDataSources">childTableViewDataSources</a></span></li>
+	
+</ul></li>
 
 
 
@@ -74,7 +103,19 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/childTableViewDataSourceForIndexPath:">childTableViewDataSourceForIndexPath:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/childTableViewDataSourceForSection:">childTableViewDataSourceForSection:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/childTableViewDataSourceShouldUpdateCells:">childTableViewDataSourceShouldUpdateCells:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/convertIndexPath:fromChildTableViewDataSource:">convertIndexPath:fromChildTableViewDataSource:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/convertIndexPath:toChildTableViewDataSource:">convertIndexPath:toChildTableViewDataSource:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/convertSection:fromChildTableViewDataSource:">convertSection:fromChildTableViewDataSource:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/convertSection:toChildTableViewDataSource:">convertSection:toChildTableViewDataSource:</a></span></li>
 	
 </ul></li>
 
@@ -125,14 +166,82 @@
 						<h2 class="subtitle subtitle-tasks">Tasks</h2>
 						
 						
-						
-						
+						<a title="Conversion" name="task_Conversion"></a>
+						<h3 class="subsubtitle task-title">Conversion</h3>
 
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/convertSection:fromChildTableViewDataSource:">&ndash;&nbsp;convertSection:fromChildTableViewDataSource:</a></code>
 		<span class="tooltip"><p>Conversion method</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/convertSection:toChildTableViewDataSource:">&ndash;&nbsp;convertSection:toChildTableViewDataSource:</a></code>
+		<span class="tooltip"><p>Conversion method</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/convertIndexPath:fromChildTableViewDataSource:">&ndash;&nbsp;convertIndexPath:fromChildTableViewDataSource:</a></code>
+		<span class="tooltip"><p>Conversion method</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/convertIndexPath:toChildTableViewDataSource:">&ndash;&nbsp;convertIndexPath:toChildTableViewDataSource:</a></code>
+		<span class="tooltip"><p>Conversion method</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Retrieving child data sources" name="task_Retrieving child data sources"></a>
+						<h3 class="subsubtitle task-title">Retrieving child data sources</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/childTableViewDataSources">&nbsp;&nbsp;childTableViewDataSources</a></code>
+		<span class="tooltip"><p>This should return an array of all the child data sources. All these data
+sources should have thier parent set as this data source.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/childTableViewDataSourceForSection:">&ndash;&nbsp;childTableViewDataSourceForSection:</a></code>
+		<span class="tooltip"><p>Retrieves the child data source for a given section.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/childTableViewDataSourceForIndexPath:">&ndash;&nbsp;childTableViewDataSourceForIndexPath:</a></code>
+		<span class="tooltip"><p>Retrieves the child data source for a given index path.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Parental guidance" name="task_Parental guidance"></a>
+						<h3 class="subsubtitle task-title">Parental guidance</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/childTableViewDataSourceShouldUpdateCells:">&ndash;&nbsp;childTableViewDataSourceShouldUpdateCells:</a></code>
+		<span class="tooltip"><p>Allows the parent to prevent the child data source from updating. Children should use
+this method to determine whether they should insert, delete or update cells in their
+control.</p></span>
 	</span>
 	
 	
@@ -145,6 +254,53 @@
 					
 					
 					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/childTableViewDataSources" title="childTableViewDataSources"></a>
+	<h3 class="subsubtitle method-title">childTableViewDataSources</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>This should return an array of all the child data sources. All these data
+sources should have thier parent set as this data source.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSArray *childTableViewDataSources</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This should return an array of all the child data sources. All these data
+sources should have thier parent set as this data source.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">FRCParentTableViewDataSource.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
 					
 					
 					
@@ -152,6 +308,296 @@
 					<div class="section section-methods">
 						<a title="Instance Methods" name="instance_methods"></a>
 						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/childTableViewDataSourceForIndexPath:" title="childTableViewDataSourceForIndexPath:"></a>
+	<h3 class="subsubtitle method-title">childTableViewDataSourceForIndexPath:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Retrieves the child data source for a given index path.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (FRCTableViewDataSource *)childTableViewDataSourceForIndexPath:(NSIndexPath *)<em>indexPath</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>indexPath</em></dt>
+			<dd><p>The indexPath the caller wants a data source for. This should be
+in the &ldquo;co-ordinates&rdquo; of the data source you are calling to.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The data source object for the given indexPath.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Retrieves the child data source for a given index path.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">FRCParentTableViewDataSource.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/childTableViewDataSourceForSection:" title="childTableViewDataSourceForSection:"></a>
+	<h3 class="subsubtitle method-title">childTableViewDataSourceForSection:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Retrieves the child data source for a given section.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (FRCTableViewDataSource *)childTableViewDataSourceForSection:(NSInteger)<em>section</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>section</em></dt>
+			<dd><p>The section the caller wants a data source for. This should be
+in the &ldquo;co-ordinates&rdquo; of the data source you are calling to.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The data source object for the given section.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Retrieves the child data source for a given section.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">FRCParentTableViewDataSource.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/childTableViewDataSourceShouldUpdateCells:" title="childTableViewDataSourceShouldUpdateCells:"></a>
+	<h3 class="subsubtitle method-title">childTableViewDataSourceShouldUpdateCells:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Allows the parent to prevent the child data source from updating. Children should use
+this method to determine whether they should insert, delete or update cells in their
+control.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)childTableViewDataSourceShouldUpdateCells:(FRCTableViewDataSource *)<em>dataSource</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>dataSource</em></dt>
+			<dd><p>The child data source that is asking whether it can update.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES if the child can update the table, NO if not.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Allows the parent to prevent the child data source from updating. Children should use
+this method to determine whether they should insert, delete or update cells in their
+control.</p>
+
+<p>An example of this is FRCCollapsableSectionTableViewDataSource, which will return NO when
+it is closed. This way an updating child, like a <a href="../Classes/FRCFetchedResultsTableViewDataSource.html">FRCFetchedResultsTableViewDataSource</a>
+will be prevented from inserting or deleting cells into the tableView.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">FRCParentTableViewDataSource.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/convertIndexPath:fromChildTableViewDataSource:" title="convertIndexPath:fromChildTableViewDataSource:"></a>
+	<h3 class="subsubtitle method-title">convertIndexPath:fromChildTableViewDataSource:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Conversion method</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSIndexPath *)convertIndexPath:(NSIndexPath *)<em>indexPath</em> fromChildTableViewDataSource:(FRCTableViewDataSource *)<em>dataSource</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>indexPath</em></dt>
+			<dd><p>The index path in the co-ordinate space of the child.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>dataSource</em></dt>
+			<dd><p>The child data source.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The index path in the co-ordinate space of the parent.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Conversion method</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">FRCParentTableViewDataSource.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/convertIndexPath:toChildTableViewDataSource:" title="convertIndexPath:toChildTableViewDataSource:"></a>
+	<h3 class="subsubtitle method-title">convertIndexPath:toChildTableViewDataSource:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Conversion method</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSIndexPath *)convertIndexPath:(NSIndexPath *)<em>indexPath</em> toChildTableViewDataSource:(FRCTableViewDataSource *)<em>dataSource</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>indexPath</em></dt>
+			<dd><p>The index path in the co-ordinate space of the parent.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>dataSource</em></dt>
+			<dd><p>The child data source.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The index path in the co-ordinate space of the child.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Conversion method</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">FRCParentTableViewDataSource.h</code><br />
+	</div>				
+	
+	
+</div>
 						
 						<div class="section-method">
 	<a name="//api/name/convertSection:fromChildTableViewDataSource:" title="convertSection:fromChildTableViewDataSource:"></a>
@@ -167,7 +613,86 @@
 	<div class="method-subsection method-declaration"><code>- (NSInteger)convertSection:(NSInteger)<em>section</em> fromChildTableViewDataSource:(FRCTableViewDataSource *)<em>dataSource</em></code></div>
 	
 	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>section</em></dt>
+			<dd><p>The section in the co-ordinate space of the child.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>dataSource</em></dt>
+			<dd><p>The child data source.</p></dd>
+		</dl>
+		
+	</div>
 	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The section in the co-ordinate space of the parent.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Conversion method</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">FRCParentTableViewDataSource.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/convertSection:toChildTableViewDataSource:" title="convertSection:toChildTableViewDataSource:"></a>
+	<h3 class="subsubtitle method-title">convertSection:toChildTableViewDataSource:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Conversion method</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSInteger)convertSection:(NSInteger)<em>section</em> toChildTableViewDataSource:(FRCTableViewDataSource *)<em>dataSource</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>section</em></dt>
+			<dd><p>The section in the co-ordinate space of the parent.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>dataSource</em></dt>
+			<dd><p>The child data source.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The section in the co-ordinate space of the child.</p>
+	</div>
 	
 	
 	
