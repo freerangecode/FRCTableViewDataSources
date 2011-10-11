@@ -67,6 +67,8 @@
  */
 @interface FRCTableViewCell : UITableViewCell <FRCTableViewCellObjectConfiguration>
 
+/** Get an instance of the cell, either from a nib if one exists or via alloc, init.
+ */
 + (id)cell;
 
 /** By default, in the FRCTableViewDataSource system one cell class maps to

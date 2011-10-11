@@ -39,10 +39,15 @@
 
 @interface UITableView (FRCTableViewDataSources)
 
+/** @name Logging */
+
 /** Logs the hierarchy of the table view data sources by traversing the 
  childTableViewDataSources of the parents. 
  */
 - (void)frc_logTableViewDataSources;
+
+/** @name Conversion methods */
+
 
 /** Returns the section, with respect to the table view, of a section in
  the given child data source's structure. This uses the conversion
@@ -55,6 +60,8 @@
  of the FRCTableViewDataSources.
  */
 - (NSIndexPath *)frc_convertIndexPath:(NSIndexPath *)indexPath fromChildTableViewDataSource:(FRCTableViewDataSource *)dataSource;
+
+/** @name Cell registration */
 
 /** Uses the iOS 5 method to register a table view cell class with a nib.
  This will only work for FRCTableViewCell subclasses, but won't crash for 
