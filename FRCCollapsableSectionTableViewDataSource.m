@@ -208,9 +208,12 @@
 
 #pragma mark - UITableViewDataSource
 
-- (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	tableViewHasSetup = YES;
+	return [super numberOfSectionsInTableView:tableView];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	if (indexPath.row == 0)
 		headerDataSource.object = [self objectAtIndexPath:indexPath];
