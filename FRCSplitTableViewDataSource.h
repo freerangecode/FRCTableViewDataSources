@@ -45,20 +45,20 @@ typedef enum {
 /** A class to provide a way of displaying data from multiple data sources in a table view. */
 @interface FRCSplitTableViewDataSource : FRCParentTableViewDataSource
 
-/** Add a child data source.
+/** Add a child data source. This calls to the tableView to animate the cells in.
  */
 - (void)addChildTableViewDataSource:(FRCTableViewDataSource *)tableViewSectionDataSource;
 
-/** Remove a child data source.
+/** Remove a child data source. This calls to the tableView to animate out the cells.
  */
 - (void)removeChildTableViewDataSource:(FRCTableViewDataSource *)tableViewSectionDataSource;
 
 /** The type of the split. 
  
- - FRCSplitTableViewDataSourceTypeSection Will split each child
+ - *FRCSplitTableViewDataSourceTypeSection* Splits each child
  table view data source into separate sections
- - FRCSplitTableViewDataSourceTypeRow Will split each child table 
- view data source into rows, maintaining one section for this data source
+ - *FRCSplitTableViewDataSourceTypeRow* Makes this data source responsible for once section
+ and joins each child table view data source one after the other inside this section.
  */
 @property (nonatomic, assign) FRCSplitTableViewDataSourceType type;
 @end
