@@ -276,8 +276,6 @@
 	if ([children count] > 1) [splitDataSource removeChildTableViewDataSource:[children lastObject]];
 	
 	[splitDataSource addChildTableViewDataSource:self.childTableViewDataSource];
-	
-	[self.tableView frc_logTableViewDataSources];	
 }
 
 - (void)frcInternal_setOpened {
