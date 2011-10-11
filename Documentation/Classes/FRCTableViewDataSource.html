@@ -254,9 +254,7 @@ to implement the standard tableView:cellForRowAtIndexPath: method.</p></span>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>This is the class to use for cells of this data source.</p>
-
-<p>Ideally this should should be a subclass of <a href="../Classes/FRCTableViewCell.html">FRCTableViewCell</a> or
+		<p>Ideally this should should be a subclass of <a href="../Classes/FRCTableViewCell.html">FRCTableViewCell</a> or
 implement the <a href="../Protocols/FRCTableViewCellObjectConfiguration.html">FRCTableViewCellObjectConfiguration</a> protocol for best reseults.</p>
 	</div>
 	
@@ -296,13 +294,6 @@ data source).</p>
 	
 	
 	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>To enable nesting any data source has the potential to have a
-<a href="#//api/name/parent">parent</a>, although this is not always true (for instance the root
-data source).</p>
-	</div>
-	
 	
 	
 	
@@ -336,11 +327,6 @@ data source).</p>
 	
 	
 	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>The table view that is associated with the data source.</p>
-	</div>
 	
 	
 	
@@ -404,10 +390,7 @@ index paths.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>To enable a data source to have different cell classes for different
-index paths.</p>
-
-<p>This method returns the class in the property <a href="#//api/name/cellClass">cellClass</a>. Subclasses
+		<p>This method returns the class in the property <a href="#//api/name/cellClass">cellClass</a>. Subclasses
 should override for different results.</p>
 	</div>
 	
@@ -466,12 +449,6 @@ to implement the standard tableView:cellForRowAtIndexPath: method.</p>
 	
 	
 	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>This allows subclasses to simply configure the cell without needing
-to implement the standard tableView:cellForRowAtIndexPath: method.</p>
-	</div>
-	
 	
 	
 	
@@ -525,11 +502,7 @@ should return the correct object to use.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>To get the associated object from the data source for the given
-index path. By default this returns the index path, but subclasses
-should return the correct object to use.</p>
-
-<p>If the <a href="#//api/name/cellClass">cellClass</a> conforms to <a href="../Protocols/FRCTableViewCellObjectConfiguration.html">FRCTableViewCellObjectConfiguration</a>,
+		<p>If the <a href="#//api/name/cellClass">cellClass</a> conforms to <a href="../Protocols/FRCTableViewCellObjectConfiguration.html">FRCTableViewCellObjectConfiguration</a>,
 it is this object that will be given to the cell when
 configureWithObject: is called.</p>
 	</div>
@@ -568,12 +541,6 @@ should be overridden by subclasses to provide desired results.</p>
 	
 	
 	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>A convinient way to repload the cells of the data source, this
-should be overridden by subclasses to provide desired results.</p>
-	</div>
 	
 	
 	
