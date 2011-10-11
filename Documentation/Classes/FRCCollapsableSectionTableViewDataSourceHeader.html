@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>FRCSplitTableViewDataSource Class Reference</title>
+		<title>FRCCollapsableSectionTableViewDataSourceHeader Class Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
@@ -17,7 +17,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">FRCSplitTableViewDataSource Class Reference</h1>
+				<h1 class="hideInXcode">FRCCollapsableSectionTableViewDataSourceHeader Class Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -40,18 +40,15 @@
 	
 	<option value="properties">Properties</option>
 	
-	<option value="//api/name/type">&nbsp;&nbsp;&nbsp;&nbsp;type</option>
+	<option value="//api/name/empty">&nbsp;&nbsp;&nbsp;&nbsp;empty</option>
+	
+	<option value="//api/name/open">&nbsp;&nbsp;&nbsp;&nbsp;open</option>
+	
+	<option value="//api/name/title">&nbsp;&nbsp;&nbsp;&nbsp;title</option>
 	
 	
 	
 	
-	
-	
-	<option value="instance_methods">Instance Methods</option>
-	
-	<option value="//api/name/addChildTableViewDataSource:">&nbsp;&nbsp;&nbsp;&nbsp;- addChildTableViewDataSource:</option>
-	
-	<option value="//api/name/removeChildTableViewDataSource:">&nbsp;&nbsp;&nbsp;&nbsp;- removeChildTableViewDataSource:</option>
 	
 	
 	
@@ -77,28 +74,24 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/type">type</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/empty">empty</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/open">open</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/title">title</a></span></li>
 	
 </ul></li>
 
 
 
 
-
-<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/addChildTableViewDataSource:">addChildTableViewDataSource:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/removeChildTableViewDataSource:">removeChildTableViewDataSource:</a></span></li>
-	
-</ul></li>
 
 
 			</ul>
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="FRCSplitTableViewDataSource Class Reference" name="top"></a>
+				<a title="FRCCollapsableSectionTableViewDataSourceHeader Class Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -107,7 +100,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">FRCSplitTableViewDataSource Class Reference</h1>
+						<h1 class="title title-header">FRCCollapsableSectionTableViewDataSourceHeader Class Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -115,10 +108,10 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Inherits from</td>
-	<td class="specification-value"><a href="../Classes/FRCParentTableViewDataSource.html">FRCParentTableViewDataSource</a> : <a href="../Classes/FRCTableViewDataSource.html">FRCTableViewDataSource</a> : NSObject</td>
+	<td class="specification-value">NSObject</td>
 </tr><tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">FRCSplitTableViewDataSource.h</td>
+	<td class="specification-value">FRCCollapsableSectionTableViewDataSource.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -128,7 +121,7 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>A class to provide a way of displaying data from multiple data sources in a table view.</p>
+						<p>A class to represent the header cell for the collapsable data source.</p>
 					</div>
 					
 					
@@ -146,22 +139,23 @@
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/addChildTableViewDataSource:">&ndash;&nbsp;addChildTableViewDataSource:</a></code>
-		<span class="tooltip"><p>Add a child data source. This calls to the tableView to animate the cells in.</p></span>
+		<code><a href="#//api/name/title">&nbsp;&nbsp;title</a></code>
+		<span class="tooltip"><p>The <a href="#//api/name/title">title</a> to use in the header cell.</p></span>
 	</span>
-	
+	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/removeChildTableViewDataSource:">&ndash;&nbsp;removeChildTableViewDataSource:</a></code>
-		<span class="tooltip"><p>Remove a child data source. This calls to the tableView to animate out the cells.</p></span>
+		<code><a href="#//api/name/open">&nbsp;&nbsp;open</a></code>
+		<span class="tooltip"><p>YES if the <a href="../Classes/FRCCollapsableSectionTableViewDataSource.html">FRCCollapsableSectionTableViewDataSource</a> is <a href="#//api/name/open">open</a>.</p></span>
 	</span>
-	
+	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/type">&nbsp;&nbsp;type</a></code>
-		<span class="tooltip"><p>The <a href="#//api/name/type">type</a> of the split.</p></span>
+		<code><a href="#//api/name/empty">&nbsp;&nbsp;empty</a></code>
+		<span class="tooltip"><p>YES if the <a href="../Classes/FRCCollapsableSectionTableViewDataSource.html">FRCCollapsableSectionTableViewDataSource</a> is <a href="#//api/name/empty">empty</a> and has
+nothing to expand out for.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -179,17 +173,18 @@
 						<h2 class="subtitle subtitle-methods">Properties</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/type" title="type"></a>
-	<h3 class="subsubtitle method-title">type</h3>
+	<a name="//api/name/empty" title="empty"></a>
+	<h3 class="subsubtitle method-title">empty</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The <a href="#//api/name/type">type</a> of the split.</p>
+		<p>YES if the <a href="../Classes/FRCCollapsableSectionTableViewDataSource.html">FRCCollapsableSectionTableViewDataSource</a> is <a href="#//api/name/empty">empty</a> and has
+nothing to expand out for.</p>
 	</div>		
 	
 	
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) FRCSplitTableViewDataSourceType type</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) BOOL empty</code></div>
 	
 	
 	
@@ -200,15 +195,12 @@
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>The <a href="#//api/name/type">type</a> of the split.</p>
+		<p>YES if the <a href="../Classes/FRCCollapsableSectionTableViewDataSource.html">FRCCollapsableSectionTableViewDataSource</a> is <a href="#//api/name/empty">empty</a> and has
+nothing to expand out for.</p>
 
-<ul>
-<li><strong>FRCSplitTableViewDataSourceTypeSection</strong> Splits each child
-table view data source into separate sections</li>
-<li><strong>FRCSplitTableViewDataSourceTypeRow</strong> Makes this data source responsible for once section
-and joins each child table view data source one after the other inside this section.</li>
-</ul>
-
+<p>The <a href="../Classes/FRCCollapsableSectionTableViewDataSource.html">FRCCollapsableSectionTableViewDataSource</a> is deemed to be <a href="#//api/name/empty">empty</a> if
+it has no childTableViewDataSource or the childTableViewDataSource returns
+0 for tableView:numberOfRowsInSection:.</p>
 	</div>
 	
 	
@@ -219,7 +211,85 @@ and joins each child table view data source one after the other inside this sect
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">FRCSplitTableViewDataSource.h</code><br />
+		<code class="declared-in-ref">FRCCollapsableSectionTableViewDataSource.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/open" title="open"></a>
+	<h3 class="subsubtitle method-title">open</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>YES if the <a href="../Classes/FRCCollapsableSectionTableViewDataSource.html">FRCCollapsableSectionTableViewDataSource</a> is <a href="#//api/name/open">open</a>.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) BOOL open</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>YES if the <a href="../Classes/FRCCollapsableSectionTableViewDataSource.html">FRCCollapsableSectionTableViewDataSource</a> is <a href="#//api/name/open">open</a>.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">FRCCollapsableSectionTableViewDataSource.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/title" title="title"></a>
+	<h3 class="subsubtitle method-title">title</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The <a href="#//api/name/title">title</a> to use in the header cell.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSString *title</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The <a href="#//api/name/title">title</a> to use in the header cell.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">FRCCollapsableSectionTableViewDataSource.h</code><br />
 	</div>				
 	
 	
@@ -230,110 +300,6 @@ and joins each child table view data source one after the other inside this sect
 					
 					
 					
-					
-					<div class="section section-methods">
-						<a title="Instance Methods" name="instance_methods"></a>
-						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
-						
-						<div class="section-method">
-	<a name="//api/name/addChildTableViewDataSource:" title="addChildTableViewDataSource:"></a>
-	<h3 class="subsubtitle method-title">addChildTableViewDataSource:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Add a child data source. This calls to the tableView to animate the cells in.</p>
-	</div>		
-	
-	
-	<div class="method-subsection method-declaration"><code>- (void)addChildTableViewDataSource:(FRCTableViewDataSource *)<em>dataSource</em></code></div>
-	
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>dataSource</em></dt>
-			<dd><p>The data source to add as a child.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>Add a child data source. This calls to the tableView to animate the cells in.</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">FRCSplitTableViewDataSource.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/removeChildTableViewDataSource:" title="removeChildTableViewDataSource:"></a>
-	<h3 class="subsubtitle method-title">removeChildTableViewDataSource:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Remove a child data source. This calls to the tableView to animate out the cells.</p>
-	</div>		
-	
-	
-	<div class="method-subsection method-declaration"><code>- (void)removeChildTableViewDataSource:(FRCTableViewDataSource *)<em>dataSource</em></code></div>
-	
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>dataSource</em></dt>
-			<dd><p>The child data source to remove.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>Remove a child data source. This calls to the tableView to animate out the cells.</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">FRCSplitTableViewDataSource.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-					</div>
 					
 					
 				</div>
