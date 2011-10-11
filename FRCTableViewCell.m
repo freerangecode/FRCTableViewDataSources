@@ -36,8 +36,6 @@
 
 #import "FRCTableViewCell.h"
 
-NSString *const FRCTableViewCellWillBeReusedNotification = @"FRCTableViewCellWillBeReusedNotification";
-
 @interface FRCTableViewCell ()
 + (BOOL)frcInternal_nibExistsWithNibName:(NSString *)nibName bundle:(NSBundle *)bundle;
 @end
@@ -48,7 +46,7 @@ NSString *const FRCTableViewCellWillBeReusedNotification = @"FRCTableViewCellWil
 
 - (void)prepareForReuse {
 	[super prepareForReuse];
-	[[NSNotificationCenter defaultCenter] postNotificationName:FRCTableViewCellWillBeReusedNotification object:self];
+	self.textLabel.text = nil;
 }
 
 #pragma mark - FRCTableViewCell

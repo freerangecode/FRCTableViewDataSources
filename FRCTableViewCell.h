@@ -36,8 +36,6 @@
 
 #import <UIKit/UIKit.h>
 
-extern NSString *const FRCTableViewCellWillBeReusedNotification;
-
 
 
 @protocol FRCTableViewCellObjectConfiguration <NSObject>
