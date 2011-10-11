@@ -36,6 +36,24 @@
 
 #import "FRCTableViewDataSource.h"
 
+/** A simple, perhaps the most simple, data source class. It gives back one 
+ section and one row, displaying a cell with the given represented object.
+ 
+ For example if you wanted a default cell, with the text "Hello world!" to 
+ appear in your table view, you would write this:
+ 
+	FRCObjectTableViewDataSource *ds = [[FRCObjectTableViewDataSource alloc] init];
+	ds.object = @"This string";
+	tableview.dataSource = ds;
+ 
+ If you want a custom cell, you just assign its class to the cellClass property
+ and an instance of that class will be created, if it conforms to 
+ FRCTableViewCellObjectConfiguration, then it will get a message to 
+ configureWithObject: with the given object for you to set up with.
+ */
 @interface FRCObjectTableViewDataSource : FRCTableViewDataSource
+
+/** The represented object for the single cell in this data soruce.
+ */
 @property (nonatomic, strong) id object;
 @end

@@ -41,8 +41,12 @@
 */
 @interface FRCParentTableViewDataSource : FRCTableViewDataSource
 
+
+
 @property (nonatomic, readonly) NSArray *childTableViewDataSources;
 
+/** Conversion method
+ */
 - (NSInteger)convertSection:(NSInteger)section fromChildTableViewDataSource:(FRCTableViewDataSource *)dataSource;
 - (NSInteger)convertSection:(NSInteger)section toChildTableViewDataSource:(FRCTableViewDataSource *)dataSource;
 

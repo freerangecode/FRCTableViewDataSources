@@ -37,17 +37,50 @@
 #import "FRCTableViewDataSource.h"
 #import <CoreData/CoreData.h>
 
+/** A block that returns a fetch request. This is useful to use in the case 
+ where your fetch request might change, for example a search interface. */
 typedef NSFetchRequest *(^FRCFetchRequestBlock)();
 
+/** A data source that stays in sync with a Core Data fetch request using a
+ NSFetchedResultsController.
+ 
+ You can set this up in a number of ways:
+ 
+ - Provide a fetched results controller
+ - Provide a managed object context and a fetch request
+ - Provide a managed object context and a fetch request block
+ - Implement loadFetchedResultsController in a subclass
+ - Provide a managed object context and implement loadFetchRequest in a subclass
+ 
+ There may be other combinations that work also. Note however that without 
+ a managed object context and some form of fetch request, this will crash.
+ */
 @interface FRCFetchedResultsTableViewDataSource : FRCTableViewDataSource <NSFetchedResultsControllerDelegate>
 
+/** The managed obejct context that is associated with the fetched results 
+ controller.
+ */
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+
+/** The fetched results controller that is controlling the data for cells 
+ maintained by this data source.
+ */
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
+/** The fetch request being used.
+ */
 @property (nonatomic, strong) NSFetchRequest *fetchRequest;
+
+/** A fetch request block to provide a fetch request.
+ */
 @property (nonatomic, copy) FRCFetchRequestBlock fetchRequestBlock;
 
+/** Subclasses should use this method to load a fetch request. This method is 
+ only called if the fetchRequest property is nil. */
 - (void)loadFetchRequest;
+
+/** Subclasses should use this method to load a fetched results controller. 
+ This method is only called if the fetchedResultsController property is nil. */
 - (void)loadFetchedResultsController;
 
 @end

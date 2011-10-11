@@ -37,20 +37,47 @@
 #import <UIKit/UIKit.h>
 
 
-
+/** While most cells used in the FRCTableViewDataSource system should be 
+ subclasses of FRCTableViewCell, you might want to use a third party cell 
+ that cannot be a subclass. You can still take advantage of the object 
+ configuration system by implementing this protocol.
+ */
 @protocol FRCTableViewCellObjectConfiguration <NSObject>
 
+/** After dequeuing the cell (or getting the cell for the first time), the
+ FRCTableViewDataSource calls this method with the associated object.
+ 
+ You should use this to configure the cell.
+ */
 - (void)configureWithObject:(id)object;
+
+/** In some cases, you may way to have a custom height for your cell. This 
+ class method allows us to determine how big a cell should be without having 
+ an instance. Use this method to perform calculations for the height of 
+ the cell.
+ */
 + (CGFloat)heightForObject:(id)object width:(CGFloat)width;
 
 @end
 
 
-
+/** A table view cell class that implments the FRCTableViewCellObjectConfiguration
+ protocol as well as enabling really easy way to set up a cell inside a nib
+ or storyboard.
+ */
 @interface FRCTableViewCell : UITableViewCell <FRCTableViewCellObjectConfiguration>
 
 + (id)cell;
+
+/** By default, in the FRCTableViewDataSource system one cell class maps to
+ one reuseIdentifier, which is the class name as a string. Subclass cells in 
+ nibs should use the class name as a reuse identifier.
+ */
 + (NSString *)reuseIdentifier;
+
+/** This is the nibName to use to load and find the table view cell. By 
+ default it is the same name as the class.
+ */
 + (NSString *)nibName;
 
 @end

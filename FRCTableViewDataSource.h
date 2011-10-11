@@ -51,18 +51,54 @@
 
 @class FRCParentTableViewDataSource;
 
-/** A class that provides a basic implementation of the FRCTableViewDataSource protocol
+/** An abstract class to represent a core FRCTableViewDataSource object.
  */
 @interface FRCTableViewDataSource : NSObject <UITableViewDataSource>
 
+/** This is the class to use for cells of this data source. 
+ 
+ Ideally this should should be a subclass of FRCTableViewCell or
+ implement the FRCTableViewCellObjectConfiguration protocol for best reseults.
+ */
 @property (nonatomic, assign) Class cellClass;
 
+
+/** The table view that is associated with the data source.
+ */
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
+
+/** To enable nesting any data source has the potential to have a
+ parent, although this is not always true (for instance the root 
+ data source).
+ */
 @property (nonatomic, frc_weak) FRCParentTableViewDataSource *parent;
 
+/** A convinient way to repload the cells of the data source, this 
+ should be overridden by subclasses to provide desired results.
+ */
 - (void)reloadData;
+
+/** To get the associated object from the data source for the given 
+ index path. By default this returns the index path, but subclasses
+ should return the correct object to use.
+ 
+ If the cellClass conforms to FRCTableViewCellObjectConfiguration,
+ it is this object that will be given to the cell when
+ configureWithObject: is called.
+ */
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
+
+/** To enable a data source to have different cell classes for different
+ index paths.
+ 
+ This method returns the class in the property cellClass. Subclasses
+ should override for different results.
+ */
 - (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath;
+
+/** This allows subclasses to simply configure the cell without needing
+ to implement the standard tableView:cellForRowAtIndexPath: method.
+ */
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withObject:(id)object;
 
 @end
