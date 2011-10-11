@@ -59,4 +59,5 @@ typedef enum {
  - FRCSplitTableViewDataSourceTypeRow Will split each child table 
  view data source into rows, maintaining one section for this data source
  */
+@property (nonatomic, assign) FRCSplitTableViewDataSourceType type;
 @end
