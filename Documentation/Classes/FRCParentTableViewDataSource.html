@@ -209,8 +209,7 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/childTableViewDataSources">&nbsp;&nbsp;childTableViewDataSources</a></code>
-		<span class="tooltip"><p>This should return an array of all the child data sources. All these data
-sources should have thier parent set as this data source.</p></span>
+		<span class="tooltip"><p>This should return an array of all the child data sources.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -239,9 +238,7 @@ sources should have thier parent set as this data source.</p></span>
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/childTableViewDataSourceShouldUpdateCells:">&ndash;&nbsp;childTableViewDataSourceShouldUpdateCells:</a></code>
-		<span class="tooltip"><p>Allows the parent to prevent the child data source from updating. Children should use
-this method to determine whether they should insert, delete or update cells in their
-control.</p></span>
+		<span class="tooltip"><p>Allows the parent to prevent the child data source from updating.</p></span>
 	</span>
 	
 	
@@ -265,8 +262,7 @@ control.</p></span>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>This should return an array of all the child data sources. All these data
-sources should have thier parent set as this data source.</p>
+		<p>This should return an array of all the child data sources.</p>
 	</div>		
 	
 	
@@ -278,6 +274,11 @@ sources should have thier parent set as this data source.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>All these data sources should have thier parent set as this data source.</p>
+	</div>
 	
 	
 	
@@ -410,9 +411,7 @@ in the &ldquo;co-ordinates&rdquo; of the data source you are calling to.</p></dd
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Allows the parent to prevent the child data source from updating. Children should use
-this method to determine whether they should insert, delete or update cells in their
-control.</p>
+		<p>Allows the parent to prevent the child data source from updating.</p>
 	</div>		
 	
 	
@@ -442,7 +441,10 @@ control.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>An example of this is <a href="../Classes/FRCCollapsableSectionTableViewDataSource.html">FRCCollapsableSectionTableViewDataSource</a>, which will return NO when
+		<p>Children should use this method to determine whether they should insert,
+delete or update cells in their control.</p>
+
+<p>An example of this is <a href="../Classes/FRCCollapsableSectionTableViewDataSource.html">FRCCollapsableSectionTableViewDataSource</a>, which will return NO when
 it is closed. This way an updating child, like a <a href="../Classes/FRCFetchedResultsTableViewDataSource.html">FRCFetchedResultsTableViewDataSource</a>
 will be prevented from inserting or deleting cells into the tableView.</p>
 	</div>

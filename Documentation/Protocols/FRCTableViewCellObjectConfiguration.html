@@ -146,18 +146,14 @@ configuration system by implementing this protocol.</p>
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/configureWithObject:">&ndash;&nbsp;configureWithObject:</a></code>
-		<span class="tooltip"><p>After dequeuing the cell (or getting the cell for the first time), the
-<a href="../Classes/FRCTableViewDataSource.html">FRCTableViewDataSource</a> calls this method with the associated object.</p></span>
+		<span class="tooltip"><p>Allows you to configure the cell with the given object.</p></span>
 	</span>
 	
 	<span class="task-item-suffix">required method</span>
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/heightForObject:width:">+&nbsp;heightForObject:width:</a></code>
-		<span class="tooltip"><p>In some cases, you may way to have a custom height for your cell. This
-class method allows us to determine how big a cell should be without having
-an instance. Use this method to perform calculations for the height of
-the cell.</p></span>
+		<span class="tooltip"><p>A way to provide a custom height given the object.</p></span>
 	</span>
 	
 	<span class="task-item-suffix">required method</span>
@@ -183,10 +179,7 @@ the cell.</p></span>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>In some cases, you may way to have a custom height for your cell. This
-class method allows us to determine how big a cell should be without having
-an instance. Use this method to perform calculations for the height of
-the cell.</p>
+		<p>A way to provide a custom height given the object.</p>
 	</div>		
 	
 	
@@ -219,6 +212,14 @@ the cell.</p>
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>In some cases, you may way to have a custom height for your cell. This
+class method allows us to determine how big a cell should be without having
+an instance. Use this method to perform calculations for the height of
+the cell.</p>
+	</div>
+	
 	
 	
 	
@@ -248,8 +249,7 @@ the cell.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>After dequeuing the cell (or getting the cell for the first time), the
-<a href="../Classes/FRCTableViewDataSource.html">FRCTableViewDataSource</a> calls this method with the associated object.</p>
+		<p>Allows you to configure the cell with the given object.</p>
 	</div>		
 	
 	
@@ -274,7 +274,8 @@ the cell.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>You should use this to configure the cell.</p>
+		<p>After dequeuing the cell (or getting the cell for the first time), the
+<a href="../Classes/FRCTableViewDataSource.html">FRCTableViewDataSource</a> calls this method with the associated object.</p>
 	</div>
 	
 	
