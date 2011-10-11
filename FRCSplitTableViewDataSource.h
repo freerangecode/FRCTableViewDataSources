@@ -54,6 +54,7 @@ typedef enum {
 - (void)removeChildTableViewDataSource:(FRCTableViewDataSource *)tableViewSectionDataSource;
 
 /** The type of the split. 
+ 
  - FRCSplitTableViewDataSourceTypeSection Will split each child
  table view data source into separate sections
  - FRCSplitTableViewDataSourceTypeRow Will split each child table 
