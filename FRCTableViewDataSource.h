@@ -85,6 +85,10 @@
  If the cellClass conforms to FRCTableViewCellObjectConfiguration,
  it is this object that will be given to the cell when
  configureWithObject: is called.
+ 
+ @param indexPath The index path in the co-ordinate space of the data source.
+ 
+ @return The representing object.
  */
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 
@@ -93,11 +97,19 @@
  
  This method returns the class in the property cellClass. Subclasses
  should override for different results.
+ 
+ @param indexPath The index path in the co-ordinate space of the data source.
+ 
+ @return The class of the cell to use.
  */
 - (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath;
 
 /** This allows subclasses to simply configure the cell without needing
  to implement the standard tableView:cellForRowAtIndexPath: method.
+ 
+ @param cell The cell to be configured.
+ @param indexPath The index path in the co-ordinate space of the data source.
+ @param object The represented object at the indexPath.
  */
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withObject:(id)object;
 

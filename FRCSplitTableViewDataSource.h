@@ -46,10 +46,14 @@ typedef enum {
 @interface FRCSplitTableViewDataSource : FRCParentTableViewDataSource
 
 /** Add a child data source. This calls to the tableView to animate the cells in.
+ 
+ @param dataSource The data source to add.
  */
-- (void)addChildTableViewDataSource:(FRCTableViewDataSource *)tableViewSectionDataSource;
+- (void)addChildTableViewDataSource:(FRCTableViewDataSource *)dataSource;
 
 /** Remove a child data source. This calls to the tableView to animate out the cells.
+ 
+ @param dataSource The data source to remove.
  */
 - (void)removeChildTableViewDataSource:(FRCTableViewDataSource *)tableViewSectionDataSource;
 

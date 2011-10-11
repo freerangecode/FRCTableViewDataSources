@@ -43,13 +43,14 @@
  appear in your table view, you would write this:
  
 	FRCObjectTableViewDataSource *ds = [[FRCObjectTableViewDataSource alloc] init];
-	ds.object = @"This string";
+	ds.object = @"Hello world!";
 	tableview.dataSource = ds;
  
  If you want a custom cell, you just assign its class to the cellClass property
  and an instance of that class will be created, if it conforms to 
  FRCTableViewCellObjectConfiguration, then it will get a message to 
- configureWithObject: with the given object for you to set up with.
+ [configureWithObject:]([FRCTableViewCell configureWithObject:]) with the
+ given object for you to set up with.
  */
 @interface FRCObjectTableViewDataSource : FRCTableViewDataSource
 

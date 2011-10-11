@@ -48,6 +48,8 @@
  FRCTableViewDataSource calls this method with the associated object.
  
  You should use this to configure the cell.
+ 
+ @param object The object the cell is representing.
  */
 - (void)configureWithObject:(id)object;
 
@@ -55,6 +57,11 @@
  class method allows us to determine how big a cell should be without having 
  an instance. Use this method to perform calculations for the height of 
  the cell.
+ 
+ @param object The object the cell is representing.
+ @param width The width of the table view the cell will be put into.
+ 
+ @return The height for the cell.
  */
 + (CGFloat)heightForObject:(id)object width:(CGFloat)width;
 
@@ -68,17 +75,23 @@
 @interface FRCTableViewCell : UITableViewCell <FRCTableViewCellObjectConfiguration>
 
 /** Get an instance of the cell, either from a nib if one exists or via alloc, init.
+ 
+ @return An instance of cell class.
  */
 + (id)cell;
 
 /** By default, in the FRCTableViewDataSource system one cell class maps to
  one reuseIdentifier, which is the class name as a string. Subclass cells in 
  nibs should use the class name as a reuse identifier.
+ 
+ @return The reuse identifier.
  */
 + (NSString *)reuseIdentifier;
 
 /** This is the nibName to use to load and find the table view cell. By 
  default it is the same name as the class.
+ 
+ @return The nib name.
  */
 + (NSString *)nibName;
 
