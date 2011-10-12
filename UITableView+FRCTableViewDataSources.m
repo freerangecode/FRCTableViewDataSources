@@ -125,7 +125,7 @@
 	UINib *nib = [UINib nibWithNibName:nibName bundle:nil];
 	NSString *reuseIdentifier = [tableViewCellClass reuseIdentifier];
 	
-	[self registerNib:nib forCellReuseIdentifier:reuseIdentifier];
+	[self registerNib:nib forCellReuseIdentifier:reuseIdentifier];			
 }
 
 @end

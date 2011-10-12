@@ -51,7 +51,11 @@
 
 @class FRCParentTableViewDataSource;
 
-/** An abstract class to represent a core FRCTableViewDataSource object.
+/** An abstract class to represent a core FRCTableViewDataSource object. Examples of concrete 
+ subclasses are FRCObjectTableViewDataSource and FRCFetchedResultsTableViewDataSource.
+ 
+ When subclassing, generally you should write your own implmentation for the objectAtIndexPath:
+ and reloadData methods.
  */
 @interface FRCTableViewDataSource : NSObject <UITableViewDataSource>
 

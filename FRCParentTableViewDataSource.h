@@ -36,8 +36,11 @@
 
 #import "FRCTableViewDataSource.h"
 
-
-/** This is an abstract class that implements forwarding of the UITableViewDataSource methods to child data source objects.
+/** This is an abstract class that implements forwarding of the UITableViewDataSource methods to child data source 
+ objects. You should use a subclass or make your own parent subclass, which must implement all of the methods declared
+ here.
+ 
+ Examples of concrete subclasses are FRCSplitTableViewDataSource and FRCCollapsableSectionTableViewDataSource.
 */
 @interface FRCParentTableViewDataSource : FRCTableViewDataSource
 
