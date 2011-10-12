@@ -197,7 +197,7 @@
 
 - (BOOL)childTableViewDataSourceShouldUpdateCells:(FRCTableViewDataSource *)dataSource {
 	
-	[self performSelector:@selector(frcInternal_headerCheck) withObject:nil afterDelay:0.01];
+	[self frcInternal_headerCheck];
 	
 	if (!self.open) return NO;
 	
@@ -213,7 +213,13 @@
 	return [super numberOfSectionsInTableView:tableView];
 }
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	tableViewHasSetup = YES;
+	return [super tableView:tableView numberOfRowsInSection:section];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	tableViewHasSetup = YES;	
 	
 	if (indexPath.row == 0)
 		headerDataSource.object = [self objectAtIndexPath:indexPath];
