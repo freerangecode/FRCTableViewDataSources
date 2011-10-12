@@ -64,7 +64,7 @@
 	
 	if ([fr isEqual:fetchRequest]) return;
 	
-	self.fetchedResultsController = nil;
+	fetchedResultsController = nil;
 	
 	fetchRequest = fr;
 	
