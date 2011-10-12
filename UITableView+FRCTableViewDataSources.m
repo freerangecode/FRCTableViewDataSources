@@ -112,7 +112,9 @@
 
 - (void)frc_registerFRCTableViewCellSubclass:(Class)tableViewCellClass {
 	
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_5_0	
+	// Bail if the method doesn't exist; We're on iOS 4.3
+	if (![self respondsToSelector:@selector(registerNib:forCellReuseIdentifier:)])
+		return;
 	
 	if (![tableViewCellClass isSubclassOfClass:[FRCTableViewCell class]]) return;
 	
@@ -124,9 +126,6 @@
 	NSString *reuseIdentifier = [tableViewCellClass reuseIdentifier];
 	
 	[self registerNib:nib forCellReuseIdentifier:reuseIdentifier];
-	
-#endif
-	
 }
 
 @end
