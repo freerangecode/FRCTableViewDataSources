@@ -197,7 +197,7 @@
 
 - (BOOL)childTableViewDataSourceShouldUpdateCells:(FRCTableViewDataSource *)dataSource {
 	
-	[self frcInternal_headerCheck];
+	[self performSelector:@selector(frcInternal_headerCheck) withObject:nil afterDelay:0.01];
 	
 	if (!self.open) return NO;
 	
