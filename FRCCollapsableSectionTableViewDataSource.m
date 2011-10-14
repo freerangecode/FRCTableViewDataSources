@@ -123,7 +123,7 @@
 
 @implementation FRCCollapsableSectionTableViewDataSource {
 	BOOL childTableViewDataSourceHasCells;
-	BOOL tableViewHasSetup;
+	BOOL canReloadHeaderCell;
 	
 	__strong FRCSplitTableViewDataSource *splitDataSource;
 	__strong FRCObjectTableViewDataSource *headerDataSource;
@@ -197,7 +197,8 @@
 
 - (BOOL)childTableViewDataSourceShouldUpdateCells:(FRCTableViewDataSource *)dataSource {
 	
-	[self performSelector:@selector(frcInternal_headerCheck) withObject:nil afterDelay:0.01];
+	canReloadHeaderCell = YES;	
+	[self frcInternal_headerCheck];
 	
 	if (!self.open) return NO;
 	
@@ -208,18 +209,7 @@
 
 #pragma mark - UITableViewDataSource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	tableViewHasSetup = YES;
-	return [super numberOfSectionsInTableView:tableView];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	tableViewHasSetup = YES;
-	return [super tableView:tableView numberOfRowsInSection:section];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	tableViewHasSetup = YES;	
 	
 	if (indexPath.row == 0)
 		headerDataSource.object = [self objectAtIndexPath:indexPath];
@@ -369,7 +359,7 @@
 
 - (void)frcInternal_headerCheck {
 	
-	if (!tableViewHasSetup) return;
+	if (!canReloadHeaderCell) return;
 	
 	if (childTableViewDataSourceHasCells == [self frcInternal_childTableViewDataSourceCurrentlyHasCells]) return;
 	
