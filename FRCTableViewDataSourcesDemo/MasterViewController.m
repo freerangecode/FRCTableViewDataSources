@@ -16,21 +16,18 @@
 
 @interface MasterViewController ()
 - (void)saveContext;
+- (IBAction)insertNewEvent:(id)sender;
 @end
 
 @implementation MasterViewController {
 	__strong FRCSplitTableViewDataSource *dataSource;
+	__strong FRCObjectTableViewDataSource *addDataSource;
 }
 
 @synthesize managedObjectContext;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
-	self.navigationItem.leftBarButtonItem = self.editButtonItem;
-
-	UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject)];
-	self.navigationItem.rightBarButtonItem = addButton;
 	
 	dataSource = [[FRCSplitTableViewDataSource alloc] init];
 	dataSource.type = FRCSplitTableViewDataSourceTypeSection;
@@ -49,35 +46,28 @@
 	
 	[dataSource addChildTableViewDataSource:frcDS];
 	
+	
+	addDataSource = [[FRCObjectTableViewDataSource alloc] init];
+	addDataSource.object = @"Add new timestamp";
+	[dataSource addChildTableViewDataSource:addDataSource];
+	
+	
 	self.tableView.dataSource = dataSource;
+}
+
+- (void)tableView:(UITableView *)tv didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	[tv deselectRowAtIndexPath:indexPath animated:YES];
+	
+	id object = [dataSource objectAtIndexPath:indexPath];
+	
+	if (![object isEqual:addDataSource.object]) return;
+	
+	[self insertNewEvent:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-}
-
-
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-    if (editingStyle == UITableViewCellEditingStyleDelete)
-        [self.managedObjectContext deleteObject:[dataSource objectAtIndexPath:indexPath]];
-	
-	[self saveContext];
-}
-
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NO;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -88,7 +78,7 @@
     }
 }
 
-- (void)insertNewObject {
+- (IBAction)insertNewEvent:(id)sender {
 	
 	Event *newEvent = [NSEntityDescription insertNewObjectForEntityForName:[Event entityName]
 													inManagedObjectContext:self.managedObjectContext];

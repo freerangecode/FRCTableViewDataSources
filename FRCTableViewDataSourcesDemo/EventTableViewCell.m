@@ -20,8 +20,8 @@ static NSDateFormatter *dateFormatter = nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		dateFormatter = [[NSDateFormatter alloc] init];
-		dateFormatter.timeStyle = NSDateFormatterFullStyle;
-		dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+		dateFormatter.timeStyle = NSDateFormatterMediumStyle;
+		dateFormatter.dateStyle = NSDateFormatterShortStyle;
 	});
 	
 	self.label.text = [dateFormatter stringFromDate:event.timeStamp];
