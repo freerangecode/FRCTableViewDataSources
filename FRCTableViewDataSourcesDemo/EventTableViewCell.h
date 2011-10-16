@@ -9,5 +9,5 @@
 #import "FRCTableViewCell.h"
 
 @interface EventTableViewCell : FRCTableViewCell
-
+@property (nonatomic, strong) IBOutlet UILabel *label;
 @end
