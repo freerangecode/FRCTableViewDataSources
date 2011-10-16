@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		241E6597144B81C3000CB070 /* EventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 241E6596144B81C3000CB070 /* EventTableViewCell.m */; };
 		249E0AD81445A2460035B058 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 249E0AD71445A2460035B058 /* UIKit.framework */; };
 		249E0ADA1445A2460035B058 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 249E0AD91445A2460035B058 /* Foundation.framework */; };
 		249E0ADC1445A2460035B058 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 249E0ADB1445A2460035B058 /* CoreGraphics.framework */; };
@@ -35,6 +36,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		241E6595144B81C3000CB070 /* EventTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventTableViewCell.h; sourceTree = "<group>"; };
+		241E6596144B81C3000CB070 /* EventTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventTableViewCell.m; sourceTree = "<group>"; };
 		249E0AD31445A2460035B058 /* FRCTableViewDataSources.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FRCTableViewDataSources.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		249E0AD71445A2460035B058 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		249E0AD91445A2460035B058 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -134,6 +137,8 @@
 				249E0AF51445A2460035B058 /* DetailViewController.m */,
 				249E0AEE1445A2460035B058 /* FRCTableViewDataSources.xcdatamodeld */,
 				249E0AE01445A2460035B058 /* Supporting Files */,
+				241E6595144B81C3000CB070 /* EventTableViewCell.h */,
+				241E6596144B81C3000CB070 /* EventTableViewCell.m */,
 			);
 			path = FRCTableViewDataSourcesDemo;
 			sourceTree = "<group>";
@@ -266,6 +271,7 @@
 				249E0B181445A3020035B058 /* FRCTableViewCell.m in Sources */,
 				249E0B191445A3020035B058 /* FRCTableViewDataSource.m in Sources */,
 				249E0B1F1445A3020035B058 /* UITableView+FRCTableViewDataSources.m in Sources */,
+				241E6597144B81C3000CB070 /* EventTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +383,7 @@
 				249E0AFB1445A2460035B058 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
