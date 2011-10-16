@@ -10,6 +10,8 @@
 		241E6597144B81C3000CB070 /* EventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 241E6596144B81C3000CB070 /* EventTableViewCell.m */; };
 		241E659E144B82C7000CB070 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 241E659A144B82C6000CB070 /* Event.m */; };
 		241E659F144B82C7000CB070 /* _Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 241E659D144B82C7000CB070 /* _Event.m */; };
+		241E65A2144B8B06000CB070 /* AddTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 241E65A1144B8B06000CB070 /* AddTableViewCell.m */; };
+		241E65A4144B8B1A000CB070 /* AddTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 241E65A3144B8B1A000CB070 /* AddTableViewCell.xib */; };
 		249E0AD81445A2460035B058 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 249E0AD71445A2460035B058 /* UIKit.framework */; };
 		249E0ADA1445A2460035B058 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 249E0AD91445A2460035B058 /* Foundation.framework */; };
 		249E0ADC1445A2460035B058 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 249E0ADB1445A2460035B058 /* CoreGraphics.framework */; };
@@ -44,6 +46,9 @@
 		241E659A144B82C6000CB070 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		241E659C144B82C7000CB070 /* _Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Event.h; sourceTree = "<group>"; };
 		241E659D144B82C7000CB070 /* _Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Event.m; sourceTree = "<group>"; };
+		241E65A0144B8B06000CB070 /* AddTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTableViewCell.h; sourceTree = "<group>"; };
+		241E65A1144B8B06000CB070 /* AddTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTableViewCell.m; sourceTree = "<group>"; };
+		241E65A3144B8B1A000CB070 /* AddTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddTableViewCell.xib; sourceTree = "<group>"; };
 		249E0AD31445A2460035B058 /* FRCTableViewDataSources.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FRCTableViewDataSources.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		249E0AD71445A2460035B058 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		249E0AD91445A2460035B058 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -157,6 +162,9 @@
 				241E6599144B82C6000CB070 /* Event.h */,
 				241E659A144B82C6000CB070 /* Event.m */,
 				241E659B144B82C6000CB070 /* Mogenerated */,
+				241E65A0144B8B06000CB070 /* AddTableViewCell.h */,
+				241E65A1144B8B06000CB070 /* AddTableViewCell.m */,
+				241E65A3144B8B1A000CB070 /* AddTableViewCell.xib */,
 			);
 			path = FRCTableViewDataSourcesDemo;
 			sourceTree = "<group>";
@@ -266,6 +274,7 @@
 				249E0B1C1445A3020035B058 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted.png in Resources */,
 				249E0B1D1445A3020035B058 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted@2x.png in Resources */,
 				249E0B1E1445A3020035B058 /* Readme.textile in Resources */,
+				241E65A4144B8B1A000CB070 /* AddTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +301,7 @@
 				241E6597144B81C3000CB070 /* EventTableViewCell.m in Sources */,
 				241E659E144B82C7000CB070 /* Event.m in Sources */,
 				241E659F144B82C7000CB070 /* _Event.m in Sources */,
+				241E65A2144B8B06000CB070 /* AddTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

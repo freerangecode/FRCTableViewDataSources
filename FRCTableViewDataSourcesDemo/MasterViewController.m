@@ -13,6 +13,7 @@
 #import "FRCObjectTableViewDataSource.h"
 #import "Event.h"
 #import "EventTableViewCell.h"
+#import "AddTableViewCell.h"
 
 @interface MasterViewController ()
 - (void)saveContext;
@@ -26,11 +27,20 @@
 
 @synthesize managedObjectContext;
 
+#pragma mark - UIViewController
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
 	dataSource = [[FRCSplitTableViewDataSource alloc] init];
 	dataSource.type = FRCSplitTableViewDataSourceTypeSection;
+	
+	
+	addDataSource = [[FRCObjectTableViewDataSource alloc] init];
+	addDataSource.object = @"Add new timestamp";
+	addDataSource.cellClass = [AddTableViewCell class];
+	[dataSource addChildTableViewDataSource:addDataSource];
+	
 	
 	FRCFetchedResultsTableViewDataSource *frcDS = [[FRCFetchedResultsTableViewDataSource alloc] init];
 	frcDS.cellClass = [EventTableViewCell class];
@@ -38,7 +48,7 @@
 	
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
 	[request setEntity:[Event entityInManagedObjectContext:self.managedObjectContext]];
-	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:EventAttributes.timeStamp ascending:YES];
+	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:EventAttributes.timeStamp ascending:NO];
 	NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
     [request setSortDescriptors:sortDescriptors];
     [request setFetchBatchSize:20];
@@ -47,23 +57,7 @@
 	[dataSource addChildTableViewDataSource:frcDS];
 	
 	
-	addDataSource = [[FRCObjectTableViewDataSource alloc] init];
-	addDataSource.object = @"Add new timestamp";
-	[dataSource addChildTableViewDataSource:addDataSource];
-	
-	
 	self.tableView.dataSource = dataSource;
-}
-
-- (void)tableView:(UITableView *)tv didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	[tv deselectRowAtIndexPath:indexPath animated:YES];
-	
-	id object = [dataSource objectAtIndexPath:indexPath];
-	
-	if (![object isEqual:addDataSource.object]) return;
-	
-	[self insertNewEvent:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -77,6 +71,8 @@
         [[segue destinationViewController] setDetailItem:selectedObject];
     }
 }
+
+#pragma mark - MasterViewController
 
 - (IBAction)insertNewEvent:(id)sender {
 	
@@ -93,6 +89,19 @@
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tv didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	[tv deselectRowAtIndexPath:indexPath animated:YES];
+	
+	id object = [dataSource objectAtIndexPath:indexPath];
+	
+	if (![object isEqual:addDataSource.object]) return;
+	
+	[self insertNewEvent:self];
 }
 
 @end
