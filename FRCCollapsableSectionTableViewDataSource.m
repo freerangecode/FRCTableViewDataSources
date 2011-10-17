@@ -341,14 +341,6 @@
 	[UIView commitAnimations];
 }
 
-- (void)setTableView:(UITableView *)tv {
-	
-	if (tv == self.tableView) return;
-	
-	[super setTableView:tv];
-	splitDataSource.tableView = self.tableView;
-}
-
 - (void)setTitleCellClass:(Class)cellClass {
 	
 	if (titleCellClass == cellClass) return;

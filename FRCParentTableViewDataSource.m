@@ -57,6 +57,17 @@
 	return [ds cellClassAtIndexPath:indexPath];
 }
 
+- (void)setTableView:(UITableView *)tv {
+	
+	if (tv == self.tableView) return;
+	
+	[super setTableView:tv];
+	
+	[self.childTableViewDataSources enumerateObjectsUsingBlock:^(FRCTableViewDataSource * ds, NSUInteger idx, BOOL *stop) {
+		[ds setTableView:self.tableView];
+	}];
+}
+
 #pragma mark - FRCParentTableViewDataSource
 
 - (NSArray *)childTableViewDataSources {

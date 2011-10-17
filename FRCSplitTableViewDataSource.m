@@ -232,19 +232,6 @@
 	}
 }
 
-#pragma mark - FRCTableViewDataSource methods
-
-- (void)setTableView:(UITableView *)tv {
-	
-	if (tv == self.tableView) return;
-	
-	[super setTableView:tv];
-	
-	[[self frcInternal_tableViewDataSources] enumerateObjectsUsingBlock:^(FRCTableViewDataSource * ds, NSUInteger idx, BOOL *stop) {
-		[self frcInternal_setupDataSource:ds];
-	}];
-}
-
 #pragma mark - UITableViewDataSource methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tv {
