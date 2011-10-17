@@ -32,16 +32,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
+	// Create the split data source. This lets us have two data source objects 
+	// for one table view.
 	splitDataSource = [[FRCSplitTableViewDataSource alloc] init];
 	splitDataSource.type = FRCSplitTableViewDataSourceTypeSection;
 	
-	
+	// This data source represents the cell for adding a new timestamp
 	addingDataSource = [[FRCObjectTableViewDataSource alloc] init];
 	addingDataSource.object = @"Add new timestamp";
 	addingDataSource.cellClass = [AddTableViewCell class];
 	[splitDataSource addChildTableViewDataSource:addingDataSource];
 	
 	
+	// This data source will show all the timestamps and update automatically.
 	FRCFetchedResultsTableViewDataSource *fetchedResultsDS = [[FRCFetchedResultsTableViewDataSource alloc] init];
 	fetchedResultsDS.cellClass = [EventTableViewCell class];
 	fetchedResultsDS.managedObjectContext = self.managedObjectContext;
@@ -56,6 +59,7 @@
 	
 	[splitDataSource addChildTableViewDataSource:fetchedResultsDS];
 	
+	// Don't forget to set the tableview's datasource to our datasource object.
 	self.tableView.dataSource = splitDataSource;
 }
 
@@ -96,6 +100,8 @@
 	
 	[tv deselectRowAtIndexPath:indexPath animated:YES];
 	
+	// Get the object from the root datasource, because the index path will be in its
+	// coordinate space
 	id object = [splitDataSource objectAtIndexPath:indexPath];
 	
 	if (![object isEqual:addingDataSource.object]) return;
