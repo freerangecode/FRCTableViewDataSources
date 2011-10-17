@@ -20,20 +20,20 @@ h2. Example
 
 In the following example I assume we have a @sectionedDataSource@ ivar and a few other things. This will create a table view with a list of all the projects plus a cell at the bottom to add a new project.
 
-bc.	splitDataSource = [[FRCSplitTableViewDataSource alloc] init];
-	splitDataSource.type = FRCSplitTableViewDataSourceTypeSection;
-	
-	addingDataSource = [[FRCObjectTableViewDataSource alloc] init];
-	addingDataSource.object = @"Add new timestamp";
-	[splitDataSource addChildTableViewDataSource:addingDataSource];
-	
-	FRCFetchedResultsTableViewDataSource *fetchedResultsDS = [[FRCFetchedResultsTableViewDataSource alloc] init];
-	fetchedResultsDS.cellClass = [EventTableViewCell class];
-	fetchedResultsDS.managedObjectContext = self.managedObjectContext;
-	fetchedResultsDS.fetchRequest = request; // Just some request
-	[splitDataSource addChildTableViewDataSource:fetchedResultsDS];
-	
-	self.tableView.dataSource = splitDataSource;
+<code>splitDataSource = [[FRCSplitTableViewDataSource alloc] init];
+splitDataSource.type = FRCSplitTableViewDataSourceTypeSection;
+
+addingDataSource = [[FRCObjectTableViewDataSource alloc] init];
+addingDataSource.object = @"Add new timestamp";
+[splitDataSource addChildTableViewDataSource:addingDataSource];
+
+FRCFetchedResultsTableViewDataSource *fetchedResultsDS = [[FRCFetchedResultsTableViewDataSource alloc] init];
+fetchedResultsDS.cellClass = [EventTableViewCell class];
+fetchedResultsDS.managedObjectContext = self.managedObjectContext;
+fetchedResultsDS.fetchRequest = request; // Just some request
+[splitDataSource addChildTableViewDataSource:fetchedResultsDS];
+
+self.tableView.dataSource = splitDataSource;</code>
 
 h2. Branch Structure
 
