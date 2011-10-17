@@ -85,4 +85,6 @@ typedef NSFetchRequest *(^FRCFetchRequestBlock)();
  This method is only called if the fetchedResultsController property is nil. */
 - (void)loadFetchedResultsController;
 
+@property (nonatomic, assign) BOOL showIndexList;
+
 @end

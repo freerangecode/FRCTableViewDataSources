@@ -45,6 +45,7 @@
 @synthesize fetchedResultsController;
 @synthesize fetchRequestBlock;
 @synthesize fetchRequest;
+@synthesize showIndexList;
 
 #pragma mark - FRCTableViewDataSource
 
@@ -147,6 +148,9 @@
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+	
+	if (!showIndexList) return nil;
+	
 	return [self.fetchedResultsController sectionIndexTitles];
 }
 
