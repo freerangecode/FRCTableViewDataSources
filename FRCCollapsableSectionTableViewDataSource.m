@@ -225,7 +225,9 @@
 		
 		UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(frcInternal_titleTapped:)]; 
 		[cell addGestureRecognizer:gr];
-				
+		gr.delaysTouchesBegan = NO;
+		gr.delaysTouchesEnded = NO;
+		
 		if ([self frcInternal_childTableViewDataSourceCurrentlyHasCells]) {
 			UIImage *image = [UIImage imageNamed:@"FRCCollapsableSectionTableViewDataSourceDisclosureIndicator.png"];
 			UIImageView *iv = [[UIImageView alloc] initWithImage:image];
