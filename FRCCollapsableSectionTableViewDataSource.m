@@ -125,6 +125,8 @@
 	BOOL childTableViewDataSourceHasCells;
 	BOOL canReloadHeaderCell;
 	
+	BOOL tableViewHasLoaded;
+	
 	__strong FRCSplitTableViewDataSource *splitDataSource;
 	__strong FRCObjectTableViewDataSource *headerDataSource;
 }
@@ -211,6 +213,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
+	self.tableView = tv;
+	tableViewHasLoaded = YES;
+	
 	if (indexPath.row == 0)
 		headerDataSource.object = [self objectAtIndexPath:indexPath];
 	
@@ -277,6 +282,8 @@
 - (void)frcInternal_setOpened {
 	
 	[self frcInternal_setSplitChild:self.childTableViewDataSource];
+	
+	if (!tableViewHasLoaded) return;
 	
 	__block CGFloat totalCellHeight = self.frcInternal_headerCell.bounds.size.height;
 	CGFloat tableViewHeight = self.tableView.bounds.size.height;
