@@ -18,7 +18,7 @@ It will also work fine when compiled to use iOS 4.3 as the base SDK. When doing 
 
 h2. Example
 
-In the following example I assume we have a @sectionedDataSource@ ivar and a few other things. This will create a table view with a list of all the projects plus a cell at the bottom to add a new project.
+This will create a table view with a cell to use as a button to add a timestamp and list all the timestamps below it. This is shown in the MasterViewController in the project in the *demo* branch.
 
 bc.. splitDataSource = [[FRCSplitTableViewDataSource alloc] init];
 splitDataSource.type = FRCSplitTableViewDataSourceTypeSection;
