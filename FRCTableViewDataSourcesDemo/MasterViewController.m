@@ -21,8 +21,8 @@
 @end
 
 @implementation MasterViewController {
-	__strong FRCSplitTableViewDataSource *dataSource;
-	__strong FRCObjectTableViewDataSource *addDataSource;
+	__strong FRCSplitTableViewDataSource *splitDataSource;
+	__strong FRCObjectTableViewDataSource *addingDataSource;
 }
 
 @synthesize managedObjectContext;
@@ -32,19 +32,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	dataSource = [[FRCSplitTableViewDataSource alloc] init];
-	dataSource.type = FRCSplitTableViewDataSourceTypeSection;
+	splitDataSource = [[FRCSplitTableViewDataSource alloc] init];
+	splitDataSource.type = FRCSplitTableViewDataSourceTypeSection;
 	
 	
-	addDataSource = [[FRCObjectTableViewDataSource alloc] init];
-	addDataSource.object = @"Add new timestamp";
-	addDataSource.cellClass = [AddTableViewCell class];
-	[dataSource addChildTableViewDataSource:addDataSource];
+	addingDataSource = [[FRCObjectTableViewDataSource alloc] init];
+	addingDataSource.object = @"Add new timestamp";
+	addingDataSource.cellClass = [AddTableViewCell class];
+	[splitDataSource addChildTableViewDataSource:addingDataSource];
 	
 	
-	FRCFetchedResultsTableViewDataSource *frcDS = [[FRCFetchedResultsTableViewDataSource alloc] init];
-	frcDS.cellClass = [EventTableViewCell class];
-	frcDS.managedObjectContext = self.managedObjectContext;
+	FRCFetchedResultsTableViewDataSource *fetchedResultsDS = [[FRCFetchedResultsTableViewDataSource alloc] init];
+	fetchedResultsDS.cellClass = [EventTableViewCell class];
+	fetchedResultsDS.managedObjectContext = self.managedObjectContext;
 	
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
 	[request setEntity:[Event entityInManagedObjectContext:self.managedObjectContext]];
@@ -52,12 +52,11 @@
 	NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
     [request setSortDescriptors:sortDescriptors];
     [request setFetchBatchSize:20];
-	frcDS.fetchRequest = request;
+	fetchedResultsDS.fetchRequest = request;
 	
-	[dataSource addChildTableViewDataSource:frcDS];
+	[splitDataSource addChildTableViewDataSource:fetchedResultsDS];
 	
-	
-	self.tableView.dataSource = dataSource;
+	self.tableView.dataSource = splitDataSource;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -67,7 +66,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSManagedObject *selectedObject = [dataSource objectAtIndexPath:indexPath];
+        NSManagedObject *selectedObject = [splitDataSource objectAtIndexPath:indexPath];
         [[segue destinationViewController] setDetailItem:selectedObject];
     }
 }
@@ -97,9 +96,9 @@
 	
 	[tv deselectRowAtIndexPath:indexPath animated:YES];
 	
-	id object = [dataSource objectAtIndexPath:indexPath];
+	id object = [splitDataSource objectAtIndexPath:indexPath];
 	
-	if (![object isEqual:addDataSource.object]) return;
+	if (![object isEqual:addingDataSource.object]) return;
 	
 	[self insertNewEvent:self];
 }
