@@ -34,16 +34,27 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_5_0
+#import <Availability.h>
+
+#if !defined dct_weak && __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_5_0
 	#define frc_weak weak
 	#define __frc_weak __weak
 	#define frc_nil(x)
 	#define FRCTableViewDataSourceTableViewRowAnimationAutomatic UITableViewRowAnimationAutomatic
-#else
+#elif !defined dct_weak && __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_3
 	#define frc_weak unsafe_unretained
 	#define __frc_weak __unsafe_unretained
 	#define frc_nil(x) x = nil
 	#define FRCTableViewDataSourceTableViewRowAnimationAutomatic UITableViewRowAnimationFade
+#else
+	#warning "This library uses ARC which is only available in iOS SDK 4.3 and later."
+#endif
+
+#ifndef frctableviewdatasources
+#define frctableviewdatasources_1_0     10000
+#define frctableviewdatasources_1_0_1   10001
+#define frctableviewdatasources_1_0_2   10002
+#define frctableviewdatasources         frctableviewdatasources_1_0_2
 #endif
 
 #import <Foundation/Foundation.h>
