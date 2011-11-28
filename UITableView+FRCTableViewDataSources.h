@@ -80,6 +80,8 @@
  others. If iOS 5 is not available, this method does nothing.
  
  @param tableViewCellSubclass The FRCTableViewCell subclass of the cell to register.
+ 
+ @deprecated This method does nothing.
  */
 - (void)frc_registerFRCTableViewCellSubclass:(Class)tableViewCellSubclass;
 

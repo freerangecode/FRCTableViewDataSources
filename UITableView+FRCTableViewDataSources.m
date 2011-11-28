@@ -38,6 +38,7 @@
 #import "FRCTableViewCell.h"
 #import "FRCParentTableViewDataSource.h"
 #import "FRCTableViewDataSource.h"
+#import "UITableView+FRCNibRegistration.h"
 
 
 @interface FRCTableViewDataSource (FRCTableViewDataSources)
@@ -110,22 +111,6 @@
 	return indexPath;
 }
 
-- (void)frc_registerFRCTableViewCellSubclass:(Class)tableViewCellClass {
-	
-	// Bail if the method doesn't exist; We're on iOS 4.3
-	if (![self respondsToSelector:@selector(registerNib:forCellReuseIdentifier:)])
-		return;
-	
-	if (![tableViewCellClass isSubclassOfClass:[FRCTableViewCell class]]) return;
-	
-	NSString *nibName = [tableViewCellClass nibName];
-	
-	if ([nibName length] < 1) return;
-	
-	UINib *nib = [UINib nibWithNibName:nibName bundle:nil];
-	NSString *reuseIdentifier = [tableViewCellClass reuseIdentifier];
-	
-	[self registerNib:nib forCellReuseIdentifier:reuseIdentifier];			
-}
+- (void)frc_registerFRCTableViewCellSubclass:(Class)tableViewCellSubclass {}
 
 @end

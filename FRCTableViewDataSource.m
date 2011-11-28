@@ -37,6 +37,11 @@
 #import "FRCTableViewDataSource.h"
 #import "FRCTableViewCell.h"
 #import "UITableView+FRCTableViewDataSources.h"
+#import "UITableView+FRCNibRegistration.h"
+
+@interface FRCTableViewDataSource ()
+- (void)frcInternal_setupCellClass;
+@end
 
 @implementation FRCTableViewDataSource
 
@@ -62,19 +67,16 @@
 #pragma mark - FRCTableViewDataSource
 
 - (void)setCellClass:(Class)aCellClass {
-	
 	cellClass = aCellClass;
-	
-	[self.tableView frc_registerFRCTableViewCellSubclass:self.cellClass];
+	[self frcInternal_setupCellClass];
 }
 
 - (void)setTableView:(UITableView *)tv {
 	
-	if (self.tableView == tv) return;
+	if (tv == tableView) return;
 	
 	tableView = tv;
-	
-	[self.tableView frc_registerFRCTableViewCellSubclass:self.cellClass];
+	[self frcInternal_setupCellClass];
 }
 
 - (void)reloadData {}
@@ -104,7 +106,7 @@
 	if ([theCellClass isSubclassOfClass:[FRCTableViewCell class]])
 		cellIdentifier = [theCellClass reuseIdentifier];
 	
-    UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:cellIdentifier];
+    UITableViewCell *cell = [tv frc_dequeueReusableCellWithIdentifier:cellIdentifier];
 	
 	if (!cell && [theCellClass isSubclassOfClass:[FRCTableViewCell class]])
 		cell = [theCellClass cell];
@@ -120,6 +122,24 @@
 		[(id<FRCTableViewCellObjectConfiguration>)cell configureWithObject:object];
 	
 	return cell;
+}
+
+#pragma mark - Internal
+
+- (void)frcInternal_setupCellClass {
+	
+	if (!self.tableView) return;
+	
+	if (![self.cellClass isSubclassOfClass:[FRCTableViewCell class]]) return;
+	
+	NSString *nibName = [self.cellClass nibName];
+	
+	if ([nibName length] < 1) return;
+	
+	UINib *nib = [UINib nibWithNibName:nibName bundle:nil];
+	NSString *reuseIdentifier = [self.cellClass reuseIdentifier];
+	
+	[self.tableView frc_registerNib:nib forCellReuseIdentifier:reuseIdentifier];
 }
 
 @end
