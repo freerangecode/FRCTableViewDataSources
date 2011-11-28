@@ -120,7 +120,7 @@
 	
 	NSString *nibName = [tableViewCellClass nibName];
 	
-	if (nibName == nil || [nibName length] < 1) return;
+	if ([nibName length] < 1) return;
 	
 	UINib *nib = [UINib nibWithNibName:nibName bundle:nil];
 	NSString *reuseIdentifier = [tableViewCellClass reuseIdentifier];
