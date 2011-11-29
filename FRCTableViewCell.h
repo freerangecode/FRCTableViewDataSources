@@ -36,7 +36,6 @@
 
 #import "FRCTableViewDataSources.h"
 
-
 /** While most cells used in the FRCTableViewDataSource system should be 
  subclasses of FRCTableViewCell, you might want to use a third party cell 
  that cannot be a subclass. You can still take advantage of the object 
@@ -66,6 +65,18 @@
  @return The height for the cell.
  */
 + (CGFloat)heightForObject:(id)object width:(CGFloat)width;
+
+@optional
+
+/** A way to prevent reloading of the cell if properties have changed that
+ don't effect the layout of the cell.
+ 
+ @param object The updated object for the cell.
+ @param changedValues A dictionary containing as keys the names of properties.
+ 
+ @return YES if the cell should be reloaded, NO otherwise.
+ */
++ (BOOL)shouldUpdateForObject:(id)object withChangedValues:(NSDictionary *)changedValues;
 
 @end
 

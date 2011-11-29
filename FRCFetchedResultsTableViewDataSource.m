@@ -225,11 +225,18 @@
 					  withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
             break;
 			
-        case NSFetchedResultsChangeUpdate:
+        case NSFetchedResultsChangeUpdate: {
+			
+			Class cellClass = [self cellClassAtIndexPath:indexPath];
+			if ([cellClass conformsToProtocol:@protocol(FRCTableViewCellObjectConfiguration)]
+				&& [cellClass respondsToSelector:@selector(shouldUpdateForObject:withChangedValues:)]
+				&& ![cellClass shouldUpdateForObject:anObject withChangedValues:[anObject changedValuesForCurrentEvent]])
+				return;
+			
 			[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
 								  withRowAnimation:UITableViewRowAnimationNone];
             break;
-			
+		}
         case NSFetchedResultsChangeMove:
             [tv deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
 					  withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
