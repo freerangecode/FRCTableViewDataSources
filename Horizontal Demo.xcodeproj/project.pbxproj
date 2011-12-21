@@ -14,7 +14,23 @@
 		24C576E114A23F9E00F8EEE8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C576E014A23F9E00F8EEE8 /* main.m */; };
 		24C576E514A23F9E00F8EEE8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C576E414A23F9E00F8EEE8 /* AppDelegate.m */; };
 		24C576E814A23F9E00F8EEE8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C576E714A23F9E00F8EEE8 /* ViewController.m */; };
-		24C576EB14A23F9E00F8EEE8 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24C576E914A23F9E00F8EEE8 /* ViewController.xib */; };
+		24C5770C14A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C576F714A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSource.m */; };
+		24C5770D14A23FEB00F8EEE8 /* FRCFetchedResultsTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C576F914A23FEB00F8EEE8 /* FRCFetchedResultsTableViewDataSource.m */; };
+		24C5770E14A23FEB00F8EEE8 /* FRCObjectTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C576FB14A23FEB00F8EEE8 /* FRCObjectTableViewDataSource.m */; };
+		24C5770F14A23FEB00F8EEE8 /* FRCParentTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C576FD14A23FEB00F8EEE8 /* FRCParentTableViewDataSource.m */; };
+		24C5771014A23FEB00F8EEE8 /* FRCSplitTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C576FF14A23FEB00F8EEE8 /* FRCSplitTableViewDataSource.m */; };
+		24C5771114A23FEB00F8EEE8 /* FRCTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C5770114A23FEB00F8EEE8 /* FRCTableViewCell.m */; };
+		24C5771214A23FEB00F8EEE8 /* FRCTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C5770314A23FEB00F8EEE8 /* FRCTableViewDataSource.m */; };
+		24C5771314A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 24C5770514A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicator.png */; };
+		24C5771414A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24C5770614A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicator@2x.png */; };
+		24C5771514A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 24C5770714A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted.png */; };
+		24C5771614A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24C5770814A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted@2x.png */; };
+		24C5771714A23FEB00F8EEE8 /* Readme.textile in Resources */ = {isa = PBXBuildFile; fileRef = 24C5770914A23FEB00F8EEE8 /* Readme.textile */; };
+		24C5771814A23FEB00F8EEE8 /* UITableView+FRCTableViewDataSources.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C5770B14A23FEB00F8EEE8 /* UITableView+FRCTableViewDataSources.m */; };
+		24C5771D14A2402E00F8EEE8 /* TestTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C5771C14A2402E00F8EEE8 /* TestTableViewDataSource.m */; };
+		24C5771F14A2406100F8EEE8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C5771E14A2406100F8EEE8 /* QuartzCore.framework */; };
+		24C5772114A2406700F8EEE8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C5772014A2406700F8EEE8 /* CoreData.framework */; };
+		24C5772214A2407E00F8EEE8 /* FRCHorizontalTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C5771A14A2400300F8EEE8 /* FRCHorizontalTableViewDataSource.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,15 +38,41 @@
 		24C576D414A23F9E00F8EEE8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		24C576D614A23F9E00F8EEE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		24C576D814A23F9E00F8EEE8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		24C576DC14A23F9E00F8EEE8 /* Horizontal Demo-Info.plist */ = {isa = PBXFileReference; path = "Horizontal Demo-Info.plist"; sourceTree = "<group>"; };
+		24C576DC14A23F9E00F8EEE8 /* Horizontal Demo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Horizontal Demo-Info.plist"; sourceTree = "<group>"; };
 		24C576DE14A23F9E00F8EEE8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		24C576E014A23F9E00F8EEE8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		24C576E214A23F9E00F8EEE8 /* Horizontal Demo-Prefix.pch */ = {isa = PBXFileReference; path = "Horizontal Demo-Prefix.pch"; sourceTree = "<group>"; };
-		24C576E314A23F9E00F8EEE8 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		24C576E214A23F9E00F8EEE8 /* Horizontal Demo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Horizontal Demo-Prefix.pch"; sourceTree = "<group>"; };
+		24C576E314A23F9E00F8EEE8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		24C576E414A23F9E00F8EEE8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		24C576E614A23F9E00F8EEE8 /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
+		24C576E614A23F9E00F8EEE8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		24C576E714A23F9E00F8EEE8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		24C576EA14A23F9E00F8EEE8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		24C576F614A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRCCollapsableSectionTableViewDataSource.h; sourceTree = "<group>"; };
+		24C576F714A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FRCCollapsableSectionTableViewDataSource.m; sourceTree = "<group>"; };
+		24C576F814A23FEB00F8EEE8 /* FRCFetchedResultsTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRCFetchedResultsTableViewDataSource.h; sourceTree = "<group>"; };
+		24C576F914A23FEB00F8EEE8 /* FRCFetchedResultsTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FRCFetchedResultsTableViewDataSource.m; sourceTree = "<group>"; };
+		24C576FA14A23FEB00F8EEE8 /* FRCObjectTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRCObjectTableViewDataSource.h; sourceTree = "<group>"; };
+		24C576FB14A23FEB00F8EEE8 /* FRCObjectTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FRCObjectTableViewDataSource.m; sourceTree = "<group>"; };
+		24C576FC14A23FEB00F8EEE8 /* FRCParentTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRCParentTableViewDataSource.h; sourceTree = "<group>"; };
+		24C576FD14A23FEB00F8EEE8 /* FRCParentTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FRCParentTableViewDataSource.m; sourceTree = "<group>"; };
+		24C576FE14A23FEB00F8EEE8 /* FRCSplitTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRCSplitTableViewDataSource.h; sourceTree = "<group>"; };
+		24C576FF14A23FEB00F8EEE8 /* FRCSplitTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FRCSplitTableViewDataSource.m; sourceTree = "<group>"; };
+		24C5770014A23FEB00F8EEE8 /* FRCTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRCTableViewCell.h; sourceTree = "<group>"; };
+		24C5770114A23FEB00F8EEE8 /* FRCTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FRCTableViewCell.m; sourceTree = "<group>"; };
+		24C5770214A23FEB00F8EEE8 /* FRCTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRCTableViewDataSource.h; sourceTree = "<group>"; };
+		24C5770314A23FEB00F8EEE8 /* FRCTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FRCTableViewDataSource.m; sourceTree = "<group>"; };
+		24C5770514A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FRCCollapsableSectionTableViewDataSourceDisclosureIndicator.png; sourceTree = "<group>"; };
+		24C5770614A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FRCCollapsableSectionTableViewDataSourceDisclosureIndicator@2x.png"; sourceTree = "<group>"; };
+		24C5770714A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted.png; sourceTree = "<group>"; };
+		24C5770814A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted@2x.png"; sourceTree = "<group>"; };
+		24C5770914A23FEB00F8EEE8 /* Readme.textile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.textile; sourceTree = "<group>"; };
+		24C5770A14A23FEB00F8EEE8 /* UITableView+FRCTableViewDataSources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FRCTableViewDataSources.h"; sourceTree = "<group>"; };
+		24C5770B14A23FEB00F8EEE8 /* UITableView+FRCTableViewDataSources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FRCTableViewDataSources.m"; sourceTree = "<group>"; };
+		24C5771914A2400300F8EEE8 /* FRCHorizontalTableViewDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FRCHorizontalTableViewDataSource.h; sourceTree = "<group>"; };
+		24C5771A14A2400300F8EEE8 /* FRCHorizontalTableViewDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FRCHorizontalTableViewDataSource.m; sourceTree = "<group>"; };
+		24C5771B14A2402E00F8EEE8 /* TestTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewDataSource.h; sourceTree = "<group>"; };
+		24C5771C14A2402E00F8EEE8 /* TestTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewDataSource.m; sourceTree = "<group>"; };
+		24C5771E14A2406100F8EEE8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		24C5772014A2406700F8EEE8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +80,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24C5772114A2406700F8EEE8 /* CoreData.framework in Frameworks */,
+				24C5771F14A2406100F8EEE8 /* QuartzCore.framework in Frameworks */,
 				24C576D514A23F9E00F8EEE8 /* UIKit.framework in Frameworks */,
 				24C576D714A23F9E00F8EEE8 /* Foundation.framework in Frameworks */,
 				24C576D914A23F9E00F8EEE8 /* CoreGraphics.framework in Frameworks */,
@@ -50,6 +94,7 @@
 		24C576C514A23F9E00F8EEE8 = {
 			isa = PBXGroup;
 			children = (
+				24C576F514A23FEB00F8EEE8 /* FRCTableViewDataSources */,
 				24C576DA14A23F9E00F8EEE8 /* Horizontal Demo */,
 				24C576D314A23F9E00F8EEE8 /* Frameworks */,
 				24C576D114A23F9E00F8EEE8 /* Products */,
@@ -67,6 +112,8 @@
 		24C576D314A23F9E00F8EEE8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				24C5772014A2406700F8EEE8 /* CoreData.framework */,
+				24C5771E14A2406100F8EEE8 /* QuartzCore.framework */,
 				24C576D414A23F9E00F8EEE8 /* UIKit.framework */,
 				24C576D614A23F9E00F8EEE8 /* Foundation.framework */,
 				24C576D814A23F9E00F8EEE8 /* CoreGraphics.framework */,
@@ -81,8 +128,9 @@
 				24C576E414A23F9E00F8EEE8 /* AppDelegate.m */,
 				24C576E614A23F9E00F8EEE8 /* ViewController.h */,
 				24C576E714A23F9E00F8EEE8 /* ViewController.m */,
-				24C576E914A23F9E00F8EEE8 /* ViewController.xib */,
 				24C576DB14A23F9E00F8EEE8 /* Supporting Files */,
+				24C5771B14A2402E00F8EEE8 /* TestTableViewDataSource.h */,
+				24C5771C14A2402E00F8EEE8 /* TestTableViewDataSource.m */,
 			);
 			path = "Horizontal Demo";
 			sourceTree = "<group>";
@@ -96,6 +144,44 @@
 				24C576E214A23F9E00F8EEE8 /* Horizontal Demo-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		24C576F514A23FEB00F8EEE8 /* FRCTableViewDataSources */ = {
+			isa = PBXGroup;
+			children = (
+				24C576F614A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSource.h */,
+				24C576F714A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSource.m */,
+				24C576F814A23FEB00F8EEE8 /* FRCFetchedResultsTableViewDataSource.h */,
+				24C576F914A23FEB00F8EEE8 /* FRCFetchedResultsTableViewDataSource.m */,
+				24C5771914A2400300F8EEE8 /* FRCHorizontalTableViewDataSource.h */,
+				24C5771A14A2400300F8EEE8 /* FRCHorizontalTableViewDataSource.m */,
+				24C576FA14A23FEB00F8EEE8 /* FRCObjectTableViewDataSource.h */,
+				24C576FB14A23FEB00F8EEE8 /* FRCObjectTableViewDataSource.m */,
+				24C576FC14A23FEB00F8EEE8 /* FRCParentTableViewDataSource.h */,
+				24C576FD14A23FEB00F8EEE8 /* FRCParentTableViewDataSource.m */,
+				24C576FE14A23FEB00F8EEE8 /* FRCSplitTableViewDataSource.h */,
+				24C576FF14A23FEB00F8EEE8 /* FRCSplitTableViewDataSource.m */,
+				24C5770014A23FEB00F8EEE8 /* FRCTableViewCell.h */,
+				24C5770114A23FEB00F8EEE8 /* FRCTableViewCell.m */,
+				24C5770214A23FEB00F8EEE8 /* FRCTableViewDataSource.h */,
+				24C5770314A23FEB00F8EEE8 /* FRCTableViewDataSource.m */,
+				24C5770414A23FEB00F8EEE8 /* Images */,
+				24C5770914A23FEB00F8EEE8 /* Readme.textile */,
+				24C5770A14A23FEB00F8EEE8 /* UITableView+FRCTableViewDataSources.h */,
+				24C5770B14A23FEB00F8EEE8 /* UITableView+FRCTableViewDataSources.m */,
+			);
+			path = FRCTableViewDataSources;
+			sourceTree = "<group>";
+		};
+		24C5770414A23FEB00F8EEE8 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				24C5770514A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicator.png */,
+				24C5770614A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicator@2x.png */,
+				24C5770714A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted.png */,
+				24C5770814A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted@2x.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,7 +236,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				24C576DF14A23F9E00F8EEE8 /* InfoPlist.strings in Resources */,
-				24C576EB14A23F9E00F8EEE8 /* ViewController.xib in Resources */,
+				24C5771314A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicator.png in Resources */,
+				24C5771414A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicator@2x.png in Resources */,
+				24C5771514A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted.png in Resources */,
+				24C5771614A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSourceDisclosureIndicatorHighlighted@2x.png in Resources */,
+				24C5771714A23FEB00F8EEE8 /* Readme.textile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,6 +254,16 @@
 				24C576E114A23F9E00F8EEE8 /* main.m in Sources */,
 				24C576E514A23F9E00F8EEE8 /* AppDelegate.m in Sources */,
 				24C576E814A23F9E00F8EEE8 /* ViewController.m in Sources */,
+				24C5770C14A23FEB00F8EEE8 /* FRCCollapsableSectionTableViewDataSource.m in Sources */,
+				24C5770D14A23FEB00F8EEE8 /* FRCFetchedResultsTableViewDataSource.m in Sources */,
+				24C5770E14A23FEB00F8EEE8 /* FRCObjectTableViewDataSource.m in Sources */,
+				24C5770F14A23FEB00F8EEE8 /* FRCParentTableViewDataSource.m in Sources */,
+				24C5771014A23FEB00F8EEE8 /* FRCSplitTableViewDataSource.m in Sources */,
+				24C5771114A23FEB00F8EEE8 /* FRCTableViewCell.m in Sources */,
+				24C5771214A23FEB00F8EEE8 /* FRCTableViewDataSource.m in Sources */,
+				24C5771814A23FEB00F8EEE8 /* UITableView+FRCTableViewDataSources.m in Sources */,
+				24C5771D14A2402E00F8EEE8 /* TestTableViewDataSource.m in Sources */,
+				24C5772214A2407E00F8EEE8 /* FRCHorizontalTableViewDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,14 +276,6 @@
 				24C576DE14A23F9E00F8EEE8 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		24C576E914A23F9E00F8EEE8 /* ViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				24C576EA14A23F9E00F8EEE8 /* en */,
-			);
-			name = ViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

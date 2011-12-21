@@ -1,0 +1,3 @@
+[submodule "FRCTableViewDataSources"]
+	path = FRCTableViewDataSources
+	url = git://github.com/freerangecode/FRCTableViewDataSources.git

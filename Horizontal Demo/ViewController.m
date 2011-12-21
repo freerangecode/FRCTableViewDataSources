@@ -7,28 +7,29 @@
 //
 
 #import "ViewController.h"
+#import "FRCHorizontalTableViewDataSource.h"
+#import "TestTableViewDataSource.h"
 
-@interface ViewController ()
-
-@end
-
-@implementation ViewController
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+@implementation ViewController {
+	__strong FRCHorizontalTableViewDataSource *dataSource;
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
+- (void)viewDidLoad {
+	[super viewDidLoad];
+	
+	dataSource = [FRCHorizontalTableViewDataSource new];
+	
+	TestTableViewDataSource *ds = [TestTableViewDataSource new];
+	
+	dataSource.childTableViewDataSource = ds;
+	
+	dataSource.tableView = self.tableView;
+	self.tableView.dataSource = dataSource;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	NSString *text = [dataSource objectAtIndexPath:indexPath];
+	return [text sizeWithFont:[UIFont boldSystemFontOfSize:20.0f]].width + 21.0f;
 }
 
 @end
