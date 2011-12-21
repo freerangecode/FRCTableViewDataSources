@@ -48,7 +48,7 @@
 	
 	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 	
-    cell.backgroundView.transform = CGAffineTransformMakeRotation(M_PI_2);
+	cell.backgroundView.transform = CGAffineTransformMakeRotation(M_PI_2);
 	cell.selectedBackgroundView.transform = CGAffineTransformMakeRotation(M_PI_2);
 	cell.contentView.transform = CGAffineTransformMakeRotation(M_PI_2);
 	
