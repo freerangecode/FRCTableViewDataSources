@@ -56,7 +56,9 @@
 }
 
 - (void)setTableView:(UITableView *)tableView {
+	CGRect frame = tableView.frame;
 	tableView.transform = CGAffineTransformMakeRotation(-M_PI_2);
+	tableView.frame = frame;
 	[super setTableView:tableView];
 }
 
