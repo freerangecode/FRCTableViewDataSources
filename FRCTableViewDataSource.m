@@ -48,6 +48,8 @@
 @synthesize tableView;
 @synthesize cellClass;
 @synthesize parent;
+@synthesize sectionHeaderTitle;
+@synthesize sectionFooterTitle;
 
 #pragma mark - NSObject
 
@@ -122,6 +124,14 @@
 		[(id<FRCTableViewCellObjectConfiguration>)cell configureWithObject:object];
 	
 	return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+	return self.sectionFooterTitle;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	return self.sectionHeaderTitle;
 }
 
 #pragma mark - Internal

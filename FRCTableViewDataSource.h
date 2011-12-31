@@ -106,4 +106,7 @@
  */
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withObject:(id)object;
 
+@property (nonatomic, copy) NSString *sectionHeaderTitle;
+@property (nonatomic, copy) NSString *sectionFooterTitle;
+
 @end
