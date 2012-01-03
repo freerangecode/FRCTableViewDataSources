@@ -39,6 +39,10 @@
 #import "FRCParentTableViewDataSource.h"
 #import "UITableView+FRCTableViewDataSources.h"
 
+@interface FRCFetchedResultsTableViewDataSource ()
+- (void)frcInternal_insertNewObject:(id)object atIndexPath:(NSIndexPath *)indexPath;
+@end
+
 @implementation FRCFetchedResultsTableViewDataSource
 
 @synthesize managedObjectContext;
@@ -196,6 +200,37 @@
     }
 }
 
+- (void)frcInternal_insertNewObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
+	
+	NSArray *indexPaths = [self.tableView indexPathsForVisibleRows];
+	if ([indexPaths count] > 0) {
+		
+		NSIndexPath *firstIndexPath = [indexPaths objectAtIndex:0];
+		
+		if (indexPath.section <= firstIndexPath.section || indexPath.row <= firstIndexPath.row) {
+			
+			Class cellClass = [self cellClassAtIndexPath:indexPath];
+			
+			if ([cellClass respondsToSelector:@selector(heightForObject:width:)]) {
+				CGFloat height = [cellClass heightForObject:object width:self.tableView.bounds.size.width];
+				
+				[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+									  withRowAnimation:UITableViewRowAnimationNone];
+				
+				CGPoint offset = self.tableView.contentOffset;
+				offset.y += height;
+				[self.tableView setContentOffset:offset animated:NO];
+				
+				return;
+				
+			}
+		}
+	}
+	
+	[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+						  withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
+	
+}
 
 - (void)controller:(NSFetchedResultsController *)controller 
    didChangeObject:(id)anObject
@@ -215,9 +250,8 @@
 	
     switch(type) {
 			
-        case NSFetchedResultsChangeInsert:
-            [tv insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-					  withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
+        case NSFetchedResultsChangeInsert: 
+			[self frcInternal_insertNewObject:anObject atIndexPath:newIndexPath];
             break;
 			
         case NSFetchedResultsChangeDelete:
