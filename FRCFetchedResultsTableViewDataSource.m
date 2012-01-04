@@ -40,10 +40,19 @@
 #import "UITableView+FRCTableViewDataSources.h"
 
 @interface FRCFetchedResultsTableViewDataSource ()
-- (void)frcInternal_insertNewObject:(id)object atIndexPath:(NSIndexPath *)indexPath;
+
+- (void)frcInternal_beginUpdates;
+
+- (void)frcInternal_insertIndexPath:(NSIndexPath *)indexPath;
+- (void)frcInternal_deleteIndexPath:(NSIndexPath *)indexPath;
+- (void)frcInternal_reloadIndexPath:(NSIndexPath *)indexPath newObject:(id)object;
+
 @end
 
-@implementation FRCFetchedResultsTableViewDataSource
+@implementation FRCFetchedResultsTableViewDataSource {
+	BOOL hasCalledBeginUpdates;
+	CGPoint desiredContentOffset;
+}
 
 @synthesize managedObjectContext;
 @synthesize fetchedResultsController;
@@ -54,7 +63,7 @@
 #pragma mark - FRCTableViewDataSource
 
 - (void)reloadData {
-
+	
 	if (self.fetchRequestBlock != nil)
 		self.fetchRequest = self.fetchRequestBlock();
 }
@@ -84,7 +93,7 @@
 }
 
 - (void)loadFetchRequest {
-
+	
 	if (self.fetchRequestBlock != nil)
 		self.fetchRequest = self.fetchRequestBlock();
 }
@@ -171,9 +180,14 @@
 	if (self.parent != nil && ![self.parent childTableViewDataSourceShouldUpdateCells:self])
 		return;
 	
-    [self.tableView beginUpdates];
+	desiredContentOffset = self.tableView.contentOffset;
 }
-
+- (void)frcInternal_beginUpdates {
+	if (hasCalledBeginUpdates) return;
+	
+	[self.tableView beginUpdates];
+	hasCalledBeginUpdates = YES;
+}
 
 - (void)controller:(NSFetchedResultsController *)controller 
   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
@@ -184,6 +198,8 @@
 	
 	if (self.parent != nil && ![self.parent childTableViewDataSourceShouldUpdateCells:self])
 		return;
+	
+	[self frcInternal_beginUpdates];
 	
 	sectionIndex = [self.tableView frc_convertSection:sectionIndex fromChildTableViewDataSource:self];
 	
@@ -200,7 +216,24 @@
     }
 }
 
-- (void)frcInternal_insertNewObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
+- (void)frcInternal_reloadIndexPath:(NSIndexPath *)indexPath newObject:(id)object {
+	
+	Class cellClass = [self cellClassAtIndexPath:indexPath];
+	if ([cellClass conformsToProtocol:@protocol(FRCTableViewCellObjectConfiguration)]
+		&& [cellClass respondsToSelector:@selector(shouldUpdateForObject:withChangedValues:)]
+		&& ![cellClass shouldUpdateForObject:object withChangedValues:[object changedValuesForCurrentEvent]])
+		return;
+	
+	[self frcInternal_beginUpdates];
+	[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (void)frcInternal_deleteIndexPath:(NSIndexPath *)indexPath {
+	[self frcInternal_beginUpdates];
+	[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (void)frcInternal_insertIndexPath:(NSIndexPath *)indexPath {
 	
 	NSArray *indexPaths = [self.tableView indexPathsForVisibleRows];
 	if ([indexPaths count] > 0) {
@@ -209,26 +242,21 @@
 		
 		if (indexPath.section <= firstIndexPath.section || indexPath.row <= firstIndexPath.row) {
 			
-			Class cellClass = [self cellClassAtIndexPath:indexPath];
+			[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+								  withRowAnimation:UITableViewRowAnimationNone];
 			
-			if ([cellClass respondsToSelector:@selector(heightForObject:width:)]) {
-				CGFloat height = [cellClass heightForObject:object width:self.tableView.bounds.size.width];
-				
-				[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
-									  withRowAnimation:UITableViewRowAnimationNone];
-				
-				CGPoint offset = self.tableView.contentOffset;
-				offset.y += height;
-				[self.tableView setContentOffset:offset animated:NO];
-				
-				return;
-				
-			}
+			CGFloat height = self.tableView.rowHeight;
+			if ([self.tableView.delegate respondsToSelector:@selector(tableView:heightForRowAtIndexPath:)])
+				height = [self.tableView.delegate tableView:self.tableView heightForRowAtIndexPath:indexPath];
+			
+			desiredContentOffset.y += height;
+			
+			return;
 		}
 	}
 	
-	[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
-						  withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
+	[self frcInternal_beginUpdates];
+	[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
 	
 }
 
@@ -248,35 +276,24 @@
 	
 	if (!tv) return;
 	
-    switch(type) {
+	switch(type) {
 			
-        case NSFetchedResultsChangeInsert: 
-			[self frcInternal_insertNewObject:anObject atIndexPath:newIndexPath];
-            break;
+		case NSFetchedResultsChangeInsert: 
+			[self frcInternal_insertIndexPath:newIndexPath];
+			break;
 			
-        case NSFetchedResultsChangeDelete:
-            [tv deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-					  withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
-            break;
+		case NSFetchedResultsChangeDelete:
+			[self frcInternal_deleteIndexPath:indexPath];
+			break;
 			
-        case NSFetchedResultsChangeUpdate: {
-			
-			Class cellClass = [self cellClassAtIndexPath:indexPath];
-			if ([cellClass conformsToProtocol:@protocol(FRCTableViewCellObjectConfiguration)]
-				&& [cellClass respondsToSelector:@selector(shouldUpdateForObject:withChangedValues:)]
-				&& ![cellClass shouldUpdateForObject:anObject withChangedValues:[anObject changedValuesForCurrentEvent]])
-				return;
-			
-			[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
-								  withRowAnimation:UITableViewRowAnimationNone];
-            break;
-		}
-        case NSFetchedResultsChangeMove:
-            [tv deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-					  withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
-            [tv insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-					  withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
-            break;
+		case NSFetchedResultsChangeUpdate:
+			[self frcInternal_reloadIndexPath:indexPath newObject:anObject];
+			break;
+		
+		case NSFetchedResultsChangeMove:
+			[self frcInternal_deleteIndexPath:indexPath];
+			[self frcInternal_insertIndexPath:newIndexPath];
+			break;
     }
 }
 
@@ -285,7 +302,14 @@
 	if (self.parent != nil && ![self.parent childTableViewDataSourceShouldUpdateCells:self])
 		return;
 	
-    [self.tableView endUpdates];
+    if (hasCalledBeginUpdates) {
+		[self.tableView endUpdates];
+		hasCalledBeginUpdates = NO;
+	} else {
+		[self.tableView reloadData];
+		[self.tableView setContentOffset:desiredContentOffset animated:NO];
+		[self.tableView flashScrollIndicators];
+	}
 }
 
 
