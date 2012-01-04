@@ -287,20 +287,28 @@
 	
 	if (!tableViewHasLoaded) return;
 	
+	UITableView *tv = self.tableView;
+	
 	__block CGFloat totalCellHeight = self.frcInternal_headerCell.bounds.size.height;
-	CGFloat tableViewHeight = self.tableView.bounds.size.height;
+	CGFloat tableViewHeight = tv.bounds.size.height;
 	
 	// If it's grouped we need room for the space between sections.
-	if (self.tableView.style == UITableViewStyleGrouped)
+	if (tv.style == UITableViewStyleGrouped)
 		tableViewHeight -= 20.0f;
+	
+	id<UITableViewDelegate> delegate = tv.delegate;
+	CGFloat rowHeight = tv.rowHeight;
 	
 	NSArray *indexPaths = [self frcInternal_tableViewIndexPathsForCollapsableCellsIndexPathEnumator:^(NSIndexPath *ip) {
 		
-		if (totalCellHeight < tableViewHeight) { // Add this check so we can reduce the amount of calls to heightForObject:width:
-			Class cellClass = [self cellClassAtIndexPath:ip];
-			totalCellHeight += [cellClass heightForObject:[self objectAtIndexPath:ip] width:self.tableView.bounds.size.width];
-		}
+		if (totalCellHeight > tableViewHeight) return; // Add this check so we can reduce the amount of calls to heightForObject:width:
 		
+		CGFloat height = rowHeight;
+		
+		if ([delegate respondsToSelector:@selector(tableView:heightForRowAtIndexPath:)])
+			height = [delegate tableView:tv heightForRowAtIndexPath:ip];
+		
+		totalCellHeight += height;
 	}];
 	
 	if ([indexPaths count] == 0) return;
