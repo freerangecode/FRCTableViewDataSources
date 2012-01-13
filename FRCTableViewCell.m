@@ -51,6 +51,21 @@
 
 #pragma mark - FRCTableViewCell
 
+- (void)awakeFromNib {
+	[self sharedInit];
+}
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+	
+	if (!(self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) return nil;
+	
+	[self sharedInit];
+	
+	return self;	
+}
+
+- (void)sharedInit {}
+
 + (id)cell {
 	
 	NSString *nibName = [self nibName];

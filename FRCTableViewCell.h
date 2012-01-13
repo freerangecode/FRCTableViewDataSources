@@ -93,6 +93,8 @@
  */
 + (id)cell;
 
+- (void)sharedInit;
+
 /** The reuse identifier for the cell.
  
  By default, in the FRCTableViewDataSource system one cell class maps to
