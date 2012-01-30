@@ -36,6 +36,8 @@
 
 #import "FRCTableViewDataSources.h"
 
+typedef void (^FRCTableViewDataSourceCellConfigurationBlock) (UITableViewCell *cell, NSIndexPath *indexPath, id object);
+
 @class FRCParentTableViewDataSource;
 
 /** An abstract class to represent a core FRCTableViewDataSource object. Examples of concrete 
@@ -105,6 +107,9 @@
  @param object The represented object at the indexPath.
  */
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withObject:(id)object;
+
+@property (nonatomic, copy) FRCTableViewDataSourceCellConfigurationBlock cellConfigurer;
+
 
 @property (nonatomic, copy) NSString *sectionHeaderTitle;
 @property (nonatomic, copy) NSString *sectionFooterTitle;

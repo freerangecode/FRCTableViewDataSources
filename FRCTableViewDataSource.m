@@ -50,6 +50,7 @@
 @synthesize parent;
 @synthesize sectionHeaderTitle;
 @synthesize sectionFooterTitle;
+@synthesize cellConfigurer;
 
 #pragma mark - NSObject
 
@@ -122,6 +123,8 @@
 	
 	if ([cell conformsToProtocol:@protocol(FRCTableViewCellObjectConfiguration)])
 		[(id<FRCTableViewCellObjectConfiguration>)cell configureWithObject:object];
+	
+	if (self.cellConfigurer != NULL) self.cellConfigurer(cell, indexPath, object);
 	
 	return cell;
 }
