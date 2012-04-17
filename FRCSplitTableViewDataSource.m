@@ -135,7 +135,7 @@
 	
 	if (self.type == FRCSplitTableViewDataSourceTypeRow) {
 		
-		NSAssert([dataSources count] > 0, @"Something's gone wrong.");
+		if ([dataSources count] == 0) return nil;
 		
 		return [dataSources objectAtIndex:0];
 	}
