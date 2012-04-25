@@ -9,5 +9,10 @@
 #import "FRCTableViewDataSource.h"
 
 @interface FRCArrayObservingTableViewDataSource : FRCTableViewDataSource
-- (void)observeArrayInObject:(id)object keyPath:(NSString *)keyPath;
+
+- (id)initWithObject:(id)object arrayKeyPath:(NSString *)keyPath;
+
+@property (nonatomic, readonly, strong) id object;
+@property (nonatomic, readonly, copy) NSString *keyPath;
+
 @end
