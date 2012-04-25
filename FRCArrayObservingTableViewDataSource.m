@@ -58,6 +58,8 @@ void* arrayObservingContext = &arrayObservingContext;
 		[indexPaths addObject:indexPath];
 	}];
 	
+	[self.tableView beginUpdates];
+	
 	if (changeType == NSKeyValueChangeInsertion)
 		[self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
 	
@@ -67,7 +69,7 @@ void* arrayObservingContext = &arrayObservingContext;
 	else if (changeType == NSKeyValueChangeReplacement)
 		[self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
 	
-	[self.tableView beginUpdates];
+	[self.tableView endUpdates];
 }
 
 #pragma mark - FRCTableViewDataSource
