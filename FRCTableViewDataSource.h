@@ -55,6 +55,8 @@ typedef void (^FRCTableViewDataSourceCellConfigurationBlock) (UITableViewCell *c
  */
 @property (nonatomic, assign) Class cellClass;
 
+- (void)setCellClass:(Class)cellClass forObjectClass:(Class)objectClass;
+- (Class)cellClassForObjectClass:(Class)objectClass;
 
 /** The table view that is associated with the data source.
  */

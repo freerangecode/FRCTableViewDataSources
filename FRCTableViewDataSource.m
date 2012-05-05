@@ -43,10 +43,12 @@
 - (void)frcInternal_setupCellClass;
 @end
 
-@implementation FRCTableViewDataSource
+@implementation FRCTableViewDataSource {
+	__strong NSMutableDictionary *_cellClassDictionary;
+}
 
 @synthesize tableView;
-@synthesize cellClass;
+@synthesize cellClass = _cellClass;
 @synthesize parent;
 @synthesize sectionHeaderTitle;
 @synthesize sectionFooterTitle;
@@ -63,6 +65,7 @@
     if (!(self = [super init])) return nil;
 	
 	self.cellClass = [FRCTableViewCell class];
+	_cellClassDictionary = [NSMutableDictionary new];
 	
     return self;
 }
@@ -70,8 +73,16 @@
 #pragma mark - FRCTableViewDataSource
 
 - (void)setCellClass:(Class)aCellClass {
-	cellClass = aCellClass;
+	_cellClass = aCellClass;
 	[self frcInternal_setupCellClass];
+}
+
+- (void)setCellClass:(Class)cellClass forObjectClass:(Class)objectClass {
+	[_cellClassDictionary setObject:cellClass forKey:objectClass];
+}
+
+- (Class)cellClassForObjectClass:(Class)objectClass {
+	return [_cellClassDictionary objectForKey:objectClass];
 }
 
 - (void)setTableView:(UITableView *)tv {
@@ -89,6 +100,11 @@
 }
 
 - (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {
+	
+	Class objectClass = [[self objectAtIndexPath:indexPath] class];
+	Class cellClass = [self cellClassForObjectClass:objectClass];
+	if (cellClass != NULL) return cellClass;
+	
 	return [self cellClass];
 }
 
