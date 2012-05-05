@@ -144,7 +144,10 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section { 
 	id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-	return [sectionInfo name];
+	NSString *sectionName = [sectionInfo name];
+	if ([sectionName length] == 0)
+		sectionName = [super tableView:tableView titleForHeaderInSection:section];
+	return sectionName;
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
