@@ -375,8 +375,10 @@
 	childTableViewDataSourceHasCells = !childTableViewDataSourceHasCells;
 	
 	NSIndexPath *headerIndexPath = self.frcInternal_headerTableViewIndexPath;
-	[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:headerIndexPath]
-						  withRowAnimation:UITableViewRowAnimationFade];
+	[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:headerIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+	
+	if (self.tableViewUpdateHandler != NULL)
+		self.tableViewUpdateHandler(FRCTableViewDataSourceUpdateTypeReload);
 }
 
 - (BOOL)frcInternal_childTableViewDataSourceCurrentlyHasCells {

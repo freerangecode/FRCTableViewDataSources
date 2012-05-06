@@ -36,6 +36,13 @@
 
 #import "FRCTableViewDataSources.h"
 
+typedef enum {
+	FRCTableViewDataSourceUpdateTypeUnknown = 0,
+	FRCTableViewDataSourceUpdateTypeInsert = 1 << 0,
+	FRCTableViewDataSourceUpdateTypeDelete = 1 << 1,
+	FRCTableViewDataSourceUpdateTypeReload = 1 << 2,
+} FRCTableViewDataSourceUpdateType;
+
 typedef void (^FRCTableViewDataSourceCellConfigurationBlock) (UITableViewCell *cell, NSIndexPath *indexPath, id object);
 
 @class FRCParentTableViewDataSource;
@@ -109,6 +116,8 @@ typedef void (^FRCTableViewDataSourceCellConfigurationBlock) (UITableViewCell *c
  @param object The represented object at the indexPath.
  */
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withObject:(id)object;
+
+@property (nonatomic, copy) void(^tableViewUpdateHandler)(FRCTableViewDataSourceUpdateType type);
 
 @property (nonatomic, copy) FRCTableViewDataSourceCellConfigurationBlock cellConfigurer;
 

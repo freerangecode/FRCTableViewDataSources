@@ -200,6 +200,10 @@
 		[self.tableView insertSections:indexSet withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
 		
 	}
+	
+	if (self.tableViewUpdateHandler != NULL)
+		self.tableViewUpdateHandler(FRCTableViewDataSourceUpdateTypeInsert);
+	
 }
 
 - (void)removeChildTableViewDataSource:(FRCTableViewDataSource *)tableViewDataSource {
@@ -230,6 +234,9 @@
 		[self.tableView deleteSections:indexSet withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
 	
 	}
+	
+	if (self.tableViewUpdateHandler != NULL)
+		self.tableViewUpdateHandler(FRCTableViewDataSourceUpdateTypeDelete);
 }
 
 #pragma mark - UITableViewDataSource methods

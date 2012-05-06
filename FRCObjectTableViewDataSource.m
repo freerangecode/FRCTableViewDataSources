@@ -54,6 +54,9 @@
 	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 	indexPath = [self.tableView frc_convertIndexPath:indexPath fromChildTableViewDataSource:self];
 	[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+	
+	if (self.tableViewUpdateHandler != NULL)
+		self.tableViewUpdateHandler(FRCTableViewDataSourceUpdateTypeReload);
 }
 
 @end

@@ -39,7 +39,9 @@
 #import "FRCParentTableViewDataSource.h"
 #import "UITableView+FRCTableViewDataSources.h"
 
-@implementation FRCFetchedResultsTableViewDataSource
+@implementation FRCFetchedResultsTableViewDataSource {
+	FRCTableViewDataSourceUpdateType updateType;
+}
 
 @synthesize managedObjectContext;
 @synthesize fetchedResultsController;
@@ -161,6 +163,15 @@
 	return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index];
 }
 
+
+- (void)addToUpdateType:(FRCTableViewDataSourceUpdateType)type {
+	
+	if (updateType == FRCTableViewDataSourceUpdateTypeUnknown)
+		updateType = type;
+	
+	updateType = (updateType | type);
+}
+
 #pragma mark - NSFetchedResultsControllerDelegate
 
 // These methods are taken straight from Apple's documentation on NSFetchedResultsController.
@@ -170,6 +181,7 @@
 	if (self.parent != nil && ![self.parent childTableViewDataSourceShouldUpdateCells:self])
 		return;
 	
+	updateType = FRCTableViewDataSourceUpdateTypeUnknown;
     [self.tableView beginUpdates];
 }
 
@@ -190,11 +202,13 @@
         case NSFetchedResultsChangeInsert:
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
 						  withRowAnimation:UITableViewRowAnimationFade];
+			[self addToUpdateType:FRCTableViewDataSourceUpdateTypeInsert];
             break;
 			
         case NSFetchedResultsChangeDelete:
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
 						  withRowAnimation:UITableViewRowAnimationFade];
+			[self addToUpdateType:FRCTableViewDataSourceUpdateTypeDelete];
             break;
     }
 }
@@ -221,11 +235,13 @@
         case NSFetchedResultsChangeInsert:
             [tv insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
 					  withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
+			[self addToUpdateType:FRCTableViewDataSourceUpdateTypeInsert];
             break;
 			
         case NSFetchedResultsChangeDelete:
             [tv deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
 					  withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
+			[self addToUpdateType:FRCTableViewDataSourceUpdateTypeDelete];
             break;
 			
         case NSFetchedResultsChangeUpdate: {
@@ -238,13 +254,16 @@
 			
 			[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
 								  withRowAnimation:UITableViewRowAnimationNone];
+			[self addToUpdateType:FRCTableViewDataSourceUpdateTypeReload];
             break;
 		}
         case NSFetchedResultsChangeMove:
             [tv deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
 					  withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
+			[self addToUpdateType:FRCTableViewDataSourceUpdateTypeDelete];
             [tv insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
 					  withRowAnimation:FRCTableViewDataSourceTableViewRowAnimationAutomatic];
+			[self addToUpdateType:FRCTableViewDataSourceUpdateTypeInsert];
             break;
     }
 }
@@ -255,6 +274,9 @@
 		return;
 	
     [self.tableView endUpdates];
+	
+	if (self.tableViewUpdateHandler != NULL)
+		self.tableViewUpdateHandler(updateType);
 }
 
 

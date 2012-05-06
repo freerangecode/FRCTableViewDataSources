@@ -86,18 +86,23 @@ void* arrayObservingContext = &arrayObservingContext;
 		[indexPaths addObject:indexPath];
 	}];
 	
-	[self.tableView beginUpdates];
+	FRCTableViewDataSourceUpdateType type = FRCTableViewDataSourceUpdateTypeUnknown;
 	
-	if (changeType == NSKeyValueChangeInsertion)
+	if (changeType == NSKeyValueChangeInsertion) {
 		[self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-	
-	else if (changeType == NSKeyValueChangeRemoval)
+		type = FRCTableViewDataSourceUpdateTypeInsert;
+		
+	} else if (changeType == NSKeyValueChangeRemoval) {
 		[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-	
-	else if (changeType == NSKeyValueChangeReplacement)
+		type = FRCTableViewDataSourceUpdateTypeDelete;
+		
+	} else if (changeType == NSKeyValueChangeReplacement) {
 		[self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-	
-	[self.tableView endUpdates];
+		type = FRCTableViewDataSourceUpdateTypeReload;
+	}
+		
+	if (self.tableViewUpdateHandler != NULL)
+		self.tableViewUpdateHandler(type);
 }
 
 #pragma mark - FRCTableViewDataSource
@@ -119,6 +124,9 @@ void* arrayObservingContext = &arrayObservingContext;
 	}
 	
 	[self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+	
+	if (self.tableViewUpdateHandler != NULL)
+		self.tableViewUpdateHandler(FRCTableViewDataSourceUpdateTypeReload);
 }
 
 #pragma mark - UITableViewDataSource

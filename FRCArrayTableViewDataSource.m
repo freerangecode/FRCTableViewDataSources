@@ -61,6 +61,9 @@
 	}
 	
 	[self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+	
+	if (self.tableViewUpdateHandler != NULL)
+		self.tableViewUpdateHandler(FRCTableViewDataSourceUpdateTypeReload);
 }
 
 @end

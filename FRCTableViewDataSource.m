@@ -53,6 +53,7 @@
 @synthesize sectionHeaderTitle;
 @synthesize sectionFooterTitle;
 @synthesize cellConfigurer;
+@synthesize tableViewUpdateHandler;
 
 #pragma mark - NSObject
 
