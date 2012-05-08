@@ -19,10 +19,6 @@
 
 - (id)frc_dequeueReusableCellWithIdentifier:(NSString *)identifier {
 	
-	id cell = [self dequeueReusableCellWithIdentifier:identifier];
-	
-	if (cell) return cell;
-	
 	UINib *nib = [self.frcInternal_nibs objectForKey:identifier];
 	NSArray *items = [nib instantiateWithOwner:nil options:nil];
 	
@@ -34,12 +30,6 @@
 }
 
 - (void)frc_registerNib:(UINib *)nib forCellReuseIdentifier:(NSString *)identifier {
-	
-	if ([self respondsToSelector:@selector(registerNib:forCellReuseIdentifier:)]) {
-		[self registerNib:nib forCellReuseIdentifier:identifier];
-		return;
-	}
-	
 	[self.frcInternal_nibs setObject:nib forKey:identifier];	
 }
 
