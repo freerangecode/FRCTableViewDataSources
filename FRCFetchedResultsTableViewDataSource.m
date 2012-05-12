@@ -98,7 +98,9 @@
 	fetchedResultsController = frc;
 	
 	fetchedResultsController.delegate = self;
-	[fetchedResultsController performFetch:nil];
+	[fetchedResultsController.managedObjectContext performBlockAndWait:^{
+		[fetchedResultsController performFetch:nil];
+	}];
 	
 	[self.tableView reloadData];
 }
