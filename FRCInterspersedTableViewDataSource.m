@@ -22,6 +22,11 @@
 	return self;
 }
 
+- (void)setChildTableViewDataSource:(FRCTableViewDataSource *)childTableViewDataSource {
+	_childTableViewDataSource = childTableViewDataSource;
+	_childTableViewDataSource.parent = self;
+}
+
 - (void)setInterspersedCellClass:(Class)interspersedCellClass {
 	_interspersedDataSource.cellClass = interspersedCellClass;
 }

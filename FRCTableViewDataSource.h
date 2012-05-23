@@ -43,7 +43,7 @@ typedef enum {
 	FRCTableViewDataSourceUpdateTypeReload = 1 << 2,
 } FRCTableViewDataSourceUpdateType;
 
-typedef void (^FRCTableViewDataSourceCellConfigurationBlock) (UITableViewCell *cell, NSIndexPath *indexPath, id object);
+typedef void (^FRCTableViewDataSourceCellConfigurationBlock) (id cell, NSIndexPath *indexPath, id object);
 
 @class FRCParentTableViewDataSource;
 
